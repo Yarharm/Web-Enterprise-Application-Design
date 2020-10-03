@@ -54,7 +54,7 @@ public class ChatManager {
 
     public TreeMap PostMessage(String user, String message) throws InterruptedException {
 
-        if((user=="1")||(user.isEmpty())){
+        if((user=="")||(user.isEmpty())){
             user = "Anonymous";
         }
         MessageInfo messagenew = new MessageInfo(user, message);
