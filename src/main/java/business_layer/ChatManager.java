@@ -1,105 +1,65 @@
 package business_layer;
 
+import java.util.ArrayList;
+import java.util.Map;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
 
-class MessageInfo{
-    private String chat_name;
-    private String message;
-
-    MessageInfo(String msg){
-        chat_name = "Anonymous";
-        message=msg;
-    }
-    MessageInfo(String cn, String msg){
-        chat_name = cn;
-        message=msg;
-    }
-
-
-
-    public String getChat_name() {
-        return chat_name;
-    }
-
-    public void setChat_name(String chat_name) {
-        this.chat_name = chat_name;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public String toString(){
-        return this.getChat_name() +"," +this.getMessage()+";";
-    }
-}
-
-
-
-
 public class ChatManager {
-    private Long chat_time;
-    private TreeMap<Long, MessageInfo> chatmanager;
+    private Long chatTime;
+    private TreeMap<Long, ArrayList<ChatMessage>> chatmanager;
 
     ChatManager() {
-        chatmanager  = new TreeMap<Long, MessageInfo>();
+        chatmanager = new TreeMap<Long, ArrayList<ChatMessage>>();
+
     }
 
 
-    public TreeMap PostMessage(String user, String message) throws InterruptedException {
+    public Map.Entry<Long, ArrayList<ChatMessage>> PostMessage(String user, String message) throws InterruptedException {
+        chatTime = System.currentTimeMillis();
+        ChatMessage messagenew = new ChatMessage(user, message, chatTime);
 
-        if((user=="")||(user.isEmpty())){
-            user = "Anonymous";
+
+        if(chatmanager.containsKey(chatTime)){
+            ArrayList<ChatMessage> pos = chatmanager.get(chatTime);
+            pos.add(messagenew);
+        }else {
+            ArrayList<ChatMessage> timeList = new ArrayList<ChatMessage>();
+            timeList.add(messagenew);
+            this.chatmanager.put(chatTime, timeList);
+
         }
-        MessageInfo messagenew = new MessageInfo(user, message);
-        chat_time = System.currentTimeMillis();
-        this.chatmanager.put(chat_time, messagenew);
-        Thread.sleep(1);
+        return chatmanager.lastEntry();
 
-
-
-        return this.chatmanager;
     }
-
 
 
     public SortedMap ListMessages(Long x, Long y) throws InterruptedException {
-        SortedMap<Long, MessageInfo> treemapincl = new TreeMap<Long, MessageInfo>();
-        treemapincl = chatmanager.subMap(x,y);
-        return treemapincl;
-
-    }
-    //WIP
-    public SortedMap ClearChat(Long x, Long y) throws InterruptedException {
-        SortedMap<Long, MessageInfo> treemapincl = new TreeMap<Long, MessageInfo>();
-        treemapincl = chatmanager.subMap(x,y);
-
+        SortedMap<Long, ArrayList<ChatMessage>> treemapincl = new TreeMap<Long, ArrayList<ChatMessage>>();
+        treemapincl = this.chatmanager.subMap(x,true, y,true);
+        treemapincl.values();
         return treemapincl;
 
     }
 
-    public long getChat_time() {
-        return chat_time;
-    }
+    public TreeMap ClearMessages(Long x, Long y) throws InterruptedException {
+        SortedMap<Long, ArrayList<ChatMessage>> treemapincl = new TreeMap<Long, ArrayList<ChatMessage>>();
+        treemapincl = this.chatmanager.subMap(x,true, y,true);
 
+        ArrayList sortedKeysList = new ArrayList<>(treemapincl.keySet());
+        chatmanager.keySet().removeAll(sortedKeysList);
 
-    public void setChat_time(long chat_time) {
-        this.chat_time = chat_time;
-    }
-
-    public TreeMap<Long, MessageInfo> getChatmanager() {
         return chatmanager;
+
+    }
+    public TreeMap ClearMessages() throws InterruptedException {
+
+        chatmanager.clear();
+        return chatmanager;
+
     }
 
-    public void setChatmanager(TreeMap<Long, MessageInfo> chatmanager) {
-        this.chatmanager = chatmanager;
-    }
 
     @Override
     public String toString() {
@@ -108,36 +68,41 @@ public class ChatManager {
     }
 
 
-
-//Tester doesn't need to be here
-    public static void main(String args[]) throws InterruptedException {
-        ChatManager chatBox = new ChatManager();
-        chatBox.PostMessage("","Hello World");
-
-        chatBox.PostMessage("Bob","Hello Worlod");
-
-        chatBox.PostMessage("Bob","Hello Wosddrld");
-
-
-        chatBox.PostMessage("Bob","Hello Woasdrld");
-
-
-
-        System.out.println(chatBox);
-        //make sure to include L
-        System.out.println(chatBox.ListMessages(0L,1611757506300L));
-
-
-        // creating maps
-
-
-
-
-
-
-    }
-
-
-
+//    //Tester doesn't need to be here
+//    public static void main(String args[]) throws InterruptedException {
+//        ChatManager chatBox = new ChatManager();
+//        chatBox.PostMessage("", "Hello");
+//
+//        chatBox.PostMessage("Bob", "Hello World");
+//        Thread.sleep(1000);
+//
+//        chatBox.PostMessage("Bob", "Hld");
+//        chatBox.PostMessage("", "Hello");
+//
+//        chatBox.PostMessage("Bob", "Hello World");
+//
+//
+//
+//
+//        System.out.println(chatBox);
+//
+//
+//        //make sure to include L
+//       System.out.println(chatBox.ListMessages(1601845004260L, 1601845192245L));
+//
+//        System.out.println(chatBox.ClearMessages(1601846232701L,1601846482281L));
+//        System.out.println(chatBox.ClearMessages());
+//
+//
+//
+//
+//        // creating maps
+//
+//
+//    }
 
 }
+
+
+
+
