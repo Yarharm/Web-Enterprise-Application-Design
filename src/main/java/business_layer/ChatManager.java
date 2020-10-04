@@ -1,9 +1,6 @@
 package business_layer;
 
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.SortedMap;
-import java.util.TreeMap;
+import java.util.*;
 
 
 public class ChatManager {
@@ -16,10 +13,14 @@ public class ChatManager {
     }
 
 
-    public Map.Entry<Long, ArrayList<ChatMessage>> PostMessage(String user, String message) throws InterruptedException {
+    public ArrayList PostMessage(String user, String message) throws InterruptedException {
         chatTime = System.currentTimeMillis();
-        ChatMessage messagenew = new ChatMessage(user, message, chatTime);
-
+        ChatMessage messagenew;
+        if(user==""||user.isEmpty()){
+            messagenew = new ChatMessage(message, chatTime);
+        }else{
+            messagenew = new ChatMessage(user, message, chatTime);
+        }
 
         if(chatmanager.containsKey(chatTime)){
             ArrayList<ChatMessage> pos = chatmanager.get(chatTime);
@@ -30,40 +31,20 @@ public class ChatManager {
             this.chatmanager.put(chatTime, timeList);
 
         }
-        return chatmanager.lastEntry();
+        return chatmanager.get(chatmanager.lastKey());
 
     }
 
 
-    public SortedMap ListMessages(Long x, Long y) throws InterruptedException {
+    public ArrayList ListMessages(Long x, Long y) throws InterruptedException {
         SortedMap<Long, ArrayList<ChatMessage>> treemapincl = new TreeMap<Long, ArrayList<ChatMessage>>();
+        ArrayList<ArrayList<ChatMessage>> holder = new ArrayList<>();
         treemapincl = this.chatmanager.subMap(x,true, y,true);
-        treemapincl.values();
-        return treemapincl;
-
-    }
-    public TreeMap ListMessages() throws InterruptedException {
-
-        return chatmanager;
+        holder.addAll(treemapincl.values());
+        return holder;
 
     }
 
-    public TreeMap ClearMessages(Long x, Long y) throws InterruptedException {
-        SortedMap<Long, ArrayList<ChatMessage>> treemapincl = new TreeMap<Long, ArrayList<ChatMessage>>();
-        treemapincl = this.chatmanager.subMap(x,true, y,true);
-
-        ArrayList sortedKeysList = new ArrayList<>(treemapincl.keySet());
-        chatmanager.keySet().removeAll(sortedKeysList);
-
-        return chatmanager;
-
-    }
-    public TreeMap ClearMessages() throws InterruptedException {
-
-        chatmanager.clear();
-        return chatmanager;
-
-    }
 
 
     @Override
@@ -82,9 +63,11 @@ public class ChatManager {
 //        Thread.sleep(1000);
 //
 //        chatBox.PostMessage("Bob", "Hld");
+//        Thread.sleep(1000);
+//
 //        chatBox.PostMessage("", "Hello");
 //
-//        chatBox.PostMessage("Bob", "Hello World");
+//        System.out.print(chatBox.PostMessage("Bob", "Hello World"));
 //
 //
 //
@@ -92,11 +75,12 @@ public class ChatManager {
 //        System.out.println(chatBox);
 //
 //
-//        //make sure to include L
-//       System.out.println(chatBox.ListMessages(1601845004260L, 1601845192245L));
-//
-//        System.out.println(chatBox.ClearMessages(1601846232701L,1601846482281L));
-//        System.out.println(chatBox.ClearMessages());
+////        //make sure to include L
+//       System.out.println(chatBox.ListMessages(1601852620961L, 1601852720961L));
+//       System.out.println(chatBox.ClearMessages());
+////
+////        System.out.println(chatBox.ClearMessages(1601846232701L,1601846482281L));
+////        System.out.println(chatBox.ClearMessages());
 //
 //
 //
@@ -107,6 +91,9 @@ public class ChatManager {
 //    }
 
 }
+
+
+
 
 
 
