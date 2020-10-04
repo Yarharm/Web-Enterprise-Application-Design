@@ -4,13 +4,13 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
     <servlet>
-        <servlet-name>PostServlet</servlet-name>
-        <servlet-class>PostServlet</servlet-class>
+        <servlet-name>BasicServlet</servlet-name>
+        <servlet-class>BasicServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>PostServlet</servlet-name>
-        <url-pattern>/</url-pattern>
+        <servlet-name>BasicServlet</servlet-name>
+        <url-pattern>/BasicServlet</url-pattern>
     </servlet-mapping>
 
     <welcome-file-list>
