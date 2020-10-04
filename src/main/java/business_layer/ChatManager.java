@@ -42,6 +42,11 @@ public class ChatManager {
         return treemapincl;
 
     }
+    public TreeMap ListMessages() throws InterruptedException {
+
+        return chatmanager;
+
+    }
 
     public TreeMap ClearMessages(Long x, Long y) throws InterruptedException {
         SortedMap<Long, ArrayList<ChatMessage>> treemapincl = new TreeMap<Long, ArrayList<ChatMessage>>();
