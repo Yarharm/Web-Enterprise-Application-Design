@@ -11,6 +11,12 @@ public class ChatMessage {
         this.timestamp = timestamp;
     }
 
+    public ChatMessage(String message, long timestamp) {
+        this.user = "Anonymous";
+        this.message = message;
+        this.timestamp = timestamp;
+    }
+
     public String getUser() {
         return this.user;
     }
