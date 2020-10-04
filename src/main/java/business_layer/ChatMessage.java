@@ -22,4 +22,13 @@ public class ChatMessage {
     public long getTimestamp() {
         return this.timestamp;
     }
+
+    @Override
+    public String toString() {
+        return "ChatMessage{" +
+                "user='" + user + '\'' +
+                ", message='" + message + '\'' +
+                ", timestamp=" + timestamp +
+                '}';
+    }
 }
