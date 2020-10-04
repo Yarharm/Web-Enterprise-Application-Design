@@ -8,13 +8,13 @@ public class ChatManager {
     private Long chatTime;
     private TreeMap<Long, ArrayList<ChatMessage>> chatmanager;
 
-    ChatManager() {
+    public ChatManager() {
         chatmanager = new TreeMap<Long, ArrayList<ChatMessage>>();
 
     }
 
 
-    public ArrayList<ChatMessage> PostMessage(String user, String message) throws InterruptedException {
+    public ArrayList<ChatMessage> PostMessage(String user, String message) {
         chatTime = System.currentTimeMillis();
         ChatMessage messagenew;
         if(user==""||user.isEmpty()){
@@ -37,7 +37,7 @@ public class ChatManager {
     }
 
 
-    public List<ChatMessage> ListMessages(Long x, Long y) throws InterruptedException {
+    public List<ChatMessage> ListMessages(Long x, Long y) {
         SortedMap<Long, ArrayList<ChatMessage>> treemapincl = new TreeMap<Long, ArrayList<ChatMessage>>();
         ArrayList<ArrayList<ChatMessage>> holder = new ArrayList<>();
         treemapincl = this.chatmanager.subMap(x,true, y,true);

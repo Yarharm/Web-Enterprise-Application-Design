@@ -1,20 +1,22 @@
 package business_layer;
 
+import java.util.Date;
+
 public class ChatMessage {
     private final String user;
     private final String message;
-    private final long timestamp;
+    private final Date timestamp;
 
     public ChatMessage(String user, String message, long timestamp){
         this.user = user;
         this.message = message;
-        this.timestamp = timestamp;
+        this.timestamp = new Date(timestamp);
     }
 
     public ChatMessage(String message, long timestamp) {
         this.user = "Anonymous";
         this.message = message;
-        this.timestamp = timestamp;
+        this.timestamp = new Date(timestamp);
     }
 
     public String getUser() {
@@ -25,7 +27,7 @@ public class ChatMessage {
         return this.message;
     }
 
-    public long getTimestamp() {
+    public Date getTimestamp() {
         return this.timestamp;
     }
 
