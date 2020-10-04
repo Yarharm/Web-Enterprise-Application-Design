@@ -1,0 +1,85 @@
+/* Chat window */
+.chat-window {
+    height: 450px;
+    width: 521px;
+    overflow: auto;
+    float: left;
+    position: relative;
+    left: 40%;
+    margin-left: -1px;
+    border: solid #f1f1f1;
+}
+
+.chat-window-message {
+    border: 2px solid #dedede;
+    background-color: #f1f1f1;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px 0;
+}
+
+.chat-window-message .user-name {
+    font-weight: bold;
+}
+
+.time-right {
+    position: relative;
+    top: 0;
+    right: 0;
+    width: 100px;
+    color: #999;
+}
+
+/* Send message */
+.send-message {
+    position: fixed;
+    top: 50%;
+    left: 40%;
+    border: solid #f1f1f1;
+    box-sizing: border-box;
+    margin-left: -2px;
+}
+
+.send-message-container {
+    width: 500px;
+    padding: 10px;
+    background-color: white;
+}
+
+.send-message-container .user {
+    width: 80%;
+    margin: 5px 0 22px 0;
+    border: none;
+    background: #f1f1f1;
+    resize: none;
+    height: 40px;
+}
+
+.send-message-container textarea {
+    width: 100%;
+    margin: 5px 0 22px 0;
+    border: none;
+    background: #f1f1f1;
+    resize: none;
+    min-height: 100px;
+}
+
+.send-message-container textarea:focus {
+    background-color: #ddd;
+    outline: none;
+}
+
+.send-message-container .btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 16px 20px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    margin-bottom:10px;
+    opacity: 0.8;
+}
+
+.send-message-container .btn:hover{
+    opacity: 1;
+}
