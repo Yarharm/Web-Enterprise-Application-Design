@@ -39,10 +39,26 @@ public class ChatManager {
 
     public List<ChatMessage> ListMessages(Long x, Long y) {
         SortedMap<Long, ArrayList<ChatMessage>> treemapincl = new TreeMap<Long, ArrayList<ChatMessage>>();
-        ArrayList<ArrayList<ChatMessage>> holder = new ArrayList<>();
         treemapincl = this.chatmanager.subMap(x,true, y,true);
 
         return treemapincl.values().stream().flatMap(List::stream).collect(Collectors.toList());
+
+    }
+
+
+    public List<ChatMessage> ClearMessages(){
+
+        this.chatmanager.clear();
+        return this.chatmanager.values().stream().flatMap(List::stream).collect(Collectors.toList());
+
+    }
+    public List<ChatMessage> ClearMessages(Long x, Long y) {
+        SortedMap<Long, ArrayList<ChatMessage>> treemapincl = new TreeMap<Long, ArrayList<ChatMessage>>();
+        this.chatmanager.subMap(x,true, y,true).clear();
+        treemapincl = this.chatmanager;
+
+        return treemapincl.values().stream().flatMap(List::stream).collect(Collectors.toList());
+
 
     }
 
@@ -55,4 +71,6 @@ public class ChatManager {
 
 
 }
+
+
 
