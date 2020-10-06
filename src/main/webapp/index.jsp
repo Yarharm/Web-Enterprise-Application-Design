@@ -31,6 +31,10 @@
         <input type="text" id="username" class="user" placeholder="Enter username" name="userName">
         <button type="submit" class="btn">Send</button>
     </form>
+
+    <form method = "GET" action="BasicServlet" class = "send-message-container">
+        <button type="submit" class="btn">Download Messages</button>
+    </form>
 </div>
 </div>
 

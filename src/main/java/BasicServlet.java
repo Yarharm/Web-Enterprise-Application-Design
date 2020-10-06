@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,7 +27,15 @@ public class BasicServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("text/plain");
+        response.setHeader("Content-disposition", "attachment; filename=messages.txt");
 
+        PrintWriter out = response.getWriter();
+        List<ChatMessage> allMessages = chatManager.ListMessages(Long.valueOf(0), System.currentTimeMillis());
+
+        for (ChatMessage c : allMessages){
+            out.println(c.toString());
+        }
     }
 
     private void appendChatWindow(HttpServletRequest request, List<ChatMessage> chatMessage) {
