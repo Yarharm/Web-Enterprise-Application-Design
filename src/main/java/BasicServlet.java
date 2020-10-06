@@ -8,9 +8,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+<<<<<<< 32082e31fd4a321eda069daf68dd748b08e65285
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+=======
+>>>>>>> added doGet functionality
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -43,6 +46,7 @@ public class BasicServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+<<<<<<< 32082e31fd4a321eda069daf68dd748b08e65285
         response.setDateHeader("Expires", 0);
 
         if (request.getParameter("format")==null) {
@@ -99,6 +103,16 @@ public class BasicServlet extends HttpServlet {
                 out.println("\t" + XML_CHAT_MESSAGE_CLOSE_TAG);
             }
             out.println(XML_ROOT_CHAT_MESSAGES_CLOSE_TAG);
+=======
+        response.setContentType("text/plain");
+        response.setHeader("Content-disposition", "attachment; filename=messages.txt");
+
+        PrintWriter out = response.getWriter();
+        List<ChatMessage> allMessages = chatManager.ListMessages(Long.valueOf(0), System.currentTimeMillis());
+
+        for (ChatMessage c : allMessages){
+            out.println(c.toString());
+>>>>>>> added doGet functionality
         }
     }
 

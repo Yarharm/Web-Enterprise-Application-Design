@@ -33,6 +33,7 @@
     </form>
 
     <form method = "GET" action="BasicServlet" class = "send-message-container">
+<<<<<<< 32082e31fd4a321eda069daf68dd748b08e65285
         <input type="datetime-local" id="startTime" name="startTime">
         <label for="startTime">Start Time</label>
         <p></p>
@@ -44,6 +45,8 @@
         <label for="format">Download in XML format (leave blank for plaintext)</label>
 
 
+=======
+>>>>>>> added doGet functionality
         <button type="submit" class="btn">Download Messages</button>
     </form>
 </div>
