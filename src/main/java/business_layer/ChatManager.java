@@ -3,73 +3,67 @@ package business_layer;
 import java.util.*;
 import java.util.stream.Collectors;
 
-
+/*
+    ChatManager implements Singleton design pattern to ensure that
+    only one instance of data is shared across the application.
+ */
 public class ChatManager {
-    private Long chatTime;
-    private TreeMap<Long, ArrayList<ChatMessage>> chatmanager;
+    private static final ChatManager chatManager = new ChatManager();
+    private final TreeMap<Long, ArrayList<ChatMessage>> chatManagerStorage;
 
-    public ChatManager() {
-        chatmanager = new TreeMap<Long, ArrayList<ChatMessage>>();
-
+    public static ChatManager getChatManagerInstance(){
+        return chatManager;
     }
 
+    private ChatManager() {
+        chatManagerStorage = new TreeMap<Long, ArrayList<ChatMessage>>();
+    }
 
     public ArrayList<ChatMessage> PostMessage(String user, String message) {
-        chatTime = System.currentTimeMillis();
+        Long chatTime = System.currentTimeMillis();
         ChatMessage messagenew;
-        if(user==""||user.isEmpty()){
+        if(user.equals("") ||user.isEmpty()){
             messagenew = new ChatMessage(message, chatTime);
         }else{
             messagenew = new ChatMessage(user, message, chatTime);
         }
 
-        if(chatmanager.containsKey(chatTime)){
-            ArrayList<ChatMessage> pos = chatmanager.get(chatTime);
+        if(chatManagerStorage.containsKey(chatTime)){
+            ArrayList<ChatMessage> pos = chatManagerStorage.get(chatTime);
             pos.add(messagenew);
         }else {
             ArrayList<ChatMessage> timeList = new ArrayList<ChatMessage>();
             timeList.add(messagenew);
-            this.chatmanager.put(chatTime, timeList);
+            this.chatManagerStorage.put(chatTime, timeList);
 
         }
-        return chatmanager.get(chatmanager.lastKey());
+        return chatManagerStorage.get(chatManagerStorage.lastKey());
 
     }
-
 
     public List<ChatMessage> ListMessages(Long x, Long y) {
         SortedMap<Long, ArrayList<ChatMessage>> treemapincl = new TreeMap<Long, ArrayList<ChatMessage>>();
-        treemapincl = this.chatmanager.subMap(x,true, y,true);
+        treemapincl = this.chatManagerStorage.subMap(x,true, y,true);
 
         return treemapincl.values().stream().flatMap(List::stream).collect(Collectors.toList());
 
     }
 
-
-    public List<ChatMessage> ClearMessages(){
-
-        this.chatmanager.clear();
-        return this.chatmanager.values().stream().flatMap(List::stream).collect(Collectors.toList());
-
-    }
     public List<ChatMessage> ClearMessages(Long x, Long y) {
         SortedMap<Long, ArrayList<ChatMessage>> treemapincl = new TreeMap<Long, ArrayList<ChatMessage>>();
-        this.chatmanager.subMap(x,true, y,true).clear();
-        treemapincl = this.chatmanager;
+        this.chatManagerStorage.subMap(x,true, y,true).clear();
+        treemapincl = this.chatManagerStorage;
 
         return treemapincl.values().stream().flatMap(List::stream).collect(Collectors.toList());
 
 
     }
-
 
     @Override
     public String toString() {
-        return "ChatManager{chatmanager=" + chatmanager +
+        return "ChatManager{chatmanager=" + chatManagerStorage +
                 '}';
     }
-
-
 }
 
 
