@@ -8,7 +8,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @WebServlet(name = "BasicServlet")
@@ -16,6 +20,7 @@ public class BasicServlet extends HttpServlet {
     private final ChatManager chatManager = new ChatManager();
     private static final String WELCOME_PAGE = "index.jsp";
     private static final String CHAT_WINDOW_APPLICATION_ATTRIBUTE = "chatWindow";
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd\'T\'hh:mm");
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String userName = request.getParameter("userName");
@@ -27,11 +32,45 @@ public class BasicServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("text/plain");
-        response.setHeader("Content-disposition", "attachment; filename=messages.txt");
+        response.setDateHeader("Expires", 0);
+
+        if (request.getParameter("format")==null) {
+            response.setContentType("text/plain");
+            response.setHeader("Content-disposition", "attachment; filename=messages.txt");
+        } else {
+            response.setContentType("text/xml");
+            response.setHeader("Content-disposition", "attachment; filename=messages.xml");
+        }
+
+        String startDateTime = request.getParameter("startTime");
+        String endDateTime = request.getParameter("endTime");
+
+
+        Date start = null;
+        Date end = null;
+
+        if (startDateTime.isEmpty()) {
+            start = new Date(0);
+        } else {
+            try {
+                start = sdf.parse(startDateTime);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+
+        if (endDateTime.isEmpty()){
+            end = new Date(System.currentTimeMillis());
+        } else {
+            try {
+                end = sdf.parse(endDateTime);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
 
         PrintWriter out = response.getWriter();
-        List<ChatMessage> allMessages = chatManager.ListMessages(Long.valueOf(0), System.currentTimeMillis());
+        List<ChatMessage> allMessages = chatManager.ListMessages(start.getTime(), end.getTime());
 
         for (ChatMessage c : allMessages){
             out.println(c.toString());

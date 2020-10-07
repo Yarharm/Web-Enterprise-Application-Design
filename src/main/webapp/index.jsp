@@ -33,6 +33,17 @@
     </form>
 
     <form method = "GET" action="BasicServlet" class = "send-message-container">
+        <input type="datetime-local" id="startTime" name="startTime" min="2019-01-01T00:00">
+        <label for="startTime">Start Time</label>
+        <p></p>
+        <input type="datetime-local" id="endTime" name="endTime" min="2019-01-01T00:00">
+        <label for="endTime">End Time</label>
+        <p></p>
+
+        <input type="checkbox" id="format" name="format" value="xml">
+        <label for="format">Download in XML format (leave blank for plaintext)</label>
+
+
         <button type="submit" class="btn">Download Messages</button>
     </form>
 </div>
