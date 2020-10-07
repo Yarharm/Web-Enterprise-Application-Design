@@ -72,8 +72,20 @@ public class BasicServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         List<ChatMessage> allMessages = chatManager.ListMessages(start.getTime(), end.getTime());
 
-        for (ChatMessage c : allMessages){
-            out.println(c.toString());
+        if (request.getParameter("format")==null){
+            for (ChatMessage c : allMessages){
+                out.println(c.toString());
+            }
+        } else {
+            out.println("<chat_messages>");
+            for (ChatMessage c : allMessages){
+                out.println("\t<message>");
+                out.println("\t\t<username>" + c.getUser() + "</username>");
+                out.println("\t\t<message_body>" + c.getMessage() + "</message_body>");
+                out.println("\t\t<date>" + c.getTimestamp() + "</date>");
+                out.println("\t</message>");
+            }
+            out.println("</chat_messages>");
         }
     }
 

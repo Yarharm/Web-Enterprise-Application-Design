@@ -62,14 +62,6 @@ public class ChatManager {
 
     }
 
-    public List<ChatMessage> ListMessages(){
-        SortedMap<Long, ArrayList<ChatMessage>> treemapincl = new TreeMap<Long, ArrayList<ChatMessage>>();
-        ArrayList<ArrayList<ChatMessage>> holder = new ArrayList<>();
-        treemapincl = this.chatmanager.subMap(Long.valueOf(0),true, System.currentTimeMillis(),true);
-        return treemapincl.values().stream().flatMap(List::stream).collect(Collectors.toList());
-    }
-
-
     @Override
     public String toString() {
         return "ChatManager{chatmanager=" + chatmanager +
