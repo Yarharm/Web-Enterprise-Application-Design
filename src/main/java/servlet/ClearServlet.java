@@ -26,6 +26,7 @@ public class ClearServlet extends HttpServlet {
         String dateFrom = request.getParameter("dateFrom");
         String dateTo = request.getParameter("dateTo");
         String clearAll = request.getParameter("clearAll");
+
         try {
             Date startDate = new Date(0);
             Date endDate = new Date(System.currentTimeMillis());
