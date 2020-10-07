@@ -1,6 +1,6 @@
 /* Chat window */
 .chat-window {
-    height: 450px;
+    height: 400px;
     width: 521px;
     overflow: auto;
     float: left;
@@ -33,7 +33,7 @@
 /* Send message */
 .send-message {
     position: fixed;
-    top: 50%;
+    top: 55%;
     left: 40%;
     border: solid #f1f1f1;
     box-sizing: border-box;
@@ -82,4 +82,16 @@
 
 .send-message-container .btn:hover{
     opacity: 1;
+}
+
+.download-chat {
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+.clear-chat {
+    position: fixed;
+    top: 20%;
+    left: 0;
 }
