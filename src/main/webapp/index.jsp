@@ -33,11 +33,18 @@
     </form>
 
     <form method = "GET" action="BasicServlet" class = "send-message-container">
+<<<<<<< 69708ca62f3787fb529294f467ca469c028884a8
 <<<<<<< 32082e31fd4a321eda069daf68dd748b08e65285
         <input type="datetime-local" id="startTime" name="startTime">
         <label for="startTime">Start Time</label>
         <p></p>
         <input type="datetime-local" id="endTime" name="endTime">
+=======
+        <input type="datetime-local" id="startTime" name="startTime" min="2019-01-01T00:00">
+        <label for="startTime">Start Time</label>
+        <p></p>
+        <input type="datetime-local" id="endTime" name="endTime" min="2019-01-01T00:00">
+>>>>>>> fixed commented issues
         <label for="endTime">End Time</label>
         <p></p>
 
@@ -45,8 +52,11 @@
         <label for="format">Download in XML format (leave blank for plaintext)</label>
 
 
+<<<<<<< 69708ca62f3787fb529294f467ca469c028884a8
 =======
 >>>>>>> added doGet functionality
+=======
+>>>>>>> fixed commented issues
         <button type="submit" class="btn">Download Messages</button>
     </form>
 </div>

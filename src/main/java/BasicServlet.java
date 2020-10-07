@@ -8,12 +8,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+<<<<<<< 69708ca62f3787fb529294f467ca469c028884a8
 <<<<<<< 32082e31fd4a321eda069daf68dd748b08e65285
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 =======
 >>>>>>> added doGet functionality
+=======
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+>>>>>>> fixed commented issues
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -23,6 +29,7 @@ public class BasicServlet extends HttpServlet {
     private final ChatManager chatManager = new ChatManager();
     private static final String WELCOME_PAGE = "index.jsp";
     private static final String CHAT_WINDOW_APPLICATION_ATTRIBUTE = "chatWindow";
+<<<<<<< 69708ca62f3787fb529294f467ca469c028884a8
     private static final String XML_ROOT_CHAT_MESSAGES_OPEN_TAG = "<chat_messages>";
     private static final String XML_ROOT_CHAT_MESSAGES_CLOSE_TAG = "</chat_messages>";
     private static final String XML_CHAT_MESSAGE_OPEN_TAG = "<message>";
@@ -34,6 +41,8 @@ public class BasicServlet extends HttpServlet {
     private static final String XML_DATE_OPEN_TAG = "<date>";
     private static final String XML_DATE_CLOSE_TAG  = "</date>";
 
+=======
+>>>>>>> fixed commented issues
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd\'T\'hh:mm");
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -46,7 +55,10 @@ public class BasicServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+<<<<<<< 69708ca62f3787fb529294f467ca469c028884a8
 <<<<<<< 32082e31fd4a321eda069daf68dd748b08e65285
+=======
+>>>>>>> fixed commented issues
         response.setDateHeader("Expires", 0);
 
         if (request.getParameter("format")==null) {
@@ -61,10 +73,19 @@ public class BasicServlet extends HttpServlet {
         String endDateTime = request.getParameter("endTime");
 
 
+<<<<<<< 69708ca62f3787fb529294f467ca469c028884a8
         Date start = new Date(0);
         Date end = new Date(System.currentTimeMillis());
 
         if (!startDateTime.isEmpty()) {
+=======
+        Date start = null;
+        Date end = null;
+
+        if (startDateTime.isEmpty()) {
+            start = new Date(0);
+        } else {
+>>>>>>> fixed commented issues
             try {
                 start = sdf.parse(startDateTime);
             } catch (ParseException e) {
@@ -72,13 +93,20 @@ public class BasicServlet extends HttpServlet {
             }
         }
 
+<<<<<<< 69708ca62f3787fb529294f467ca469c028884a8
         if (!endDateTime.isEmpty()){
+=======
+        if (endDateTime.isEmpty()){
+            end = new Date(System.currentTimeMillis());
+        } else {
+>>>>>>> fixed commented issues
             try {
                 end = sdf.parse(endDateTime);
             } catch (ParseException e) {
                 e.printStackTrace();
             }
         }
+<<<<<<< 69708ca62f3787fb529294f467ca469c028884a8
 
         if (start.after(end)){
             Date temp = start;
@@ -106,9 +134,11 @@ public class BasicServlet extends HttpServlet {
 =======
         response.setContentType("text/plain");
         response.setHeader("Content-disposition", "attachment; filename=messages.txt");
+=======
+>>>>>>> fixed commented issues
 
         PrintWriter out = response.getWriter();
-        List<ChatMessage> allMessages = chatManager.ListMessages(Long.valueOf(0), System.currentTimeMillis());
+        List<ChatMessage> allMessages = chatManager.ListMessages(start.getTime(), end.getTime());
 
         for (ChatMessage c : allMessages){
             out.println(c.toString());
