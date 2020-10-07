@@ -62,6 +62,7 @@ public class ChatManager {
 
     }
 
+<<<<<<< 1f61fee09325da4e09c0d9f731322ffcbcfddda7
 <<<<<<< 69708ca62f3787fb529294f467ca469c028884a8
 =======
     public List<ChatMessage> ListMessages(){
@@ -73,6 +74,8 @@ public class ChatManager {
 
 
 >>>>>>> fixed commented issues
+=======
+>>>>>>> fixed xml formatting for message download, removed unneeded listMessages method overload
     @Override
     public String toString() {
         return "ChatManager{chatmanager=" + chatmanager +
