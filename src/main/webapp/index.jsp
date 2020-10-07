@@ -10,8 +10,7 @@
 <body>
 
 <c:choose>
-    <c:when test="${empty chatWindow}"><p>zz</p></c:when>
-    <c:otherwise>
+    <c:when test="${not empty chatWindow}">
         <div class="chat-window">
             <c:forEach items="${chatWindow}" var="chatMessage">
                 <div class="chat-window-message">
@@ -21,12 +20,12 @@
                 </div>
             </c:forEach>
         </div>
-    </c:otherwise>
+    </c:when>
 </c:choose>
 
 
 <div class="send-message">
-    <form method="POST" action="BasicServlet" class="send-message-container">
+    <form method="POST" action="servlet.BasicServlet" class="send-message-container">
         <textarea placeholder="Your message.." name="message" required></textarea>
         <input type="text" id="username" class="user" placeholder="Enter username" name="userName">
         <button type="submit" class="btn">Send</button>
@@ -34,5 +33,16 @@
 </div>
 </div>
 
+<div class="clear-chat">
+    <form method="POST" action="servlet.ClearServlet" class="clear-chat-container">
+        <label for="dateFrom">Date from:</label>
+        <input type="datetime-local" id="dateFrom" name="dateFrom" step="1"><br>
+        <label for="dateTo">Date to:</label>
+        <input type="datetime-local" id="dateTo" name="dateTo" step="1"><br>
+        <label for="clearAll"> Clear all messages</label>
+        <input type="checkbox" id="clearAll" name="clearAll" value="clearAll"><br><br>
+        <input type="submit" value="Clear">
+    </form>
+</div>
 </body>
 </html>
