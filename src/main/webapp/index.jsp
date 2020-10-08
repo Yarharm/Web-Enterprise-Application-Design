@@ -33,6 +33,7 @@
     </form>
 
     <form method = "GET" action="BasicServlet" class = "send-message-container">
+<<<<<<< 02e002ef19da7613ca0a48702fd3b7584c65acfd
 <<<<<<< 69708ca62f3787fb529294f467ca469c028884a8
 <<<<<<< 32082e31fd4a321eda069daf68dd748b08e65285
         <input type="datetime-local" id="startTime" name="startTime">
@@ -45,6 +46,12 @@
         <p></p>
         <input type="datetime-local" id="endTime" name="endTime" min="2019-01-01T00:00">
 >>>>>>> fixed commented issues
+=======
+        <input type="datetime-local" id="startTime" name="startTime">
+        <label for="startTime">Start Time</label>
+        <p></p>
+        <input type="datetime-local" id="endTime" name="endTime">
+>>>>>>> fixed more commented issues, added handling for start date being after end date
         <label for="endTime">End Time</label>
         <p></p>
 

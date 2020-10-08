@@ -29,7 +29,10 @@ public class BasicServlet extends HttpServlet {
     private final ChatManager chatManager = new ChatManager();
     private static final String WELCOME_PAGE = "index.jsp";
     private static final String CHAT_WINDOW_APPLICATION_ATTRIBUTE = "chatWindow";
+<<<<<<< 02e002ef19da7613ca0a48702fd3b7584c65acfd
 <<<<<<< 69708ca62f3787fb529294f467ca469c028884a8
+=======
+>>>>>>> fixed more commented issues, added handling for start date being after end date
     private static final String XML_ROOT_CHAT_MESSAGES_OPEN_TAG = "<chat_messages>";
     private static final String XML_ROOT_CHAT_MESSAGES_CLOSE_TAG = "</chat_messages>";
     private static final String XML_CHAT_MESSAGE_OPEN_TAG = "<message>";
@@ -41,8 +44,11 @@ public class BasicServlet extends HttpServlet {
     private static final String XML_DATE_OPEN_TAG = "<date>";
     private static final String XML_DATE_CLOSE_TAG  = "</date>";
 
+<<<<<<< 02e002ef19da7613ca0a48702fd3b7584c65acfd
 =======
 >>>>>>> fixed commented issues
+=======
+>>>>>>> fixed more commented issues, added handling for start date being after end date
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd\'T\'hh:mm");
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -73,6 +79,7 @@ public class BasicServlet extends HttpServlet {
         String endDateTime = request.getParameter("endTime");
 
 
+<<<<<<< 02e002ef19da7613ca0a48702fd3b7584c65acfd
 <<<<<<< 69708ca62f3787fb529294f467ca469c028884a8
         Date start = new Date(0);
         Date end = new Date(System.currentTimeMillis());
@@ -86,6 +93,12 @@ public class BasicServlet extends HttpServlet {
             start = new Date(0);
         } else {
 >>>>>>> fixed commented issues
+=======
+        Date start = new Date(0);
+        Date end = new Date(System.currentTimeMillis());
+
+        if (!startDateTime.isEmpty()) {
+>>>>>>> fixed more commented issues, added handling for start date being after end date
             try {
                 start = sdf.parse(startDateTime);
             } catch (ParseException e) {
@@ -93,6 +106,7 @@ public class BasicServlet extends HttpServlet {
             }
         }
 
+<<<<<<< 02e002ef19da7613ca0a48702fd3b7584c65acfd
 <<<<<<< 69708ca62f3787fb529294f467ca469c028884a8
         if (!endDateTime.isEmpty()){
 =======
@@ -100,6 +114,9 @@ public class BasicServlet extends HttpServlet {
             end = new Date(System.currentTimeMillis());
         } else {
 >>>>>>> fixed commented issues
+=======
+        if (!endDateTime.isEmpty()){
+>>>>>>> fixed more commented issues, added handling for start date being after end date
             try {
                 end = sdf.parse(endDateTime);
             } catch (ParseException e) {
@@ -137,6 +154,12 @@ public class BasicServlet extends HttpServlet {
 =======
 >>>>>>> fixed commented issues
 
+        if (start.after(end)){
+            Date temp = start;
+            start = end;
+            end = temp;
+        }
+
         PrintWriter out = response.getWriter();
         List<ChatMessage> allMessages = chatManager.ListMessages(start.getTime(), end.getTime());
 
@@ -150,16 +173,20 @@ public class BasicServlet extends HttpServlet {
                 out.println(c.toString());
             }
         } else {
-            out.println("<chat_messages>");
+            out.println(XML_ROOT_CHAT_MESSAGES_OPEN_TAG);
             for (ChatMessage c : allMessages){
-                out.println("\t<message>");
-                out.println("\t\t<username>" + c.getUser() + "</username>");
-                out.println("\t\t<message_body>" + c.getMessage() + "</message_body>");
-                out.println("\t\t<date>" + c.getTimestamp() + "</date>");
-                out.println("\t</message>");
+                out.println("\t"+XML_CHAT_MESSAGE_OPEN_TAG);
+                out.println("\t\t"+ XML_USERNAME_OPEN_TAG+ c.getUser() + XML_USERNAME_CLOSE_TAG);
+                out.println("\t\t" + XML_MESSAGE_CONTENT_OPEN_TAG + c.getMessage() + XML_MESSAGE_CONTENT_CLOSE_TAG);
+                out.println("\t\t" + XML_DATE_OPEN_TAG + c.getTimestamp() + XML_DATE_OPEN_TAG);
+                out.println("\t" + XML_CHAT_MESSAGE_CLOSE_TAG);
             }
+<<<<<<< 02e002ef19da7613ca0a48702fd3b7584c65acfd
             out.println("</chat_messages>");
 >>>>>>> fixed xml formatting for message download, removed unneeded listMessages method overload
+=======
+            out.println(XML_ROOT_CHAT_MESSAGES_CLOSE_TAG);
+>>>>>>> fixed more commented issues, added handling for start date being after end date
         }
     }
 
