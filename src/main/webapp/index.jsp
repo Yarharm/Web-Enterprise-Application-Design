@@ -9,6 +9,10 @@
 </head>
 <body>
 
+<script type="text/javascript">
+    setInterval(function() {document.forms["refresh-page"].submit();}, 15000);
+</script>
+
 <c:choose>
     <c:when test="${not empty chatWindow}">
         <div class="chat-window">
@@ -66,6 +70,8 @@
         </div>
     </c:when>
 </c:choose>
+
+<form method="GET" action="servlet.ClearServlet" name="refresh-page"></form>
 
 </body>
 </html>

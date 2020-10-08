@@ -41,6 +41,10 @@ public class ChatManager {
 
     }
 
+    public List<ChatMessage> ListMessages() {
+        return this.chatManagerStorage.values().stream().flatMap(List::stream).collect(Collectors.toList());
+    }
+
     public List<ChatMessage> ListMessages(Long x, Long y) {
         SortedMap<Long, ArrayList<ChatMessage>> treemapincl = new TreeMap<Long, ArrayList<ChatMessage>>();
         treemapincl = this.chatManagerStorage.subMap(x,true, y,true);
