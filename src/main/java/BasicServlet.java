@@ -20,6 +20,17 @@ public class BasicServlet extends HttpServlet {
     private final ChatManager chatManager = new ChatManager();
     private static final String WELCOME_PAGE = "index.jsp";
     private static final String CHAT_WINDOW_APPLICATION_ATTRIBUTE = "chatWindow";
+    private static final String XML_ROOT_CHAT_MESSAGES_OPEN_TAG = "<chat_messages>";
+    private static final String XML_ROOT_CHAT_MESSAGES_CLOSE_TAG = "</chat_messages>";
+    private static final String XML_CHAT_MESSAGE_OPEN_TAG = "<message>";
+    private static final String XML_CHAT_MESSAGE_CLOSE_TAG = "</message>";
+    private static final String XML_USERNAME_OPEN_TAG = "<username>";
+    private static final String XML_USERNAME_CLOSE_TAG = "</username>";
+    private static final String XML_MESSAGE_CONTENT_OPEN_TAG = "<message_body>";
+    private static final String XML_MESSAGE_CONTENT_CLOSE_TAG = "</message_body>";
+    private static final String XML_DATE_OPEN_TAG = "<date>";
+    private static final String XML_DATE_CLOSE_TAG  = "</date>";
+
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd\'T\'hh:mm");
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -46,12 +57,10 @@ public class BasicServlet extends HttpServlet {
         String endDateTime = request.getParameter("endTime");
 
 
-        Date start = null;
-        Date end = null;
+        Date start = new Date(0);
+        Date end = new Date(System.currentTimeMillis());
 
-        if (startDateTime.isEmpty()) {
-            start = new Date(0);
-        } else {
+        if (!startDateTime.isEmpty()) {
             try {
                 start = sdf.parse(startDateTime);
             } catch (ParseException e) {
@@ -59,14 +68,18 @@ public class BasicServlet extends HttpServlet {
             }
         }
 
-        if (endDateTime.isEmpty()){
-            end = new Date(System.currentTimeMillis());
-        } else {
+        if (!endDateTime.isEmpty()){
             try {
                 end = sdf.parse(endDateTime);
             } catch (ParseException e) {
                 e.printStackTrace();
             }
+        }
+
+        if (start.after(end)){
+            Date temp = start;
+            start = end;
+            end = temp;
         }
 
         PrintWriter out = response.getWriter();
@@ -77,15 +90,15 @@ public class BasicServlet extends HttpServlet {
                 out.println(c.toString());
             }
         } else {
-            out.println("<chat_messages>");
+            out.println(XML_ROOT_CHAT_MESSAGES_OPEN_TAG);
             for (ChatMessage c : allMessages){
-                out.println("\t<message>");
-                out.println("\t\t<username>" + c.getUser() + "</username>");
-                out.println("\t\t<message_body>" + c.getMessage() + "</message_body>");
-                out.println("\t\t<date>" + c.getTimestamp() + "</date>");
-                out.println("\t</message>");
+                out.println("\t"+XML_CHAT_MESSAGE_OPEN_TAG);
+                out.println("\t\t"+ XML_USERNAME_OPEN_TAG+ c.getUser() + XML_USERNAME_CLOSE_TAG);
+                out.println("\t\t" + XML_MESSAGE_CONTENT_OPEN_TAG + c.getMessage() + XML_MESSAGE_CONTENT_CLOSE_TAG);
+                out.println("\t\t" + XML_DATE_OPEN_TAG + c.getTimestamp() + XML_DATE_OPEN_TAG);
+                out.println("\t" + XML_CHAT_MESSAGE_CLOSE_TAG);
             }
-            out.println("</chat_messages>");
+            out.println(XML_ROOT_CHAT_MESSAGES_CLOSE_TAG);
         }
     }
 
