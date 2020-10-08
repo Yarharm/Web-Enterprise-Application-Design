@@ -5,9 +5,15 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.example</groupId>
+<<<<<<< 524f8c735e4ffa96cd4eae3cbea8d8ca9b5d37f5
     <artifactId>ChatServer</artifactId>
     <version>1.0-SNAPSHOT</version>
     <name>ChatServer</name>
+=======
+    <artifactId>Web-Enterprise-Application-Design</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <name>Web-Enterprise-Application-Design</name>
+>>>>>>> created GetServlet and ChatManager, basic placeholder methods for testing
     <packaging>war</packaging>
 
     <properties>
@@ -35,11 +41,14 @@
             <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
+<<<<<<< 524f8c735e4ffa96cd4eae3cbea8d8ca9b5d37f5
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>jstl</artifactId>
             <version>1.2</version>
         </dependency>
+=======
+>>>>>>> created GetServlet and ChatManager, basic placeholder methods for testing
     </dependencies>
 
     <build>
