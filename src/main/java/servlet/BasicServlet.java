@@ -14,7 +14,7 @@ import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 
-import static helpers.SharedConstants.CHAT_PAGE;
+import static helpers.SharedConstants.*;
 import static helpers.Utils.parseDateTimeLocal;
 import helpers.FrontendChatManager;
 
@@ -36,8 +36,12 @@ public class BasicServlet extends HttpServlet {
         String userName = request.getParameter("userName");
         String message = request.getParameter("message");
 
-        List<ChatMessage> chatMessages = chatManager.PostMessage(userName, message);
-        FrontendChatManager.appendChatWindow(request, chatMessages);
+        if(message.isEmpty()) {
+            request.getServletContext().setAttribute(DISPLAY_WARNING_POPUP, "Warning! Message can not be empty!");
+        } else {
+            List<ChatMessage> chatMessages = chatManager.PostMessage(userName, message);
+            FrontendChatManager.appendChatWindow(request, chatMessages);
+        }
         response.sendRedirect(CHAT_PAGE);
     }
 

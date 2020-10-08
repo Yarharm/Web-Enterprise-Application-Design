@@ -57,16 +57,15 @@
     </form>
 </div>
 
-<div class="clear-chat">
-    <form method="POST" action="servlet.ClearServlet" class="clear-chat-container">
-        <label for="dateFrom">Date from:</label>
-        <input type="datetime-local" id="dateFrom" name="dateFrom" step="1"><br>
-        <label for="dateTo">Date to:</label>
-        <input type="datetime-local" id="dateTo" name="dateTo" step="1"><br>
-        <label for="clearAll"> Clear all messages</label>
-        <input type="checkbox" id="clearAll" name="clearAll" value="clearAll"><br><br>
-        <input type="submit" value="Clear">
-    </form>
-</div>
+<c:choose>
+    <c:when test="${not empty displayWarningPopup}">
+        <div class="empty-message-alert">
+            <span class="empty-message-closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                ${displayWarningPopup}
+            <c:remove var="displayWarningPopup"/>
+        </div>
+    </c:when>
+</c:choose>
+
 </body>
 </html>
