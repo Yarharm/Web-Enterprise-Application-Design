@@ -1,3 +1,5 @@
+package servlet;
+
 import business_layer.ChatManager;
 import business_layer.ChatMessage;
 
@@ -9,17 +11,16 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import static helpers.SharedConstants.CHAT_PAGE;
+import static helpers.Utils.parseDateTimeLocal;
+import helpers.FrontendChatManager;
+
 @WebServlet(name = "BasicServlet")
 public class BasicServlet extends HttpServlet {
-    private final ChatManager chatManager = new ChatManager();
-    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd\'T\'hh:mm");
-    private static final String WELCOME_PAGE = "index.jsp";
-    private static final String CHAT_WINDOW_APPLICATION_ATTRIBUTE = "chatWindow";
+    private final ChatManager chatManager = ChatManager.getChatManagerInstance();
     private static final String XML_ROOT_CHAT_MESSAGES_OPEN_TAG = "<messages>";
     private static final String XML_ROOT_CHAT_MESSAGES_CLOSE_TAG = "</messages>";
     private static final String XML_CHAT_MESSAGE_OPEN_TAG = "<message>";
@@ -35,9 +36,9 @@ public class BasicServlet extends HttpServlet {
         String userName = request.getParameter("userName");
         String message = request.getParameter("message");
 
-        List<ChatMessage> chatMessage = chatManager.PostMessage(userName, message);
-        this.appendChatWindow(request, chatMessage);
-        response.sendRedirect(WELCOME_PAGE);
+        List<ChatMessage> chatMessages = chatManager.PostMessage(userName, message);
+        FrontendChatManager.appendChatWindow(request, chatMessages);
+        response.sendRedirect(CHAT_PAGE);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -59,7 +60,7 @@ public class BasicServlet extends HttpServlet {
 
         if (!startDateTime.isEmpty()) {
             try {
-                start = sdf.parse(startDateTime);
+                start = parseDateTimeLocal(startDateTime);
             } catch (ParseException e) {
                 e.printStackTrace();
             }
@@ -67,7 +68,7 @@ public class BasicServlet extends HttpServlet {
 
         if (!endDateTime.isEmpty()){
             try {
-                end = sdf.parse(endDateTime);
+                end = parseDateTimeLocal(endDateTime);
             } catch (ParseException e) {
                 e.printStackTrace();
             }
@@ -96,21 +97,6 @@ public class BasicServlet extends HttpServlet {
                 out.println("\t" + XML_CHAT_MESSAGE_CLOSE_TAG);
             }
             out.println(XML_ROOT_CHAT_MESSAGES_CLOSE_TAG);
-
         }
-    }
-
-    private void appendChatWindow(HttpServletRequest request, List<ChatMessage> chatMessage) {
-        List<ChatMessage> chatWindow = fetchChatWindow(request);
-        chatWindow.addAll(chatMessage);
-    }
-
-    private List<ChatMessage> fetchChatWindow(HttpServletRequest request) {
-        List<ChatMessage> chatWindow = (List<ChatMessage>) request.getServletContext().getAttribute(CHAT_WINDOW_APPLICATION_ATTRIBUTE);
-        if(chatWindow == null) {
-            chatWindow = new ArrayList<>();
-            request.getServletContext().setAttribute("chatWindow", chatWindow);
-        }
-        return chatWindow;
     }
 }
