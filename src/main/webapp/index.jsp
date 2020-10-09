@@ -31,6 +31,21 @@
         <input type="text" id="username" class="user" placeholder="Enter username" name="userName">
         <button type="submit" class="btn">Send</button>
     </form>
+    <form method = "GET" action="BasicServlet" class = "send-message-container">
+
+        <input type="datetime-local" id="startTime" name="startTime">
+        <label for="startTime">Start Time</label>
+        <p></p>
+        <input type="datetime-local" id="endTime" name="endTime">
+
+        <label for="endTime">End Time</label>
+        <p></p>
+
+        <input type="checkbox" id="format" name="format" value="xml">
+        <label for="format">Download in XML format (leave blank for plaintext)</label>
+
+        <button type="submit" class="btn">Download Messages</button>
+    </form>
 </div>
 </div>
 
