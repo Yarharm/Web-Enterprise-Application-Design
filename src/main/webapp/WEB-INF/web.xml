@@ -23,6 +23,16 @@
         <url-pattern>/servlet.ClearServlet</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>TemplateServlet</servlet-name>
+        <servlet-class>servlet.TemplateServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>TemplateServlet</servlet-name>
+        <url-pattern>/servlet.TemplateServlet</url-pattern>
+    </servlet-mapping>
+    
     <filter>
         <filter-name>CacheFilter</filter-name>
         <filter-class>filters.CacheFilter</filter-class>
