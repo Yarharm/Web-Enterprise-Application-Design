@@ -5,77 +5,35 @@
 /*    top: 15%;*/
 /*}*/
 .chat-2 {
-    margin:auto 0 ;
     width: 50%;
     display: table;
     float: right;
     padding-left: -4px;
-
+    margin: 40px 8px 8px;
 }
 
 body {
     background-color: #2F4F4F;
 }
 
-.chat-window {
-    height: 400px;
-    width: 500px;
-    overflow: auto;
-    position: relative;
-    left: 30%;
-    float: right;
-    padding-left: 0;
-}
-
-.chat-window-message {
-    background-color: #f1f1f1;
-    border-radius: 5px;
-    margin-left: 5%;
-    justify-items: right ;
-    margin-top: 10px;
-    top: 55%;
-    left: 40%;
-    box-sizing: border-box;
-    float: right;
-    width:80%;
-}
-
-.chat-window-message .user-name {
-    font-weight: bold;
-}
-
-/*.time-right {*/
-/*    position: relative;*/
-/*    top: 0;*/
-/*    right: 0;*/
-/*    width: 100px;*/
-/*    color: #999;*/
-/*}*/
-
 /*!* Send message *!*/
 .send-message {
     position: fixed;
-    border: solid #f1f1f1;
+    border: solid #2F4F4F;
     box-sizing: border-box;
-
-    margin:auto 0 ;
+    margin-top: 50px;
     display: table;
 }
 
 .send-message-container {
     width: 400px;
     padding: 5px;
-    background-color: white;
-}
-.text-white{
-    color: white;
 }
 
 .send-message-container .user {
     width: 80%;
     margin: 5px 0 22px 0;
     border: none;
-    background: #f1f1f1;
     resize: none;
     height: 40px;
 }
@@ -83,15 +41,14 @@ body {
 .send-message-container textarea {
     width: 100%;
     margin: 5px 0 22px 0;
-    border: none;
-    background: #f1f1f1;
     resize: none;
+    border: none;
     min-height: 100px;
 }
 
 .send-message-container textarea:focus {
-    background-color: #ddd;
-    outline: none;
+    background-color: #008B8B;
+    border-color: rgba(229, 103, 23, 0.8);
 }
 
 .send-message-container .btn {
@@ -109,30 +66,6 @@ body {
     opacity: 1;
 }
 
-.download-chat {
-    position: fixed;
-    left: 0;
-
-    background-color: #f1f1f1;
-    border-radius: 5px;
-    margin-left: 1%;
-    top: 40%;
-    box-sizing: border-box;
-    width:50%;
-}
-
-.clear-chat {
-    position: fixed;
-    top: 60%;
-    left: 0;
-
-    background-color: #f1f1f1;
-    border-radius: 5px;
-    margin-left: 1%;
-    box-sizing: border-box;
-    width:50%;
-}
-
 .button {
     background-color: #4CAF50; /* Green */
     border: none;
@@ -144,6 +77,16 @@ body {
     font-size: 12px;
 }
 
-text-white{
-    color:white;
+.chat-window-message-content{
+    padding: 8px;
+}
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: white;
+    opacity: 1; /* Firefox */
+}
+
+.template_one_chat {
+    visibility: hidden;
+    display:none;
 }
