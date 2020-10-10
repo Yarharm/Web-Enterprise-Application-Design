@@ -1,34 +1,56 @@
-/*!* Chat window *!*/
-.chat-2 {
-    width: 50%;
-    display: table;
-    float: right;
-    padding-left: -4px;
-    margin: 40px 8px 8px;
+/* Chat window */
+.chat-window {
+    height: 400px;
+    width: 521px;
+    overflow: auto;
+    float: left;
+    position: relative;
+    left: 40%;
+    margin-left: -1px;
+    border: solid #f1f1f1;
 }
 
-body {
-    background-color: #2F4F4F;
+.chat-window-message {
+    border: 2px solid #dedede;
+    background-color: #f1f1f1;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px 0;
 }
 
-/*!* Send message *!*/
+.chat-window-message .user-name {
+    font-weight: bold;
+}
+
+.time-right {
+    position: relative;
+    top: 0;
+    right: 0;
+    width: 100px;
+    color: #999;
+}
+
+/* Send message */
 .send-message {
     position: fixed;
-    border: solid #2F4F4F;
+    top: 55%;
+    left: 40%;
+    border: solid #f1f1f1;
     box-sizing: border-box;
-    margin-top: 50px;
-    display: table;
+    margin-left: -2px;
 }
 
 .send-message-container {
-    width: 400px;
-    padding: 5px;
+    width: 500px;
+    padding: 10px;
+    background-color: white;
 }
 
 .send-message-container .user {
     width: 80%;
     margin: 5px 0 22px 0;
     border: none;
+    background: #f1f1f1;
     resize: none;
     height: 40px;
 }
@@ -36,14 +58,15 @@ body {
 .send-message-container textarea {
     width: 100%;
     margin: 5px 0 22px 0;
-    resize: none;
     border: none;
+    background: #f1f1f1;
+    resize: none;
     min-height: 100px;
 }
 
 .send-message-container textarea:focus {
-    background-color: #008B8B;
-    border-color: rgba(229, 103, 23, 0.8);
+    background-color: #ddd;
+    outline: none;
 }
 
 .send-message-container .btn {
@@ -61,27 +84,35 @@ body {
     opacity: 1;
 }
 
-.button {
-    background-color: #4CAF50; /* Green */
-    border: none;
+.download-chat {
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+.clear-chat {
+    position: fixed;
+    top: 20%;
+    left: 0;
+}
+
+/* empty message alert */
+.empty-message-alert {
+    padding: 20px;
+    background-color: #ff9800;
     color: white;
-    padding: 10px 20px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 12px;
+    position:absolute;
+    top:0;
+    right:0;
 }
 
-.chat-window-message-content{
-    padding: 8px;
-}
-
-::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+.empty-message-closebtn {
+    margin-left: 15px;
     color: white;
-    opacity: 1; /* Firefox */
-}
-
-.template_one_chat {
-    visibility: hidden;
-    display:none;
+    font-weight: bold;
+    float: right;
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
 }

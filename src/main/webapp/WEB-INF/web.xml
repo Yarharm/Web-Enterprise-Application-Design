@@ -22,7 +22,7 @@
         <servlet-name>ClearServlet</servlet-name>
         <url-pattern>/servlet.ClearServlet</url-pattern>
     </servlet-mapping>
-
+    
     <filter>
         <filter-name>CacheFilter</filter-name>
         <filter-class>filters.CacheFilter</filter-class>
