@@ -23,11 +23,15 @@ public class ClearServlet extends HttpServlet {
     private final ChatManager chatManager = ChatManager.getChatManagerInstance();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String dateFrom = request.getParameter("dateFrom");
-        String dateTo = request.getParameter("dateTo");
-        String clearAll = request.getParameter("clearAll");
-
         try {
+            String referrer = request.getHeader("referer");
+            if(referrer == null || referrer.isEmpty()) {
+                throw new Exception("ERROR! Referer header is not present!");
+            }
+
+            String dateFrom = request.getParameter("dateFrom");
+            String dateTo = request.getParameter("dateTo");
+            String clearAll = request.getParameter("clearAll");
             Date startDate = new Date(0);
             Date endDate = new Date(System.currentTimeMillis());
             if(clearAll == null && !dateFrom.isEmpty()) {
@@ -37,12 +41,12 @@ public class ClearServlet extends HttpServlet {
                 endDate = parseDateTimeLocal(dateTo);
             }
             if(endDate.before(startDate)) {
-                throw new Exception("End date is prior start date");
+                throw new Exception("Warning! Start date can not be prior an end date!");
             }
             List<ChatMessage> filteredMessages = chatManager.ClearMessages(startDate.getTime(), endDate.getTime());
             FrontendChatManager.filterChatWindow(request, filteredMessages);
         } catch (Exception e) {
-            request.getServletContext().setAttribute(DISPLAY_WARNING_POPUP, "Warning! Start date can not be prior an end date!");
+            request.getServletContext().setAttribute(DISPLAY_WARNING_POPUP, e.getMessage());
         } finally {
             response.sendRedirect(CHAT_PAGE);
         }

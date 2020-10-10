@@ -32,25 +32,38 @@ public class BasicServlet extends HttpServlet {
     private static final String XML_DATE_CLOSE_TAG = "</date>";
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String userName = request.getParameter("userName");
-        String message = request.getParameter("message");
+        try {
+            String referrer = request.getHeader("referer");
+            if(referrer == null || referrer.isEmpty()) {
+                throw new Exception("ERROR! Referer header is not present!");
+            }
 
-        if(message.isEmpty()) {
-            request.getServletContext().setAttribute(DISPLAY_WARNING_POPUP, "Warning! Message can not be empty!");
-        } else {
+            String userName = request.getParameter("userName");
+            String message = request.getParameter("message");
+            if(message == null || message.isEmpty()) {
+                throw new Exception("Warning! Message can not be empty!");
+            }
             List<ChatMessage> chatMessages = chatManager.PostMessage(userName, message);
             FrontendChatManager.appendChatWindow(request, chatMessages);
+        } catch(Exception e) {
+            request.getServletContext().setAttribute(DISPLAY_WARNING_POPUP, e.getMessage());
+        } finally {
+            response.sendRedirect(CHAT_PAGE);
         }
-        response.sendRedirect(CHAT_PAGE);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String startDateTime = request.getParameter("startTime");
-        String endDateTime = request.getParameter("endTime");
-
-        Date start = new Date(0);
-        Date end = new Date(System.currentTimeMillis());
         try {
+            String referrer = request.getHeader("referer");
+            if(referrer == null || referrer.isEmpty()) {
+                throw new Exception("ERROR! Referer header is not present!");
+            }
+
+            String startDateTime = request.getParameter("startTime");
+            String endDateTime = request.getParameter("endTime");
+
+            Date start = new Date(0);
+            Date end = new Date(System.currentTimeMillis());
             if (!startDateTime.isEmpty()) {
                 start = parseDateTimeLocal(startDateTime);
             }
@@ -58,7 +71,7 @@ public class BasicServlet extends HttpServlet {
                 end = parseDateTimeLocal(endDateTime);
             }
             if (start.after(end)){
-                throw new Exception("End date is prior start date");
+                throw new Exception("Warning! Start date can not be prior an end date!");
             }
 
             if (request.getParameter("format")==null) {
@@ -88,7 +101,7 @@ public class BasicServlet extends HttpServlet {
                 out.println(XML_ROOT_CHAT_MESSAGES_CLOSE_TAG);
             }
         } catch(Exception e) {
-            request.getServletContext().setAttribute(DISPLAY_WARNING_POPUP, "Warning! Start date can not be prior an end date!");
+            request.getServletContext().setAttribute(DISPLAY_WARNING_POPUP, e.getMessage());
             response.sendRedirect(CHAT_PAGE);
         }
     }
