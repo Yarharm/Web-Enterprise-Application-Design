@@ -22,7 +22,7 @@ public class ChatManager {
     public ArrayList<ChatMessage> PostMessage(String user, String message) {
         Long chatTime = System.currentTimeMillis();
         ChatMessage messagenew;
-        if(user.equals("") ||user.isEmpty()){
+        if(user == null || user.isEmpty()){
             messagenew = new ChatMessage(message, chatTime);
         }else{
             messagenew = new ChatMessage(user, message, chatTime);
