@@ -12,6 +12,7 @@ import java.util.Date;
 import java.util.List;
 
 import static helpers.SharedConstants.CHAT_PAGE;
+import static helpers.SharedConstants.DISPLAY_WARNING_POPUP;
 import static helpers.Utils.parseDateTimeLocal;
 
 import business_layer.ChatMessage;
@@ -40,11 +41,9 @@ public class ClearServlet extends HttpServlet {
             List<ChatMessage> filteredMessages = chatManager.ClearMessages(startDate.getTime(), endDate.getTime());
             FrontendChatManager.filterChatWindow(request, filteredMessages);
         } catch (Exception e) {
-            /* Handle end date prior start date case */
+            request.getServletContext().setAttribute(DISPLAY_WARNING_POPUP, "Warning! Start date can not be prior an end date!");
         } finally {
             response.sendRedirect(CHAT_PAGE);
         }
     }
-
-
 }
