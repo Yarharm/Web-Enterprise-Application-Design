@@ -214,3 +214,8 @@ body,html{
         margin-bottom: 15px !important;
     }
 }
+
+.template_two_chat, .template_two_toolbar {
+    visibility: hidden;
+    display:none;
+}
