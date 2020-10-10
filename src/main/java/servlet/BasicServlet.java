@@ -61,8 +61,6 @@ public class BasicServlet extends HttpServlet {
                 throw new Exception("End date is prior start date");
             }
 
-            response.setDateHeader("Expires", 0);
-
             if (request.getParameter("format")==null) {
                 response.setContentType("text/plain");
                 response.setHeader("Content-disposition", "attachment; filename=messages.txt");
