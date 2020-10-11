@@ -3,6 +3,7 @@ package servlet;
 import business_layer.ChatManager;
 import business_layer.ChatMessage;
 
+import org.apache.commons.lang.StringEscapeUtils;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -43,7 +44,9 @@ public class BasicServlet extends HttpServlet {
             if(message == null || message.isEmpty()) {
                 throw new Exception("Warning! Message can not be empty!");
             }
-            List<ChatMessage> chatMessages = chatManager.PostMessage(userName, message);
+            String escapedMessage = StringEscapeUtils.escapeXml(message);
+            String escapedUserName = StringEscapeUtils.escapeXml(userName);
+            List<ChatMessage> chatMessages = chatManager.PostMessage(escapedUserName, escapedMessage);
             FrontendChatManager.appendChatWindow(request, chatMessages);
         } catch(Exception e) {
             request.getServletContext().setAttribute(DISPLAY_WARNING_POPUP, e.getMessage());
