@@ -133,27 +133,6 @@ body {
     width:50%;
 }
 
-/* empty message alert */
-.empty-message-alert {
-    padding: 20px;
-    background-color: #ff9800;
-    color: white;
-    position:absolute;
-    top:0;
-    right:0;
-}
-
-.empty-message-closebtn {
-    margin-left: 15px;
-    color: white;
-    font-weight: bold;
-    float: right;
-    font-size: 22px;
-    line-height: 20px;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
 .button {
     background-color: #4CAF50; /* Green */
     border: none;

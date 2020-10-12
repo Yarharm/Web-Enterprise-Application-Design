@@ -8,6 +8,18 @@
     <link rel="stylesheet" href="template_two.css">
 </head>
 <body>
+<nav class="navbar navbar-expand navbar navbar-dark bg-dark">
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+            <button type="button" class="nav-item" data-toggle="modal" data-target="#clearChatModal">
+                Clear messages
+            </button>
+            <button type="button" class="nav-item" data-toggle="modal" data-target="#downloadModal">
+                Download messages
+            </button>
+        </div>
+    </div>
+</nav>
 
 <c:choose>
     <c:when test="${not empty chatWindow}">
@@ -31,47 +43,7 @@
         <button type="submit" class="btn">Send</button>
     </form>
 </div>
-
-<div class="download-chat">
-    <form method = "GET" action="servlet.BasicServlet" class = "download-chat-container">
-        <input type="datetime-local" id="startTime" name="startTime" step="1">
-        <label for="startTime">Start Time</label><br>
-        <input type="datetime-local" id="endTime" name="endTime" step="1">
-        <label for="endTime">End Time</label><br>
-        <input type="checkbox" id="format" name="format" value="xml">
-        <label for="format">Download in XML format (leave blank for plaintext)</label><br><br>
-
-        <button type="submit" class="btn button">Download Messages</button>
-    </form>
-</div>
-
-<div class="clear-chat">
-    <form method="POST" action="servlet.ClearServlet" class="clear-chat-container">
-
-        <input type="datetime-local" id="dateFrom" name="dateFrom" step="1">
-        <label for="dateFrom">Date from:</label><br>
-
-
-        <input type="datetime-local" id="dateTo" name="dateTo" step="1">
-        <label for="dateTo">Date to:</label><br>
-
-
-        <input type="checkbox" id="clearAll" name="clearAll" value="clearAll">
-        <label for="clearAll"> Clear all messages</label><br><br>
-        <input type="submit" value="Clear" class = "button">
-    </form>
-</div>
 </section>
-
-<c:choose>
-    <c:when test="${not empty displayWarningPopup}">
-        <div class="empty-message-alert">
-            <span class="empty-message-closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-                ${displayWarningPopup}
-            <c:remove var="displayWarningPopup"/>
-        </div>
-    </c:when>
-</c:choose>
 
 </body>
 </html>
