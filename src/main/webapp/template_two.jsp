@@ -11,7 +11,7 @@
 
 <c:choose>
     <c:when test="${not empty chatWindow}">
-        <div class="chat-window">
+        <div class="chat-2">
             <c:forEach items="${chatWindow}" var="chatMessage">
                 <div class="chat-window-message">
                     <p class="user-name">${chatMessage.user}</p>
@@ -23,7 +23,7 @@
     </c:when>
 </c:choose>
 
-
+<section class = "aside">
 <div class="send-message">
     <form method="POST" action="servlet.BasicServlet" class="send-message-container">
         <textarea placeholder="Your message.." name="message" required></textarea>
@@ -41,21 +41,27 @@
         <input type="checkbox" id="format" name="format" value="xml">
         <label for="format">Download in XML format (leave blank for plaintext)</label><br><br>
 
-        <button type="submit" class="btn">Download Messages</button>
+        <button type="submit" class="btn button">Download Messages</button>
     </form>
 </div>
 
 <div class="clear-chat">
     <form method="POST" action="servlet.ClearServlet" class="clear-chat-container">
-        <label for="dateFrom">Date from:</label>
-        <input type="datetime-local" id="dateFrom" name="dateFrom" step="1"><br>
-        <label for="dateTo">Date to:</label>
-        <input type="datetime-local" id="dateTo" name="dateTo" step="1"><br>
-        <label for="clearAll"> Clear all messages</label>
-        <input type="checkbox" id="clearAll" name="clearAll" value="clearAll"><br><br>
-        <input type="submit" value="Clear">
+
+        <input type="datetime-local" id="dateFrom" name="dateFrom" step="1">
+        <label for="dateFrom">Date from:</label><br>
+
+
+        <input type="datetime-local" id="dateTo" name="dateTo" step="1">
+        <label for="dateTo">Date to:</label><br>
+
+
+        <input type="checkbox" id="clearAll" name="clearAll" value="clearAll">
+        <label for="clearAll"> Clear all messages</label><br><br>
+        <input type="submit" value="Clear" class = "button">
     </form>
 </div>
+</section>
 
 <c:choose>
     <c:when test="${not empty displayWarningPopup}">
