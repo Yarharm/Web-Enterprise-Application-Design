@@ -51,10 +51,4 @@ public class ClearServlet extends HttpServlet {
             response.sendRedirect(CHAT_PAGE);
         }
     }
-
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<ChatMessage> freshMessages = chatManager.ListMessages();
-        FrontendChatManager.refreshChatWindow(request, freshMessages);
-        response.sendRedirect(CHAT_PAGE);
-    }
 }
