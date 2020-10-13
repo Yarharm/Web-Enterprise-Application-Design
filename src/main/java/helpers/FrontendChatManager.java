@@ -12,12 +12,6 @@ import java.util.List;
 public class FrontendChatManager {
     private static final String CHAT_WINDOW_APPLICATION_ATTRIBUTE = "chatWindow";
 
-    public static void refreshChatWindow(HttpServletRequest request, List<ChatMessage> freshMessages) {
-        List<ChatMessage> chatWindow = fetchChatWindow(request);
-        chatWindow.clear();
-        chatWindow.addAll(freshMessages);
-    }
-
     public static void filterChatWindow(HttpServletRequest request, List<ChatMessage> filteredMessages) {
         List<ChatMessage> chatWindow = fetchChatWindow(request);
         chatWindow.retainAll(filteredMessages);

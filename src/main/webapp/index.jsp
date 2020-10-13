@@ -27,8 +27,6 @@
     <link rel="stylesheet" id="template">
 </head>
 <body>
-<form method="GET" action="servlet.ClearServlet" name="refresh-page"></form>
-
 <label class="switch">
     <input type="checkbox" id="myCheckbox" onchange="switchTemplateOnToggle()">
     <span class="slider round"></span>
@@ -58,10 +56,9 @@
             template.setAttribute('href', 'template_one.css');
             localStorage.setItem('templateStatus', 'template_one');
         }
-        console.log(localStorage.getItem('template'));
     }
 
-    setInterval(function() {document.forms["refresh-page"].submit();}, 15000);
+    setInterval(function() {location.reload();}, 15000);
     $(document).ready(function(){
         $('#action_menu_btn').click(function(){
             $('.action_menu').toggle();
