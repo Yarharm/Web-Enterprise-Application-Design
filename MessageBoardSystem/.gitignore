@@ -8,7 +8,7 @@
 /bin/*
 /target/*
 
-#gradle
+# gradle
 .gradle
 /build
 
@@ -44,9 +44,12 @@ Desktop.ini
 # Recycle Bin used on file shares
 $RECYCLE.BIN/
 
-#Extra Folders
+# Extra Folders
 /unused
 **/.DS_Store
 
-#spring
+# spring
 .springBeans
+
+# Custom configuration
+/config.*
