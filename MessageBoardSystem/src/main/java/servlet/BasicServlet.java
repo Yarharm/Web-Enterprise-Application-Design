@@ -17,7 +17,7 @@ import java.sql.Statement;
 
 @WebServlet(name = "BasicServlet")
 public class BasicServlet extends HttpServlet {
-    static final String DEFAULT_USERNAME = "Anonymous";
+    static final int DEFAULT_USERID = 0;
     static final String HOMEPAGE = "index.jsp";
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -30,7 +30,7 @@ public class BasicServlet extends HttpServlet {
         String message = request.getParameter("message");
         String title = request.getParameter("title");
 
-        m.postMessage(DEFAULT_USERNAME, title, message);
+        m.postMessage(DEFAULT_USERID, title, message);
 
         response.sendRedirect(HOMEPAGE);
     }
