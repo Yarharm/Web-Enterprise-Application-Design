@@ -52,4 +52,4 @@ $RECYCLE.BIN/
 .springBeans
 
 # Custom configuration
-/config.*
+/src/main/webapp/WEB-INF/config.json
