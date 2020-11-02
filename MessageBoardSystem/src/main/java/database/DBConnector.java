@@ -48,4 +48,20 @@ public class DBConnector {
             conn = null;
         }
     }
+
+    public static void releaseConnection(Connection conn, PreparedStatement preparedStmt) {
+        if (preparedStmt != null) {
+            try {
+                preparedStmt.close();
+            } catch (SQLException ignored) { }
+            preparedStmt = null;
+        }
+
+        if(conn != null) {
+            try {
+                conn.close();
+            } catch (SQLException ignored) { }
+            conn = null;
+        }
+    }
 }
