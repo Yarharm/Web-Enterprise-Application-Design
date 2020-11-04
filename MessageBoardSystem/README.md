@@ -26,6 +26,6 @@ CREATE TABLE `posts` (
 
 
 - Add `Users` table to store the file with user information:
-   ```
-  create table Users (UserFile BLOB);
-   ```
+```
+create table Users (UserFile BLOB);
+```
