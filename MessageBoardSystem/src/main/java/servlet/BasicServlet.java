@@ -17,21 +17,21 @@ import java.sql.Statement;
 
 @WebServlet(name = "BasicServlet")
 public class BasicServlet extends HttpServlet {
-    static final int DEFAULT_USERID = 0;
-    static final String DEFAULT_USERNAME = "Anonymous";
-    static final String HOMEPAGE = "index.jsp";
+    private final static  int DEFAULT_USERID = 0;
+    private final static String HOMEPAGE = "index.jsp";
+    MessageBoardManager boardManager = new MessageBoardManager();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        MessageBoardManager m = new MessageBoardManager();
+
 
         String message = request.getParameter("message");
         String title = request.getParameter("title");
-        
-        m.postMessage(DEFAULT_USERNAME, title, message);
+
+        boardManager.postMessage(DEFAULT_USERID, title, message);
 
         response.sendRedirect(HOMEPAGE);
     }
