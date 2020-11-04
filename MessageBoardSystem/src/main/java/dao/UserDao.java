@@ -25,8 +25,11 @@ public class UserDao implements Dao<User> {
 
     public void delete(User t) {}
 
-    public User get(int userID) {
-        return null;
+    public User get(String email, String password) {
+        return this.getUserFile().stream()
+                .filter(user -> user.userExists(email, password))
+                .findAny()
+                .orElse(null);
     }
 
     public void initDefaultUsers(List<User> defaultUsers) {

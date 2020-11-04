@@ -1,19 +1,27 @@
 package business_layer;
 
 import dao.PostDao;
-import database.DBConnector;
 import models.Post;
-
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Statement;
+import dao.UserDao;
+import models.User;
 
 public class MessageBoardManager {
-    public void postMessage(int userID, String title, String message){
-        PostDao pd = new PostDao();
+    private final UserDao userDao;
+    private final PostDao postDao;
+
+    public MessageBoardManager() {
+        userDao = new UserDao();
+        postDao = new PostDao();
+    }
+
+    public void postMessage(int userID, String title, String message) {
         long currentTime = System.currentTimeMillis();
 
         Post post = new Post(userID, title, message, currentTime);
-        pd.save(post);
+        this.postDao.save(post);
+    }
+
+    public User loginUser(String email, String password) {
+        return this.userDao.get(email, password);
     }
 }

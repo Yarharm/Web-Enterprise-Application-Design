@@ -18,8 +18,20 @@ public class User implements Serializable {
         this.password = this.hashPassword(password);
     }
 
-    public boolean validPassword(String password) {
+    public boolean userExists(String email, String password) {
+        return this.validEmail(email) && this.validPassword(password);
+    }
+
+    private boolean validEmail(String email) {
+        return this.email.equals(email);
+    }
+
+    private boolean validPassword(String password) {
         return SCryptUtil.check(password, this.password);
+    }
+
+    private String hashPassword(String password) {
+        return SCryptUtil.scrypt(password, 16, 16, 16);
     }
 
     public int getUserID() {
@@ -62,9 +74,5 @@ public class User implements Serializable {
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 '}';
-    }
-
-    private String hashPassword(String password) {
-        return SCryptUtil.scrypt(password, 16, 16, 16);
     }
 }
