@@ -14,11 +14,12 @@ public class MessageBoardManager {
         postDao = new PostDao();
     }
 
-    public void postMessage(int userID, String title, String message) {
+    public Post postMessage(int userID, String title, String message) {
         long currentTime = System.currentTimeMillis();
 
         Post post = new Post(userID, title, message, currentTime);
         this.postDao.save(post);
+        return post;
     }
 
     public User loginUser(String email, String password) {

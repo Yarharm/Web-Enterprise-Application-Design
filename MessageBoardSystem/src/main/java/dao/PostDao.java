@@ -4,6 +4,7 @@ import database.DBConnector;
 import models.Post;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -12,15 +13,21 @@ public class PostDao implements Dao<Post> {
     public void save(Post post){
         Connection c = DBConnector.getConnection();
         Statement stmt = null;
+        ResultSet rs = null;
         String query = String.format("INSERT INTO posts (userID, postTitle, message, timestamp) VALUES ('%s', '%s', '%s', %s)", post.getUserID(), post.getPostTitle(), post.getMessage(), post.getTimestamp());
 
         try {
             stmt = c.prepareStatement(query);
-            stmt.executeUpdate(query);
+            stmt.executeUpdate(query, Statement.RETURN_GENERATED_KEYS);
+
+            rs = stmt.getGeneratedKeys();
+            if(rs.next()) {
+                post.setPostID(rs.getInt(1));
+            }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         } finally {
-            DBConnector.releaseConnection(c, stmt);
+            DBConnector.releaseConnection(c, stmt, rs);
         }
     }
 

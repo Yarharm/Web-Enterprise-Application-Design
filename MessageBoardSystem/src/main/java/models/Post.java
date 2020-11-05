@@ -4,10 +4,12 @@ import java.io.Serializable;
 
 public class Post implements Serializable {
     private int userID;
+    private int postID;
     private String postTitle;
     private String message;
     private long timestamp;
 
+    public Post() {}
     public Post(int userID, String postTitle, String message, long timestamp) {
         this.userID = userID;
         this.postTitle = postTitle;
@@ -31,6 +33,8 @@ public class Post implements Serializable {
         return timestamp;
     }
 
+    public int getPostID() { return postID; }
+
     public void setUserID(int userID) {
         this.userID = userID;
     }
@@ -47,13 +51,16 @@ public class Post implements Serializable {
         this.timestamp = timestamp;
     }
 
+    public void setPostID(int postID) { this.postID = postID; }
+
     @Override
     public String toString() {
         return "Post{" +
                 "userID=" + userID +
+                ", postID=" + postID +
                 ", postTitle='" + postTitle + '\'' +
                 ", message='" + message + '\'' +
-                ", timestamp='" + timestamp + '\'' +
+                ", timestamp=" + timestamp +
                 '}';
     }
 }
