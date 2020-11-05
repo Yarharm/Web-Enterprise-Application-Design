@@ -1,6 +1,8 @@
 package servlet;
 
 import business_layer.MessageBoardManager;
+import helpers.FrontendBoardManager;
+import models.Post;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,7 +22,10 @@ public class BasicServlet extends HttpServlet {
         String title = request.getParameter("title");
         int userID = (int) request.getSession().getAttribute("userID");
 
-        boardManager.postMessage(userID, title, message);
+        if(message != null && title != null && !message.isEmpty() && !title.isEmpty()) {
+            Post post = boardManager.postMessage(userID, title, message);
+            FrontendBoardManager.appendMessageBoard(request, post);
+        }
 
         response.sendRedirect(ROOT_PAGE);
     }
