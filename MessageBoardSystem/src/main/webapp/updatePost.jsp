@@ -12,9 +12,6 @@
     <title>Title</title>
 </head>
 <body>
-<c:if test="${sessionScope.userID == null}">
-    <c:redirect url="index.jsp"/>
-</c:if>
 
 <form method="post" action="servlet.UpdateServlet">
 
