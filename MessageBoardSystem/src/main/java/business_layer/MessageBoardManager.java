@@ -3,9 +3,9 @@ package business_layer;
 import configuration.ConfigDriver;
 import dao.AttachmentDao;
 import dao.PostDao;
+import dao.UserDao;
 import models.Attachment;
 import models.Post;
-import dao.UserDao;
 import models.User;
 
 import java.io.InputStream;
@@ -89,6 +89,7 @@ public class MessageBoardManager {
         this.updateModificationTime(post.getPostID(), System.currentTimeMillis());
         return this.getPost(post.getPostID());
     }
+
 
     public User loginUser(String email, String password) {
         return this.userDao.get(email, password);
