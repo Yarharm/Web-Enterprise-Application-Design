@@ -3,6 +3,7 @@
 <html>
 <head>
     <title>MessageBoardSystem</title>
+    <link rel="stylesheet" href="index.css">
 </head>
 <body>
 <c:choose>
