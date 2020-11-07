@@ -77,6 +77,16 @@
         <url-pattern>/servlet.AttachmentServlet</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>PostDeleteServlet</servlet-name>
+        <servlet-class>servlet.PostDeleteServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>PostDeleteServlet</servlet-name>
+        <url-pattern>/servlet.PostDeleteServlet</url-pattern>
+    </servlet-mapping>
+
     <filter>
         <filter-name>AuthFilter</filter-name>
         <filter-class>filters.AuthFilter</filter-class>

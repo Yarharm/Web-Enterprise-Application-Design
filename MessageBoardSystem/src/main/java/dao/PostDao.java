@@ -57,11 +57,6 @@ public class PostDao implements Dao<Post> {
         }
     }
 
-    @Override
-    public boolean delete(int id) {
-        return false;
-    }
-
     public Post get(int postID) {
         Connection conn = null;
         PreparedStatement preparedStmt = null;
@@ -85,6 +80,30 @@ public class PostDao implements Dao<Post> {
             DBConnector.releaseConnection(conn, preparedStmt, rs);
         }
         return post;
+
+    }
+
+    @Override
+    public boolean delete(int postID) {
+        Connection conn = null;
+        PreparedStatement preparedStmt = null;
+        String query = "DELETE FROM posts WHERE postID=?";
+        boolean deleteStatus = false;
+
+        try{
+            conn = DBConnector.getConnection();
+            preparedStmt = conn.prepareStatement(query);
+
+            preparedStmt.setInt(1, postID);
+
+            int rowsAffected = preparedStmt.executeUpdate();
+            deleteStatus = rowsAffected > 0;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally {
+            DBConnector.releaseConnection(conn, preparedStmt);
+        }
+        return deleteStatus;
     }
 
     public List<Post> getAll() {

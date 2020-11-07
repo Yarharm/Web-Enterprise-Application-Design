@@ -53,6 +53,10 @@
                                     <h6 class="card-subtitle mb-2 text-muted">Updated</h6>
                                 </c:if>
                                 <p class="card-text">${post.message}</p>
+                                <form method="post" action="servlet.PostDeleteServlet">
+                                    <input type="hidden" name="postID" value=${post.postID}>
+                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                </form>
                             </div>
                             <div class="column" style="float:right">
                                 <form class="form-inline my-2 my-lg-0" action="servlet.UpdateServlet" method="get">

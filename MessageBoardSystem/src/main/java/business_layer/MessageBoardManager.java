@@ -40,8 +40,14 @@ public class MessageBoardManager {
         this.attachImageToPost(post);
     }
 
+
     public void updateModificationTime(int postID, long modificationTimestamp) {
         this.postDao.updateModificationTime(postID, modificationTimestamp);
+    }
+
+    public boolean deletePost(int postID) {
+        this.attachmentDao.delete(postID);
+        return this.postDao.delete(postID);
     }
 
     public Post postMessage(int userID, String title, String message) {
