@@ -36,7 +36,7 @@ public class PostDao implements Dao<Post> {
         }
     }
 
-    public void update(int id, Post post) {
+    public void update(Post post) {
         Connection conn = null;
         PreparedStatement preparedStmt = null;
         ResultSet rs = null;
@@ -48,7 +48,7 @@ public class PostDao implements Dao<Post> {
 
             preparedStmt.setString(1, post.getPostTitle());
             preparedStmt.setString(2, post.getMessage());
-            preparedStmt.setInt(3, id);
+            preparedStmt.setInt(3, post.getPostID());
             preparedStmt.executeUpdate();
         } catch (SQLException throwables) {
             throwables.printStackTrace();

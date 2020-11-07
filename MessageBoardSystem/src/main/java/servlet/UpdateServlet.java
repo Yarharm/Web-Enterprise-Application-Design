@@ -31,7 +31,7 @@ public class UpdateServlet extends HttpServlet {
             response.sendRedirect(MAIN_PAGE);
         }
 
-        messageBoardManager.updatePost(post.getPostID(), post);
+        messageBoardManager.updatePost(post);
 
         request.getSession().removeAttribute("referredPost");
 
