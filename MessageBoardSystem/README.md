@@ -26,6 +26,15 @@ attachment longblob NOT NULL,
 PRIMARY KEY(postID));
 ```
 
+- Add `hastag` table to store information about hashtag
+```
+CREATE TABLE hashtag (
+postID int NOT NULL,
+hashtag varchar(255) NOT NULL,
+PRIMARY KEY(hashtag),
+FOREIGN KEY(postID));
+```
+
 ## Installation
 1. Add __config.json__ file to the root of __WEB-INF__ folder and include the following (MySQL sample):
     - "JDBC_DRIVER":"com.mysql.cj.jdbc.Driver",

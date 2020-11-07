@@ -4,6 +4,8 @@ import helpers.Utils;
 
 import java.io.InputStream;
 import java.io.Serializable;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Post implements Serializable {
     private int userID;
@@ -53,6 +55,16 @@ public class Post implements Serializable {
 
     public void setLastModifiedTimestamp(long lastModifiedTimestamp) {
         this.lastModifiedTimestamp = lastModifiedTimestamp;
+    }
+
+    public void  searchHashtag(Post post) {
+        String holder = post.getMessage();
+        int holderID = post.getPostID();
+        Pattern regex = Pattern.compile("#(\\w+)");
+        Matcher match = regex.matcher(holder);
+        while (match.find()) {
+            Hashtag hash1 = new Hashtag(match.group(1),holderID);
+        }
     }
 
     public String getAttachment() {
