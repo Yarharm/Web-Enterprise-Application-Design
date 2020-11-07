@@ -38,12 +38,22 @@
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>DownloadServlet</servlet-name>
-        <servlet-class>servlet.DownloadServlet</servlet-class>
+        <servlet-name>UpdateServlet</servlet-name>
+        <servlet-class>servlet.UpdateServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>DownloadServlet</servlet-name>
-        <url-pattern>/servlet.DownloadServlet</url-pattern>
+        <servlet-name>UpdateServlet</servlet-name>
+        <url-pattern>/servlet.UpdateServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>DownloadServlet </servlet-name>
+        <servlet-class>servlet.DownloadServlet </servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>DownloadServlet </servlet-name>
+        <url-pattern>/servlet.DownloadServlet </url-pattern>
     </servlet-mapping>
 </web-app>

@@ -52,6 +52,10 @@ public class MessageBoardManager {
         paginatedPosts.forEach(this::attachImageToPost);
         return paginatedPosts;
     }
+    
+    public void updatePost(int id, Post post){
+        this.postDao.update(id, post);
+    }
 
     public User loginUser(String email, String password) {
         return this.userDao.get(email, password);

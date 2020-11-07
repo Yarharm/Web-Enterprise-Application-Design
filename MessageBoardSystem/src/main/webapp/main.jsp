@@ -49,8 +49,22 @@
                         <img src="data:image/jpg;base64,${post.attachment}" class="card-img-top" alt="No attachment">
                     </c:if>
                     <div class="card-body">
-                        <h5 class="card-title">${post.postTitle}</h5>
-                        <p class="card-text">${post.message}</p>
+                        <div class="row">
+                            <div class="column" style="float:left; width:50%;">
+                                <h5 class="card-title">${post.postTitle}</h5>
+                                <p class="card-text">${post.message}</p>
+                            </div>
+                            <div class="column" style="float:left">
+                                <form class="form-inline my-2 my-lg-0" action="servlet.UpdateServlet" method="get" enctype="multipart/form-data">
+                                    <input type="hidden" value="${post.postTitle}" id="referredTitle" name="referredTitle">
+                                    <input type="hidden" value="${post.message}" id="referredMessage" name="referredMessage">
+                                    <input type="hidden" value="${post.postID}" id="referredPostID", name="referredPostID">
+                                    <c:set var="referredPost" value="${post}" scope="session"></c:set>
+                                    <button class="btn btn-primary my-2 my-sm-0" type="Submit">Edit</button>
+                                </form>
+                            </div>
+                        </div>
+
                     </div>
                     <c:if test = "${post.containsAttachment}">
                         <form method="get" action="servlet.DownloadServlet">
