@@ -16,7 +16,7 @@
     <c:redirect url="index.jsp"/>
 </c:if>
 
-<form method="post" action="servlet.BasicServlet">
+<form method="post" action="servlet.BasicServlet" enctype="multipart/form-data">
     <div class="form-group row">
         <label for="title" class="col-sm-2 col-form-label">Title</label>
         <div class="col-sm-10">
@@ -31,7 +31,7 @@
     </div>
     <div class="form-group">
         <label for="inputAttachment" class="col-sm-2 col-form-label">Attachment</label>
-        <input type="file" class="form-control-file" id="inputAttachment">
+        <input name="attachment" type="file" class="form-control-file" id="inputAttachment">
     </div>
     <div class="form-group row">
         <div class="col-sm-10">

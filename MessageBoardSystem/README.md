@@ -2,7 +2,6 @@
 
 ## Database
 - Use the following query to create the posts table.
-
 ```
 CREATE TABLE `posts` (
  `postID` int(11) NOT NULL AUTO_INCREMENT,
@@ -10,9 +9,19 @@ CREATE TABLE `posts` (
  `postTitle` varchar(96) NOT NULL,
  `timestamp` bigint(30) NOT NULL,
  `message` varchar(1024) NOT NULL,
- `attachment` blob DEFAULT NULL,
  PRIMARY KEY (`postID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4
+```
+
+- Add `AttachmentInfo` table to store information about attachments
+```
+CREATE TABLE Attachments (
+postID int NOT NULL,
+fileName varchar(255) NOT NULL,
+fileSize bigint(30) NOT NULL,
+mediaType varchar(255) NOT NULL,
+attachment longblob NOT NULL,
+PRIMARY KEY(postID));
 ```
 
 - Add `Users` table to store the file with user information:

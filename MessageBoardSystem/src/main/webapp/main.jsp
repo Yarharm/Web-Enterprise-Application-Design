@@ -37,9 +37,12 @@
 <c:choose>
     <c:when test="${not empty messageBoard}">
         <jsp:useBean id="messageBoard" type="java.util.concurrent.ConcurrentSkipListMap<java.lang.Long, models.Post>" scope="application"/>
-        <div style="margin-top: 40px">
+        <div style="margin-top: 60px; margin-left:40%">
             <c:forEach items="${messageBoard.values()}" var="post">
-                <div class="card">
+                <div class="card" style="width: 25rem;" >
+                    <c:if test = "${post.containsAttachment}">
+                        <img src="data:image/jpg;base64,${post.attachment}" class="card-img-top" alt="No attachment">
+                    </c:if>
                     <div class="card-body">
                         <h5 class="card-title">${post.postTitle}</h5>
                         <p class="card-text">${post.message}</p>
