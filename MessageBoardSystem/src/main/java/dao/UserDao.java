@@ -19,11 +19,14 @@ import java.util.List;
 public class UserDao implements Dao<User> {
     private final static Gson gson = new Gson();
 
+    @Override
     public void save(User t) {}
 
+    @Override
     public void update(User t) {}
 
-    public void delete(User t) {}
+    @Override
+    public boolean delete(int id) {return false;}
 
     public User get(String email, String password) {
         return this.getUserFile().stream()

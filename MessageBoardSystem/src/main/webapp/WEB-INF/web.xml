@@ -67,6 +67,16 @@
         <url-pattern>/servlet.SignoutServlet</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>AttachmentServlet</servlet-name>
+        <servlet-class>servlet.AttachmentServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>AttachmentServlet</servlet-name>
+        <url-pattern>/servlet.AttachmentServlet</url-pattern>
+    </servlet-mapping>
+
     <filter>
         <filter-name>AuthFilter</filter-name>
         <filter-class>filters.AuthFilter</filter-class>

@@ -8,6 +8,7 @@ CREATE TABLE `posts` (
  `userID` int(11) NOT NULL,
  `postTitle` varchar(96) NOT NULL,
  `timestamp` bigint(30) NOT NULL,
+ `lastModifiedTimestamp` bigint(30) NOT NULL,
  `message` varchar(1024) NOT NULL,
  PRIMARY KEY (`postID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4

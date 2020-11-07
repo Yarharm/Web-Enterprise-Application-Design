@@ -21,8 +21,14 @@ public class FrontendBoardManager {
         posts.forEach(post -> messageBoard.put(post.getTimestamp(), post));
     }
 
+    public static void updatePost(HttpServletRequest request, Post post) {
+        ConcurrentSkipListMap<Long, Post> messageBoard = fetchMessageBoard(request);
+        messageBoard.remove(post.getTimestamp());
+        messageBoard.put(post.getTimestamp(), post);
+    }
+
     private static ConcurrentSkipListMap<Long, Post> fetchMessageBoard(HttpServletRequest request) {
-        ConcurrentSkipListMap<Long, Post> concurrentMessageBoard = (ConcurrentSkipListMap<Long, Post>) request.getServletContext().getAttribute(FRONTEND_MESSAGE_BOARD);
+        ConcurrentSkipListMap<Long, Post> concurrentMessageBoard = (ConcurrentSkipListMap<Long, Post>) request.getSession().getAttribute(FRONTEND_MESSAGE_BOARD);
         if(concurrentMessageBoard == null) {
             concurrentMessageBoard = new ConcurrentSkipListMap<>(Collections.reverseOrder());
             request.getSession().setAttribute(FRONTEND_MESSAGE_BOARD, concurrentMessageBoard);
