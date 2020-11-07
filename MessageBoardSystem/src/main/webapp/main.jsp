@@ -12,9 +12,6 @@
     <title>BoardContent</title>
 </head>
 <body>
-<c:if test="${sessionScope.userID == null}">
-    <c:redirect url="index.jsp"/>
-</c:if>
 
 <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
