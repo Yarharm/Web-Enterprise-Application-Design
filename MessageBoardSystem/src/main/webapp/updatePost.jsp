@@ -21,13 +21,13 @@
     <div class="form-group row">
         <label for="title" class="col-sm-2 col-form-label">Title</label>
         <div class="col-sm-10">
-            <input name="title" type="text" class="form-control" id="title" placeholder="Title" value="${referredTitle}" required>
+            <input name="title" type="text" class="form-control" id="title" placeholder="Title" value="${referredPost.getPostTitle()}" required>
         </div>
     </div>
     <div class="form-group row">
         <label for="message" class="col-sm-2 col-form-label">Message</label>
         <div class="col-sm-10">
-            <textarea name="message" class="form-control" id="message" rows="3" placeholder="Message" required>${referredMessage}</textarea>
+            <textarea name="message" class="form-control" id="message" rows="3" placeholder="Message" required>${referredPost.getMessage()}</textarea>
         </div>
     </div>
     <div class="form-group">
