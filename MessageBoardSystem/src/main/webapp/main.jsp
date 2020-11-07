@@ -33,7 +33,7 @@
                 <button class="btn btn-sm btn-outline-primary" type="Submit">View Recent</button>
             </form>
         </ul>
-        <form class="form-inline my-2 my-lg-0">
+        <form class="form-inline my-2 my-lg-0" method="post" action="servlet.SignoutServlet">
             <button class="btn btn-outline-success my-2 my-sm-0" type="Submit">Sign out</button>
         </form>
     </div>
@@ -41,7 +41,7 @@
 
 <c:choose>
     <c:when test="${not empty messageBoard}">
-        <jsp:useBean id="messageBoard" type="java.util.concurrent.ConcurrentSkipListMap<java.lang.Long, models.Post>" scope="application"/>
+        <jsp:useBean id="messageBoard" type="java.util.concurrent.ConcurrentSkipListMap<java.lang.Long, models.Post>" scope="session"/>
         <div style="margin-top: 60px; margin-left:40%">
             <c:forEach items="${messageBoard.values()}" var="post">
                 <div class="card" style="width: 25rem;" >

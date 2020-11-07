@@ -25,7 +25,7 @@ public class FrontendBoardManager {
         ConcurrentSkipListMap<Long, Post> concurrentMessageBoard = (ConcurrentSkipListMap<Long, Post>) request.getServletContext().getAttribute(FRONTEND_MESSAGE_BOARD);
         if(concurrentMessageBoard == null) {
             concurrentMessageBoard = new ConcurrentSkipListMap<>(Collections.reverseOrder());
-            request.getServletContext().setAttribute(FRONTEND_MESSAGE_BOARD, concurrentMessageBoard);
+            request.getSession().setAttribute(FRONTEND_MESSAGE_BOARD, concurrentMessageBoard);
         }
         return concurrentMessageBoard;
     }

@@ -46,4 +46,15 @@
         <servlet-name>DownloadServlet</servlet-name>
         <url-pattern>/servlet.DownloadServlet</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>SignoutServlet</servlet-name>
+        <servlet-class>servlet.SignoutServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>SignoutServlet</servlet-name>
+        <url-pattern>/servlet.SignoutServlet</url-pattern>
+    </servlet-mapping>
+
 </web-app>
