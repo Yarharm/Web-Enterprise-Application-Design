@@ -44,17 +44,12 @@ public class PostDao implements Dao<Post> {
 
         try {
             conn = DBConnector.getConnection();
-            preparedStmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+            preparedStmt = conn.prepareStatement(query);
 
             preparedStmt.setString(1, post.getPostTitle());
             preparedStmt.setString(2, post.getMessage());
             preparedStmt.setInt(3, id);
             preparedStmt.executeUpdate();
-
-            rs = preparedStmt.getGeneratedKeys();
-            if(rs.next()) {
-                post.setPostID(rs.getInt(1));
-            }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         } finally {

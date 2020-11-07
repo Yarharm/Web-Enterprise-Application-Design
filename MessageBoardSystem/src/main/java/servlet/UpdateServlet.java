@@ -21,26 +21,30 @@ public class UpdateServlet extends HttpServlet {
         String title = request.getParameter("title");
         String message = request.getParameter("message");
 
-        Object post = request.getSession().getAttribute("referredPost");
-        Post p = (Post) post;
+        Object postAttribute = request.getSession().getAttribute("referredPost");
+        Post post = (Post) postAttribute;
+        try {
+            post.setPostTitle(title);
+            post.setMessage(message);
+        } catch (Exception e){
+            e.printStackTrace();
+            response.sendRedirect(MAIN_PAGE);
+        }
 
-        p.setPostTitle(title);
-        p.setMessage(message);
+        messageBoardManager.updatePost(post.getPostID(), post);
 
-        messageBoardManager.updatePost(p.getPostID(), (Post) post);
+        request.getSession().removeAttribute("referredPost");
 
         response.sendRedirect(MAIN_PAGE);
+
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String title = request.getParameter("referredTitle");
-        String message = request.getParameter("referredMessage");
-        int postID = Integer.parseInt(request.getParameter("referredPostID"));
+        if (request.getSession().getAttribute("referredPost")!=null){
+            response.sendRedirect(UPDATE_POST_PAGE);
+        } else {
+            response.sendRedirect(MAIN_PAGE);
+        }
 
-        request.getServletContext().setAttribute("referredTitle", title);
-        request.getServletContext().setAttribute("referredMessage", message);
-        request.getServletContext().setAttribute("referredPostID", postID);
-
-        response.sendRedirect(UPDATE_POST_PAGE);
     }
 }
