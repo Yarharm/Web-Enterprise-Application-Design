@@ -17,16 +17,21 @@
 </c:if>
 
 <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="index.jsp">Home</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
+            <form class="form-inline my-2 my-lg-0" method="get" action="servlet.BasicServlet">
+                <button class="btn btn-lg btn-outline-light" type="Submit">Home</button>
+            </form>
             <li class="nav-item active">
                 <a class="nav-link" href="createPost.jsp">Create Post<span class="sr-only">(current)</span></a>
             </li>
+            <form class="form-inline my-2 my-lg-0" method="get" action="servlet.PaginationServlet">
+                <button class="btn btn-sm btn-outline-primary" type="Submit">View Recent</button>
+            </form>
         </ul>
         <form class="form-inline my-2 my-lg-0">
             <button class="btn btn-outline-success my-2 my-sm-0" type="Submit">Sign out</button>

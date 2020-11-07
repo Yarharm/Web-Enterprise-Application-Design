@@ -10,4 +10,5 @@ public final class ConfigModel {
     public final static String DB_NAME = "DB_NAME";
     public final static String DB_USER = "DB_USER";
     public final static String DB_PASSWORD = "DB_PASSWORD";
+    public final static String PAGINATION_SIZE = "PAGINATION_SIZE";
 }

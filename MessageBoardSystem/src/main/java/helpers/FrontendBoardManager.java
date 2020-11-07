@@ -3,6 +3,8 @@ package helpers;
 import models.Post;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Collections;
+import java.util.List;
 import java.util.concurrent.ConcurrentSkipListMap;
 
 import static helpers.Constants.FRONTEND_MESSAGE_BOARD;
@@ -13,13 +15,18 @@ public class FrontendBoardManager {
         messageBoard.put(post.getTimestamp(), post);
     }
 
+    public static void refreshMessageBoard(HttpServletRequest request, List<Post> posts) {
+        ConcurrentSkipListMap<Long, Post> messageBoard = fetchMessageBoard(request);
+        messageBoard.clear();
+        posts.forEach(post -> messageBoard.put(post.getTimestamp(), post));
+    }
+
     private static ConcurrentSkipListMap<Long, Post> fetchMessageBoard(HttpServletRequest request) {
         ConcurrentSkipListMap<Long, Post> concurrentMessageBoard = (ConcurrentSkipListMap<Long, Post>) request.getServletContext().getAttribute(FRONTEND_MESSAGE_BOARD);
         if(concurrentMessageBoard == null) {
-            concurrentMessageBoard = new ConcurrentSkipListMap<>();
+            concurrentMessageBoard = new ConcurrentSkipListMap<>(Collections.reverseOrder());
             request.getServletContext().setAttribute(FRONTEND_MESSAGE_BOARD, concurrentMessageBoard);
         }
-
         return concurrentMessageBoard;
     }
 }
