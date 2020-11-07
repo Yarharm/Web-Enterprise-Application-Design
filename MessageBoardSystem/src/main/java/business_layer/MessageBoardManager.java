@@ -22,6 +22,10 @@ public class MessageBoardManager {
         this.attachmentDao = new AttachmentDao();
     }
 
+    public Attachment getAttachment(int postID) {
+        return this.attachmentDao.get(postID);
+    }
+
     public void saveAttachment(Post post, String fileName, long fileSize, String mediaType, InputStream attachmentBinary) {
         Attachment attachment = new Attachment(post.getPostID(), fileName, fileSize, mediaType, attachmentBinary);
         this.attachmentDao.save(attachment);

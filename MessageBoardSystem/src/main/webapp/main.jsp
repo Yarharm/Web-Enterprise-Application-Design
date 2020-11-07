@@ -52,8 +52,24 @@
                         <h5 class="card-title">${post.postTitle}</h5>
                         <p class="card-text">${post.message}</p>
                     </div>
+                    <c:if test = "${post.containsAttachment}">
+                        <form method="get" action="servlet.DownloadServlet">
+                            <input type="hidden" id="postID" name="postID" value=${post.postID}>
+                            <button type="submit" class="btn btn-primary">Download</button>
+                        </form>
+                    </c:if>
                 </div>
             </c:forEach>
+        </div>
+    </c:when>
+</c:choose>
+
+<c:choose>
+    <c:when test="${not empty displayWarningPopup}">
+        <div class="message-alert">
+            <span class="message-closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                ${displayWarningPopup}
+            <c:remove var="displayWarningPopup"/>
         </div>
     </c:when>
 </c:choose>

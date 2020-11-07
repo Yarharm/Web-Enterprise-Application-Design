@@ -8,11 +8,11 @@ import java.sql.*;
 
 public class AttachmentDao implements Dao<Attachment> {
 
-    public InputStream getAttachmentBinary(int postID) {
+    public Attachment get(int postID) {
         Connection conn = null;
         PreparedStatement preparedStmt = null;
         ResultSet rs = null;
-        String query = "SELECT attachment FROM Attachments WHERE postID = ?";
+        String query = "SELECT * FROM Attachments WHERE postID = ?";
 
         try {
             conn = DBConnector.getConnection();
@@ -21,8 +21,11 @@ public class AttachmentDao implements Dao<Attachment> {
 
             rs = preparedStmt.executeQuery();
             if(rs.next()) {
+                String fileName = rs.getString("fileName");
+                long fileSize = rs.getLong("fileSize");
+                String mediaType = rs.getString("mediaType");
                 Blob attachmentBlob = rs.getBlob("attachment");
-                return attachmentBlob.getBinaryStream();
+                return new Attachment(postID, fileName, fileSize, mediaType, attachmentBlob.getBinaryStream());
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -30,6 +33,11 @@ public class AttachmentDao implements Dao<Attachment> {
             DBConnector.releaseConnection(conn, preparedStmt, rs);
         }
         return null;
+    }
+
+    public InputStream getAttachmentBinary(int postID) {
+        Attachment attachment = this.get(postID);
+        return attachment != null ? attachment.getAttachmentBinary() : null;
     }
 
     @Override
