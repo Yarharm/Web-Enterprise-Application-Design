@@ -11,20 +11,22 @@ public class Post implements Serializable {
     private String postTitle;
     private String message;
     private long timestamp;
+    private long lastModifiedTimestamp;
     private String attachment;
     private boolean containsAttachment;
 
     public Post() {}
-    public Post(int userID, String postTitle, String message, long timestamp) {
+    public Post(int userID, String postTitle, String message, long timestamp, long lastModifiedTimestamp) {
         this.userID = userID;
         this.postTitle = postTitle;
         this.message = message;
         this.timestamp = timestamp;
+        this.lastModifiedTimestamp = lastModifiedTimestamp;
         this.containsAttachment = false;
     }
 
-    public Post(int postID, int userID, String postTitle, String message, long timestamp) {
-        this(userID, postTitle, message, timestamp);
+    public Post(int postID, int userID, String postTitle, String message, long timestamp, long lastModifiedTimestamp) {
+        this(userID, postTitle, message, timestamp, lastModifiedTimestamp);
         this.postID = postID;
     }
 
@@ -33,6 +35,14 @@ public class Post implements Serializable {
             this.containsAttachment = true;
             this.attachment = Utils.inputStreamToImage(stream);
         }
+    }
+
+    public long getLastModifiedTimestamp() {
+        return lastModifiedTimestamp;
+    }
+
+    public void setLastModifiedTimestamp(long lastModifiedTimestamp) {
+        this.lastModifiedTimestamp = lastModifiedTimestamp;
     }
 
     public String getAttachment() {

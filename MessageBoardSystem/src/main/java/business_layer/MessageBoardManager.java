@@ -26,16 +26,28 @@ public class MessageBoardManager {
         return this.attachmentDao.get(postID);
     }
 
+    public Post removeAttachment(int postID) {
+        boolean deleteStatus = this.attachmentDao.delete(postID);
+        if(deleteStatus) {
+            this.updateModificationTime(postID, System.currentTimeMillis());
+        }
+        return this.postDao.get(postID);
+    }
+
     public void saveAttachment(Post post, String fileName, long fileSize, String mediaType, InputStream attachmentBinary) {
         Attachment attachment = new Attachment(post.getPostID(), fileName, fileSize, mediaType, attachmentBinary);
         this.attachmentDao.save(attachment);
         this.attachImageToPost(post);
     }
 
+    public void updateModificationTime(int postID, long modificationTimestamp) {
+        this.postDao.updateModificationTime(postID, modificationTimestamp);
+    }
+
     public Post postMessage(int userID, String title, String message) {
         long currentTime = System.currentTimeMillis();
 
-        Post post = new Post(userID, title, message, currentTime);
+        Post post = new Post(userID, title, message, currentTime, currentTime);
         this.postDao.save(post);
         return post;
     }

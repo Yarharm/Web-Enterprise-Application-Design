@@ -7,7 +7,6 @@ import java.io.InputStream;
 import java.sql.*;
 
 public class AttachmentDao implements Dao<Attachment> {
-
     public Attachment get(int postID) {
         Connection conn = null;
         PreparedStatement preparedStmt = null;
@@ -17,6 +16,7 @@ public class AttachmentDao implements Dao<Attachment> {
         try {
             conn = DBConnector.getConnection();
             preparedStmt = conn.prepareStatement(query);
+
             preparedStmt.setInt(1, postID);
 
             rs = preparedStmt.executeQuery();
@@ -70,7 +70,25 @@ public class AttachmentDao implements Dao<Attachment> {
     }
 
     @Override
-    public void delete(Attachment attachment) {
+    public boolean delete(int postID) {
+        Connection conn = null;
+        PreparedStatement preparedStmt = null;
+        String query = "DELETE FROM Attachments WHERE postID=?";
+        boolean deleteStatus = false;
 
+        try {
+            conn = DBConnector.getConnection();
+            preparedStmt = conn.prepareStatement(query);
+
+            preparedStmt.setInt(1, postID);
+
+            int rowsAffected = preparedStmt.executeUpdate();
+            deleteStatus = rowsAffected > 0;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally {
+            DBConnector.releaseConnection(conn, preparedStmt);
+        }
+        return deleteStatus;
     }
 }

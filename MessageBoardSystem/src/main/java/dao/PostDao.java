@@ -8,12 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PostDao implements Dao<Post> {
-
     public void save(Post post){
         Connection conn = null;
         PreparedStatement preparedStmt = null;
         ResultSet rs = null;
-        String query = "INSERT INTO posts (userID, postTitle, message, timestamp) VALUES (?,?,?,?)";
+        String query = "INSERT INTO posts (userID, postTitle, message, timestamp, lastModifiedTimestamp) VALUES (?,?,?,?,?)";
 
         try {
             conn = DBConnector.getConnection();
@@ -23,6 +22,7 @@ public class PostDao implements Dao<Post> {
             preparedStmt.setString(2, post.getPostTitle());
             preparedStmt.setString(3, post.getMessage());
             preparedStmt.setLong(4, post.getTimestamp());
+            preparedStmt.setLong(5, post.getTimestamp());
             preparedStmt.executeUpdate();
 
             rs = preparedStmt.getGeneratedKeys();
@@ -58,8 +58,33 @@ public class PostDao implements Dao<Post> {
     }
 
     @Override
-    public void delete(Post post) {
+    public boolean delete(int id) {
+        return false;
+    }
 
+    public Post get(int postID) {
+        Connection conn = null;
+        PreparedStatement preparedStmt = null;
+        ResultSet rs = null;
+        String query = "SELECT * FROM posts WHERE postID=?";
+        Post post = null;
+
+        try {
+            conn = DBConnector.getConnection();
+            preparedStmt = conn.prepareStatement(query);
+
+            preparedStmt.setInt(1, postID);
+
+            rs = preparedStmt.executeQuery();
+            if(rs.next()) {
+                post = this.constructPost(rs);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally {
+            DBConnector.releaseConnection(conn, preparedStmt, rs);
+        }
+        return post;
     }
 
     public List<Post> getAll() {
@@ -96,6 +121,7 @@ public class PostDao implements Dao<Post> {
         try {
             conn = DBConnector.getConnection();
             preparedStmt = conn.prepareStatement(query);
+
             preparedStmt.setInt(1, postCount);
 
             rs = preparedStmt.executeQuery();
@@ -111,12 +137,33 @@ public class PostDao implements Dao<Post> {
         return paginatedPosts;
     }
 
+    public void updateModificationTime(int postID, long modificationTimestamp) {
+        Connection conn = null;
+        PreparedStatement preparedStmt = null;
+        String query = "UPDATE posts SET lastModifiedTimestamp=? WHERE postID=?";
+
+        try {
+            conn = DBConnector.getConnection();
+            preparedStmt = conn.prepareStatement(query);
+
+            preparedStmt.setLong(1, modificationTimestamp);
+            preparedStmt.setInt(2, postID);
+
+            preparedStmt.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally {
+            DBConnector.releaseConnection(conn, preparedStmt);
+        }
+    }
+
     private Post constructPost(ResultSet rs) throws SQLException {
         int postID = rs.getInt("postID");
         int userID = rs.getInt("userID");
         String postTitle = rs.getString("postTitle");
         String message = rs.getString("message");
         long timestamp = rs.getLong("timestamp");
-        return new Post(postID, userID, postTitle, message, timestamp);
+        long lastModifiedTimestamp = rs.getLong("lastModifiedTimestamp");
+        return new Post(postID, userID, postTitle, message, timestamp, lastModifiedTimestamp);
     }
 }
