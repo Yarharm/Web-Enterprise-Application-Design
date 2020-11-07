@@ -21,7 +21,7 @@ public class UserDao implements Dao<User> {
 
     public void save(User t) {}
 
-    public void update(int id, User t) {}
+    public void update(User t) {}
 
     public void delete(User t) {}
 

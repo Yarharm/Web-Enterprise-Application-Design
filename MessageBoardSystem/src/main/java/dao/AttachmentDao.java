@@ -65,7 +65,7 @@ public class AttachmentDao implements Dao<Attachment> {
     }
 
     @Override
-    public void update(int id, Attachment attachment) {
+    public void update(Attachment attachment) {
 
     }
 

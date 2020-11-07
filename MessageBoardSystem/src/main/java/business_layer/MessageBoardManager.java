@@ -53,8 +53,9 @@ public class MessageBoardManager {
         return paginatedPosts;
     }
     
-    public void updatePost(int id, Post post){
-        this.postDao.update(id, post);
+
+    public void updatePost(Post post){
+        this.postDao.update(post);
     }
 
     public User loginUser(String email, String password) {
