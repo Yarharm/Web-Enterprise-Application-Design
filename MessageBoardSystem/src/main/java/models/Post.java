@@ -23,6 +23,11 @@ public class Post implements Serializable {
         this.containsAttachment = false;
     }
 
+    public Post(int postID, int userID, String postTitle, String message, long timestamp) {
+        this(userID, postTitle, message, timestamp);
+        this.postID = postID;
+    }
+
     public void setAttachmentFromBinary(InputStream stream) {
         if(stream != null) {
             this.containsAttachment = true;

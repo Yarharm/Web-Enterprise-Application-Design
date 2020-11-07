@@ -4,6 +4,8 @@ import database.DBConnector;
 import models.Post;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PostDao implements Dao<Post> {
 
@@ -44,7 +46,61 @@ public class PostDao implements Dao<Post> {
 
     }
 
-    public Post get(int id) {
-        return null;
+    public List<Post> getAll() {
+        List<Post> posts = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement preparedStmt = null;
+        ResultSet rs = null;
+        String query = "SELECT * FROM posts";
+
+        try {
+            conn = DBConnector.getConnection();
+            preparedStmt = conn.prepareStatement(query);
+
+            rs = preparedStmt.executeQuery();
+
+            while(rs.next()) {
+                posts.add(this.constructPost(rs));
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally {
+            DBConnector.releaseConnection(conn, preparedStmt, rs);
+        }
+        return posts;
+    }
+
+    public List<Post> getPaginatedPosts(int postCount) {
+        List<Post> paginatedPosts = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement preparedStmt = null;
+        ResultSet rs = null;
+        String query = "SELECT * FROM posts ORDER BY timestamp DESC LIMIT ?";
+
+        try {
+            conn = DBConnector.getConnection();
+            preparedStmt = conn.prepareStatement(query);
+            preparedStmt.setInt(1, postCount);
+
+            rs = preparedStmt.executeQuery();
+
+            while(rs.next()) {
+                paginatedPosts.add(this.constructPost(rs));
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally {
+            DBConnector.releaseConnection(conn, preparedStmt, rs);
+        }
+        return paginatedPosts;
+    }
+
+    private Post constructPost(ResultSet rs) throws SQLException {
+        int postID = rs.getInt("postID");
+        int userID = rs.getInt("userID");
+        String postTitle = rs.getString("postTitle");
+        String message = rs.getString("message");
+        long timestamp = rs.getLong("timestamp");
+        return new Post(postID, userID, postTitle, message, timestamp);
     }
 }

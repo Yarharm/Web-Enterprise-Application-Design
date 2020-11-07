@@ -35,5 +35,6 @@ create table Users (UserFile BLOB);
     - "DB_URL":"jdbc:mysql://localhost:3306/",
     - "DB_NAME":"preferred_db_name",
     - "DB_USER":"your_username",
-    - "DB_PASSWORD":"your_password"
+    - "DB_PASSWORD":"your_password",
+    - "PAGINATION_SIZE":"10"
 2. Run `PreloadUsers` driver to add default users to the DB.

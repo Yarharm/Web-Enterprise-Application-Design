@@ -19,6 +19,10 @@ public final class ConfigDriver {
     private final static Gson gson = new Gson();
     private ConfigDriver() {}
 
+    public static int getPaginationSize() {
+        return Integer.parseInt(getConfig().get(ConfigModel.PAGINATION_SIZE));
+    }
+
     public static String getJDBCDriver() {
         return getConfig().get(ConfigModel.JDBC_DRIVER);
     }
