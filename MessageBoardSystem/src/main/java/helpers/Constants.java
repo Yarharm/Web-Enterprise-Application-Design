@@ -7,4 +7,5 @@ public final class Constants {
     public final static String CREATE_POST_PAGE = "createPost.jsp";
     public final static String FRONTEND_MESSAGE_BOARD = "messageBoard";
     public static final String DISPLAY_WARNING_POPUP = "displayWarningPopup";
+    public final static String UPDATE_POST_PAGE = "updatePost.jsp";
 }

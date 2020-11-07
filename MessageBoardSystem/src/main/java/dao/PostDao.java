@@ -36,9 +36,30 @@ public class PostDao implements Dao<Post> {
         }
     }
 
-    @Override
     public void update(int id, Post post) {
+        Connection conn = null;
+        PreparedStatement preparedStmt = null;
+        ResultSet rs = null;
+        String query = "UPDATE posts SET postTitle=?, message=? WHERE postID=?";
 
+        try {
+            conn = DBConnector.getConnection();
+            preparedStmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+
+            preparedStmt.setString(1, post.getPostTitle());
+            preparedStmt.setString(2, post.getMessage());
+            preparedStmt.setInt(3, id);
+            preparedStmt.executeUpdate();
+
+            rs = preparedStmt.getGeneratedKeys();
+            if(rs.next()) {
+                post.setPostID(rs.getInt(1));
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally {
+            DBConnector.releaseConnection(conn, preparedStmt, rs);
+        }
     }
 
     @Override
