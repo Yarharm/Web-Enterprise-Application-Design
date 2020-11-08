@@ -53,36 +53,44 @@
                                     <h6 class="card-subtitle mb-2 text-muted">Updated</h6>
                                 </c:if>
                                 <p class="card-text">${post.message}</p>
-                                <form method="post" action="servlet.PostDeleteServlet">
-                                    <input type="hidden" name="postID" value=${post.postID}>
-                                    <button type="submit" class="btn btn-danger">Delete</button>
-                                </form>
+                                <c:if test = "${userID eq post.userID}">
+                                    <form method="post" action="servlet.PostDeleteServlet">
+                                        <input type="hidden" name="postID" value=${post.postID}>
+                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                    </form>
+                                </c:if>
                             </div>
                             <div class="column" style="float:right">
-                                <form class="form-inline my-2 my-lg-0" action="servlet.UpdateServlet" method="get">
-                                    <input type="hidden" name="postID" value=${post.postID}>
-                                    <button class="btn btn-primary my-2 my-sm-0" type="Submit">Edit</button>
-                                </form>
+                                <c:if test = "${userID eq post.userID}">
+                                    <form class="form-inline my-2 my-lg-0" action="servlet.UpdateServlet" method="get">
+                                        <input type="hidden" name="postID" value=${post.postID}>
+                                        <button class="btn btn-primary my-2 my-sm-0" type="Submit">Edit</button>
+                                    </form>
+                                </c:if>
                             </div>
                         </div>
                     </div>
-                    <c:if test = "${post.containsAttachment}">
-                        <div class="dropdown">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Attachment
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <form class="dropdown-item" method="get" action="servlet.DownloadServlet">
-                                    <input type="hidden" name="postID" value=${post.postID}>
-                                    <button type="submit" class="btn btn-primary">Download</button>
-                                </form>
-                                <form class="dropdown-item" method="post" action="servlet.AttachmentServlet">
-                                    <input type="hidden" name="postID" value=${post.postID}>
-                                    <button type="submit" class="btn btn-primary">Remove</button>
-                                </form>
+                    <div class="card-footer text-muted">
+                        <c:if test = "${post.containsAttachment}">
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Attachment
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <form class="dropdown-item" method="get" action="servlet.DownloadServlet">
+                                        <input type="hidden" name="postID" value=${post.postID}>
+                                        <button type="submit" class="btn btn-primary">Download</button>
+                                    </form>
+                                    <c:if test = "${userID eq post.userID}">
+                                        <form class="dropdown-item" method="post" action="servlet.AttachmentServlet">
+                                            <input type="hidden" name="postID" value=${post.postID}>
+                                            <button type="submit" class="btn btn-primary">Remove</button>
+                                        </form>
+                                    </c:if>
+                                </div>
                             </div>
-                        </div>
-                    </c:if>
+                        </c:if>
+                    </div>
                 </div>
             </c:forEach>
         </div>

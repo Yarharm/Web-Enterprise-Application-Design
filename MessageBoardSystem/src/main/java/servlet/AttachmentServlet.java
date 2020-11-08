@@ -18,16 +18,22 @@ import static helpers.Constants.ROOT_PAGE;
 public class AttachmentServlet extends HttpServlet {
     MessageBoardManager boardManager = new MessageBoardManager();
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String postID = request.getParameter("postID");
+        String postIDParam = request.getParameter("postID");
         try {
-            if(postID == null || postID.isEmpty()) {
-                throw new Exception("Delete failed! Missing postID");
+            if(postIDParam == null || postIDParam.isEmpty()) {
+                throw new Exception("Attachment delete failed! Missing postID");
             }
 
-            Post post = boardManager.removeAttachment(Integer.parseInt(postID));
+            int postID = Integer.parseInt(postIDParam);
+            int userID = (int) request.getSession().getAttribute("userID");
+            if(!boardManager.isPostOwner(userID, postID)) {
+                throw new Exception("Attachment delete failed! Permission denied");
+            }
+
+            Post post = boardManager.removeAttachment(postID);
 
             if(post == null) {
-                throw new Exception("Delete failed! Post does not exists");
+                throw new Exception("Attachment delete failed! Post does not exists");
             }
 
             FrontendBoardManager.updatePost(request, post);
