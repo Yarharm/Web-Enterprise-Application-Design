@@ -39,7 +39,6 @@ public class PostDao implements Dao<Post> {
     public void update(Post post) {
         Connection conn = null;
         PreparedStatement preparedStmt = null;
-        ResultSet rs = null;
         String query = "UPDATE posts SET postTitle=?, message=? WHERE postID=?";
 
         try {
@@ -53,7 +52,7 @@ public class PostDao implements Dao<Post> {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         } finally {
-            DBConnector.releaseConnection(conn, preparedStmt, rs);
+            DBConnector.releaseConnection(conn, preparedStmt);
         }
     }
 

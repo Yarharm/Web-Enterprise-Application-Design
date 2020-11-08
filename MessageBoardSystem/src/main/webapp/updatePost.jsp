@@ -13,18 +13,18 @@
 </head>
 <body>
 
-<form method="post" action="servlet.UpdateServlet">
+<form method="post" action="servlet.UpdateServlet" enctype="multipart/form-data">
 
     <div class="form-group row">
         <label for="title" class="col-sm-2 col-form-label">Title</label>
         <div class="col-sm-10">
-            <input name="title" type="text" class="form-control" id="title" placeholder="Title" value="${referredPost.getPostTitle()}" required>
+            <input name="title" type="text" class="form-control" id="title" placeholder="Title" value="${referredPost.postTitle}" required>
         </div>
     </div>
     <div class="form-group row">
         <label for="message" class="col-sm-2 col-form-label">Message</label>
         <div class="col-sm-10">
-            <textarea name="message" class="form-control" id="message" rows="3" placeholder="Message" required>${referredPost.getMessage()}</textarea>
+            <textarea name="message" class="form-control" id="message" rows="3" placeholder="Message" required>${referredPost.message}</textarea>
         </div>
     </div>
     <div class="form-group">
