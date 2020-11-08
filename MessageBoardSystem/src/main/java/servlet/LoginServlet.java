@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-import static helpers.Constants.ROOT_PAGE;
+import static helpers.Constants.*;
 
 @WebServlet(name = "LoginServlet")
 public class LoginServlet extends HttpServlet {
@@ -24,11 +24,26 @@ public class LoginServlet extends HttpServlet {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         HttpSession session = request.getSession();
-        User authUser = boardManager.loginUser(email, password);
+        Object userID = session.getAttribute("userID");
 
-        if(authUser != null && session.getAttribute("userID") == null) {
+        try {
+            if(userID != null) {
+                throw new Exception("Error! User is already authenticated");
+            }
+            if(email == null || password == null || email.isEmpty() || password.isEmpty()) {
+                throw new Exception("Login failed! Missing credentials");
+            }
+            User authUser = boardManager.loginUser(email, password);
+
+            if(authUser == null) {
+                throw new Exception("Login failed! Invalid credentials");
+            }
+
             session.setAttribute("userID", authUser.getUserID());
+        } catch (Exception e) {
+            request.getSession().setAttribute(DISPLAY_WARNING_POPUP, e.getMessage());
+        } finally {
+            response.sendRedirect(ROOT_PAGE);
         }
-        response.sendRedirect(ROOT_PAGE);
     }
 }

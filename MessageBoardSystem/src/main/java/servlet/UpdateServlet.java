@@ -47,7 +47,7 @@ public class UpdateServlet extends HttpServlet {
 
             FrontendBoardManager.updatePost(request, updatedPost);
         } catch (Exception e) {
-            request.getServletContext().setAttribute(DISPLAY_WARNING_POPUP, e.getMessage());
+            request.getSession().setAttribute(DISPLAY_WARNING_POPUP, e.getMessage());
         } finally {
             request.getSession().removeAttribute("referredPost");
             response.sendRedirect(ROOT_PAGE);
@@ -70,7 +70,7 @@ public class UpdateServlet extends HttpServlet {
             request.getSession().setAttribute("referredPost", post);
             redirectPage = UPDATE_POST_PAGE;
         } catch (Exception e) {
-            request.getServletContext().setAttribute(DISPLAY_WARNING_POPUP, e.getMessage());
+            request.getSession().setAttribute(DISPLAY_WARNING_POPUP, e.getMessage());
         } finally {
             response.sendRedirect(redirectPage);
         }

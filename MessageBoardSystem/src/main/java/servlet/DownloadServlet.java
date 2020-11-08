@@ -48,7 +48,7 @@ public class DownloadServlet extends HttpServlet {
                 }
             }
         } catch (Exception e) {
-            request.getServletContext().setAttribute(DISPLAY_WARNING_POPUP, e.getMessage());
+            request.getSession().setAttribute(DISPLAY_WARNING_POPUP, e.getMessage());
             response.sendRedirect(ROOT_PAGE);
         }
     }

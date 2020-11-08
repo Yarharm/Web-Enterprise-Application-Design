@@ -46,9 +46,41 @@
     </div>
 </div>
 
-
 <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+<style>
+    .message-alert {
+        top:2%;
+        left:42%;
+        padding: 20px;
+        background-color: #f44336;
+        color: white;
+        position: absolute;
+        bottom: 8px;
+        max-height: 25px;
+    }
+
+    .message-closebtn {
+        margin-left: 15px;
+        color: white;
+        font-weight: bold;
+        float: right;
+        font-size: 22px;
+        line-height: 20px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+</style>
+<c:choose>
+    <c:when test="${not empty displayWarningPopup}">
+        <div class="message-alert">
+            <span class="message-closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                ${displayWarningPopup}
+            <c:remove var="displayWarningPopup"/>
+        </div>
+    </c:when>
+</c:choose>
+
 </body>
 </html>
