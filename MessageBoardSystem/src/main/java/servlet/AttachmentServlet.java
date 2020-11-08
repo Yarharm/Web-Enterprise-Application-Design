@@ -39,7 +39,7 @@ public class AttachmentServlet extends HttpServlet {
             FrontendBoardManager.updatePost(request, post);
 
         } catch (Exception e) {
-            request.getServletContext().setAttribute(DISPLAY_WARNING_POPUP, e.getMessage());
+            request.getSession().setAttribute(DISPLAY_WARNING_POPUP, e.getMessage());
         } finally {
             response.sendRedirect(ROOT_PAGE);
         }
