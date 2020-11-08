@@ -17,6 +17,10 @@
     <title>Title</title>
 </head>
 <body>
+<c:if test="${not empty userID}">
+    <c:redirect url="index.jsp"/>
+</c:if>
+
 <div id="login">
     <h3 class="text-center text-white pt-5">Login form</h3>
     <div class="container">
