@@ -27,16 +27,17 @@
             <textarea name="message" class="form-control" id="message" rows="3" placeholder="Message" required>${referredPost.message}</textarea>
         </div>
     </div>
-    <div class="form-group">
-        <label for="inputAttachment" class="col-sm-2 col-form-label">Attachment</label>
-        <input name="attachment" type="file" class="form-control-file" id="inputAttachment">
-    </div>
+    <c:if test = "${referredPost.containsAttachment}">
+        <div class="form-group">
+            <label for="inputAttachment" class="col-sm-2 col-form-label">Attachment</label>
+            <input name="attachment" type="file" class="form-control-file" id="inputAttachment">
+        </div>
+    </c:if>
     <div class="form-group row">
         <div class="col-sm-10">
             <button type="submit" class="btn btn-primary">Update</button>
         </div>
     </div>
-
 </form>
 
 <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->

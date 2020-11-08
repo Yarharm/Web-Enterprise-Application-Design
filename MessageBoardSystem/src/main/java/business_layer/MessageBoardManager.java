@@ -94,6 +94,11 @@ public class MessageBoardManager {
         return this.userDao.get(email, password);
     }
 
+    public boolean isPostOwner(int userID, int postID) {
+        Post post = this.getPost(postID);
+        return post != null && userID == post.getUserID();
+    }
+
     private void attachImageToPost(Post post) {
         if(post != null) {
             post.setAttachmentFromBinary(this.attachmentDao.getAttachmentBinary(post.getPostID()));

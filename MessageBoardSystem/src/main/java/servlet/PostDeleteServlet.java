@@ -20,14 +20,21 @@ public class PostDeleteServlet extends HttpServlet {
     MessageBoardManager boardManager = new MessageBoardManager();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String postID = request.getParameter("postID");
+        String postIDParam = request.getParameter("postID");
         try {
-            if(postID == null || postID.isEmpty()) {
-                throw new Exception("Delete failed! Missing postID");
+            if(postIDParam == null || postIDParam.isEmpty()) {
+                throw new Exception("Post delete failed! Missing postID");
             }
-            boolean deleteStatus = boardManager.deletePost(Integer.parseInt(postID));
+
+            int postID = Integer.parseInt(postIDParam);
+            int userID = (int) request.getSession().getAttribute("userID");
+            if(!boardManager.isPostOwner(userID, postID)) {
+                throw new Exception("Post delete failed! Permission denied");
+            }
+
+            boolean deleteStatus = boardManager.deletePost(postID);
             if(!deleteStatus) {
-                throw new Exception("Delete failed! Post does not exist");
+                throw new Exception("Post delete failed! Post does not exist");
             } else {
                 List<Post> freshPosts = boardManager.getAllPosts();
                 FrontendBoardManager.refreshMessageBoard(request, freshPosts);

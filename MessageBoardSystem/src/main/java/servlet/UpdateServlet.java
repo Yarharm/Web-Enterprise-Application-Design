@@ -32,10 +32,15 @@ public class UpdateServlet extends HttpServlet {
                 throw new Exception("Edit failed! Invalid attributes");
             }
 
+            int userID = (int) request.getSession().getAttribute("userID");
             Post post = (Post) postAttribute;
+            if(!messageBoardManager.isPostOwner(userID, post.getPostID())) {
+                throw new Exception("Edit failed! Permission denied");
+            }
+
             post.setPostTitle(title);
             post.setMessage(message);
-            if(attachmentPart.getSize() > 0) {
+            if(attachmentPart != null && attachmentPart.getSize() > 0) {
                 messageBoardManager.updateAttachment(post, attachmentPart.getSubmittedFileName(), attachmentPart.getSize(),
                         attachmentPart.getContentType(), attachmentPart.getInputStream());
             }
@@ -56,13 +61,19 @@ public class UpdateServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String redirectPage = ROOT_PAGE;
-        String postID = request.getParameter("postID");
+        String postIDParam = request.getParameter("postID");
         try {
-            if(postID == null || postID.isEmpty()) {
+            if(postIDParam == null || postIDParam.isEmpty()) {
                 throw new Exception("Edit failed! Invalid Post ID");
             }
 
-            Post post = messageBoardManager.getPost(Integer.parseInt(postID));
+            int postID = Integer.parseInt(postIDParam);
+            int userID = (int) request.getSession().getAttribute("userID");
+            if(!messageBoardManager.isPostOwner(userID, postID)) {
+                throw new Exception("Edit failed! Permission denied");
+            }
+
+            Post post = messageBoardManager.getPost(postID);
             if(post == null) {
                 throw new Exception("Edit failed! Post does not exist");
             }
