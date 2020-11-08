@@ -3,6 +3,7 @@ package servlet;
 import business_layer.MessageBoardManager;
 import helpers.FrontendBoardManager;
 import models.Post;
+import org.apache.commons.lang.StringEscapeUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -28,7 +29,9 @@ public class BasicServlet extends HttpServlet {
         int userID = (int) request.getSession().getAttribute("userID");
 
         if(message != null && title != null && !message.isEmpty() && !title.isEmpty()) {
-            Post post = boardManager.postMessage(userID, title, message);
+            String escapedTitle = StringEscapeUtils.escapeXml(title);
+            String escapedMessage = StringEscapeUtils.escapeXml(message);
+            Post post = boardManager.postMessage(userID, escapedTitle, escapedMessage);
 
             if(attachmentPart.getSize() > 0) {
                 this.boardManager.saveAttachment(post, attachmentPart.getSubmittedFileName(), attachmentPart.getSize(),
