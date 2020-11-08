@@ -28,9 +28,9 @@ public class AttachmentServlet extends HttpServlet {
 
             if(post == null) {
                 throw new Exception("Delete failed! Post does not exists");
-            } else {
-                FrontendBoardManager.updatePost(request, post);
             }
+
+            FrontendBoardManager.updatePost(request, post);
 
         } catch (Exception e) {
             request.getServletContext().setAttribute(DISPLAY_WARNING_POPUP, e.getMessage());

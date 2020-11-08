@@ -66,7 +66,26 @@ public class AttachmentDao implements Dao<Attachment> {
 
     @Override
     public void update(Attachment attachment) {
+        Connection conn = null;
+        PreparedStatement preparedStmt = null;
+        String query = "UPDATE Attachments SET fileName=?,fileSize=?,mediaType=?,attachment=? WHERE postID=?";
 
+        try {
+            conn = DBConnector.getConnection();
+            preparedStmt = conn.prepareStatement(query);
+
+            preparedStmt.setString(1, attachment.getFileName());
+            preparedStmt.setLong(2, attachment.getFileSize());
+            preparedStmt.setString(3, attachment.getMediaType());
+            preparedStmt.setBinaryStream(4, attachment.getAttachmentBinary());
+            preparedStmt.setInt(5, attachment.getPostID());
+
+            preparedStmt.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally {
+            DBConnector.releaseConnection(conn, preparedStmt);
+        }
     }
 
     @Override

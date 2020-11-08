@@ -34,6 +34,12 @@ public class MessageBoardManager {
         return this.postDao.get(postID);
     }
 
+    public void updateAttachment(Post post, String fileName, long fileSize, String mediaType, InputStream attachmentBinary) {
+        Attachment attachment = new Attachment(post.getPostID(), fileName, fileSize, mediaType, attachmentBinary);
+        this.attachmentDao.update(attachment);
+        this.attachImageToPost(post);
+    }
+
     public void saveAttachment(Post post, String fileName, long fileSize, String mediaType, InputStream attachmentBinary) {
         Attachment attachment = new Attachment(post.getPostID(), fileName, fileSize, mediaType, attachmentBinary);
         this.attachmentDao.save(attachment);
@@ -58,6 +64,12 @@ public class MessageBoardManager {
         return post;
     }
 
+    public Post getPost(int postID) {
+        Post post = this.postDao.get(postID);
+        this.attachImageToPost(post);
+        return post;
+    }
+
     public List<Post> getAllPosts() {
         List<Post> posts = this.postDao.getAll();
         posts.forEach(this::attachImageToPost);
@@ -72,8 +84,10 @@ public class MessageBoardManager {
     }
     
 
-    public void updatePost(Post post){
+    public Post updatePost(Post post){
         this.postDao.update(post);
+        this.updateModificationTime(post.getPostID(), System.currentTimeMillis());
+        return this.getPost(post.getPostID());
     }
 
     public User loginUser(String email, String password) {
@@ -81,6 +95,8 @@ public class MessageBoardManager {
     }
 
     private void attachImageToPost(Post post) {
-        post.setAttachmentFromBinary(this.attachmentDao.getAttachmentBinary(post.getPostID()));
+        if(post != null) {
+            post.setAttachmentFromBinary(this.attachmentDao.getAttachmentBinary(post.getPostID()));
+        }
     }
 }
