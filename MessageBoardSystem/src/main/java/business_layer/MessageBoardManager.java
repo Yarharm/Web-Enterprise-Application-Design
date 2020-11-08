@@ -2,24 +2,30 @@ package business_layer;
 
 import configuration.ConfigDriver;
 import dao.AttachmentDao;
+import dao.HashtagDao;
 import dao.PostDao;
 import dao.UserDao;
 import models.Attachment;
+import models.Hashtag;
 import models.Post;
 import models.User;
 
 import java.io.InputStream;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class MessageBoardManager {
     private final UserDao userDao;
     private final PostDao postDao;
     private final AttachmentDao attachmentDao;
+    private final HashtagDao hashtagDao;
 
     public MessageBoardManager() {
         this.userDao = new UserDao();
         this.postDao = new PostDao();
         this.attachmentDao = new AttachmentDao();
+        this.hashtagDao = new HashtagDao();
     }
 
     public Attachment getAttachment(int postID) {
@@ -60,8 +66,19 @@ public class MessageBoardManager {
         long currentTime = System.currentTimeMillis();
 
         Post post = new Post(userID, username, title, message, currentTime, currentTime);
+        searchHashtag(post);
         this.postDao.save(post);
         return post;
+    }
+    public void searchHashtag(Post post) {
+        String holder = post.getMessage();
+        int holderID = post.getPostID();
+        Pattern regex = Pattern.compile("#(\\w+)");
+        Matcher match = regex.matcher(holder);
+        while (match.find()) {
+            Hashtag hash1 = new Hashtag(match.group(1),holderID);
+            hashtagDao.save(hash1);
+        }
     }
 
     public Post getPost(int postID) {
