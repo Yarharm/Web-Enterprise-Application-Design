@@ -37,13 +37,13 @@ public class BasicServlet extends HttpServlet {
             }
             FrontendBoardManager.appendMessageBoard(request, post);
         }
-
         response.sendRedirect(ROOT_PAGE);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<Post> posts = this.boardManager.getAllPosts();
         FrontendBoardManager.refreshMessageBoard(request, posts);
+        request.getSession().setAttribute("FirstLogin", "FirstLogin");
         response.sendRedirect(ROOT_PAGE);
     }
 }
