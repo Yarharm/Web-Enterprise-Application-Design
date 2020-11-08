@@ -3,6 +3,7 @@ package servlet;
 import business_layer.MessageBoardManager;
 import helpers.FrontendBoardManager;
 import models.Post;
+import org.apache.commons.lang.StringEscapeUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -31,15 +32,17 @@ public class UpdateServlet extends HttpServlet {
             if(title == null || title.isEmpty() || message == null || message.isEmpty() || postAttribute == null) {
                 throw new Exception("Edit failed! Invalid attributes");
             }
-
+            
             int userID = (int) request.getSession().getAttribute("userID");
             Post post = (Post) postAttribute;
             if(!messageBoardManager.isPostOwner(userID, post.getPostID())) {
                 throw new Exception("Edit failed! Permission denied");
             }
 
-            post.setPostTitle(title);
-            post.setMessage(message);
+            String escapedTitle = StringEscapeUtils.escapeXml(title);
+            String escapedMessage = StringEscapeUtils.escapeXml(message);
+            post.setPostTitle(escapedTitle);
+            post.setMessage(escapedMessage);
             if(attachmentPart != null && attachmentPart.getSize() > 0) {
                 messageBoardManager.updateAttachment(post, attachmentPart.getSubmittedFileName(), attachmentPart.getSize(),
                         attachmentPart.getContentType(), attachmentPart.getInputStream());
