@@ -21,10 +21,6 @@ public class HashtagDao implements Dao<Hashtag> {
             preparedStmt.setInt(2, hashtag.getpostID());
             preparedStmt.executeUpdate();
 
-            rs = preparedStmt.getGeneratedKeys();
-            if(rs.next()) {
-                hashtag.setHashtag(rs.getString(1));
-            }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         } finally {
@@ -33,15 +29,14 @@ public class HashtagDao implements Dao<Hashtag> {
     }
 
     @Override
-    public void update(int id, Hashtag hash) {
+    public void update(Hashtag hashtag) {
 
     }
 
     @Override
-    public void delete(Hashtag hash) {
-
+    public boolean delete(int id) {
+        return false;
     }
-
 
     private Hashtag constructHashtag(ResultSet rs) throws SQLException {
         int postID = rs.getInt("postID");

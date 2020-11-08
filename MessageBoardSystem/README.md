@@ -31,7 +31,7 @@ PRIMARY KEY(postID));
 CREATE TABLE hashtag (
 hashtag varchar(255) NOT NULL,
 postID int NOT NULL,
-FOREIGN KEY(postID) REFERENCES posts(postID));
+FOREIGN KEY(postID) REFERENCES posts(postID) ON DELETE CASCADE);
 ```
 
 ## Installation
