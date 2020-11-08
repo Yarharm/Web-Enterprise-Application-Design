@@ -4,12 +4,12 @@ import java.io.Serializable;
 
 public class Hashtag implements Serializable {
     private String hashtag;
-    private int postIDlist;
+    private int postID;
 
     public Hashtag() {}
     public Hashtag(String hashtag, int postID) {
         this.hashtag = hashtag;
-        this.postIDlist = postID;
+        this.postID = postID;
     }
 
     public String getHashtag() {
@@ -18,6 +18,14 @@ public class Hashtag implements Serializable {
 
     public void setHashtag(String hashtag) {
         this.hashtag = hashtag;
+    }
+
+    public int getpostID() {
+        return postID;
+    }
+
+    public void setpostID(int postID) {
+        this.postID = postID;
     }
 
 

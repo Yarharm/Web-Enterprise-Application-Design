@@ -29,10 +29,9 @@ PRIMARY KEY(postID));
 - Add `hastag` table to store information about hashtag
 ```
 CREATE TABLE hashtag (
-postID int NOT NULL,
 hashtag varchar(255) NOT NULL,
-PRIMARY KEY(hashtag),
-FOREIGN KEY(postID));
+postID int NOT NULL,
+FOREIGN KEY(postID) REFERENCES posts(postID));
 ```
 
 ## Installation
