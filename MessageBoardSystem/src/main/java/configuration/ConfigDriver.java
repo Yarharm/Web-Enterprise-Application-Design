@@ -51,6 +51,7 @@ public final class ConfigDriver {
             System.err.println("Missing Configuration file.");
             System.exit(1);
         }
+
         return configMap;
     }
 }

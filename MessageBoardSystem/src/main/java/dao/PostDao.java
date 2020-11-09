@@ -132,6 +132,57 @@ public class PostDao implements Dao<Post> {
         return posts;
     }
 
+    public List<Post> searchHashTag(String hash) {
+        List<Post> hashes = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement preparedStmt = null;
+        ResultSet rs = null;
+        String query = "SELECT * FROM posts INNER JOIN hashtag ON posts.id=hashtag.id WHERE hashtag.hashtag=hash";
+
+        try {
+            conn = DBConnector.getConnection();
+            preparedStmt = conn.prepareStatement(query);
+
+            rs = preparedStmt.executeQuery();
+
+            while(rs.next()) {
+                hashes.add(this.constructPost(rs));
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally {
+            DBConnector.releaseConnection(conn, preparedStmt, rs);
+        }
+        return hashes;
+    }
+
+    public List<Post> searchTime(Date time) {
+        List<Post> hashes = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement preparedStmt = null;
+        ResultSet rs = null;
+        String query = "SELECT * FROM posts WHERE posts.timestamp=time";
+
+        try {
+            conn = DBConnector.getConnection();
+            preparedStmt = conn.prepareStatement(query);
+
+            rs = preparedStmt.executeQuery();
+
+            while(rs.next()) {
+                hashes.add(this.constructPost(rs));
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally {
+            DBConnector.releaseConnection(conn, preparedStmt, rs);
+        }
+        return hashes;
+    }
+
+
+
+
     public List<Post> getPaginatedPosts(int postCount) {
         List<Post> paginatedPosts = new ArrayList<>();
         Connection conn = null;

@@ -68,15 +68,18 @@ public class MessageBoardManager {
         Post post = new Post(userID, username, title, message, currentTime, currentTime);
         searchHashtag(post);
         this.postDao.save(post);
+        searchHashtag(post, post.getPostID());
         return post;
     }
-    public void searchHashtag(Post post) {
+    public void searchHashtag(Post post, int postID) {
         String holder = post.getMessage();
-        int holderID = post.getPostID();
+        int holderID = postID;
+        System.out.println(holderID);
         Pattern regex = Pattern.compile("#(\\w+)");
         Matcher match = regex.matcher(holder);
         while (match.find()) {
             Hashtag hash1 = new Hashtag(match.group(1),holderID);
+            System.out.print(hash1);
             hashtagDao.save(hash1);
         }
     }
@@ -92,6 +95,16 @@ public class MessageBoardManager {
         posts.forEach(this::attachImageToPost);
         return posts;
     }
+
+    public List<Post> getAllHashPosts(String hashtag) {
+        List<Post> posts = this.postDao.searchHashTag(hashtag);
+        return posts;
+    }
+
+//    public List<Post> getAllTimePosts(Date time) {
+//        List<Post> posts = this.postDao.getAllTimePosts(time);
+//        return posts;
+//    }
 
     public List<Post> getMostRecentPosts() {
         int postCount = ConfigDriver.getPaginationSize();
