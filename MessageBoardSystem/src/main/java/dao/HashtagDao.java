@@ -2,9 +2,11 @@ package dao;
 
 import database.DBConnector;
 import models.Hashtag;
-import models.Post;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,6 +33,30 @@ public class HashtagDao implements Dao<Hashtag> {
         } finally {
             DBConnector.releaseConnection(conn, preparedStmt, rs);
         }
+    }
+
+    public List<Integer> searchHashTag(String hash) {
+        List<Integer> hashes = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement preparedStmt = null;
+        ResultSet rs = null;
+        String query = "SELECT * FROM hashtag WHERE hashtag.hastag=?";
+
+        try {
+            conn = DBConnector.getConnection();
+            preparedStmt = conn.prepareStatement(query);
+            preparedStmt.setString(1, hash);
+            rs = preparedStmt.executeQuery();
+            while(rs.next()) {
+                hashes.add(rs.getInt("postID"));
+            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally {
+            DBConnector.releaseConnection(conn, preparedStmt, rs);
+        }
+        return hashes;
     }
 
     @Override

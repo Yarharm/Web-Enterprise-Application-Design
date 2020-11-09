@@ -4,8 +4,8 @@ import helpers.Utils;
 
 import java.io.InputStream;
 import java.io.Serializable;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 public class Post implements Serializable {
     private int userID;
@@ -17,6 +17,10 @@ public class Post implements Serializable {
     private long lastModifiedTimestamp;
     private String attachment;
     private boolean containsAttachment;
+    private String dateString;
+    private String dateModified;
+    private DateFormat simple = new SimpleDateFormat("yyyy-MM-dd");
+
 
     public Post() {}
     public Post(int userID, String username, String postTitle, String message, long timestamp, long lastModifiedTimestamp) {
@@ -24,14 +28,30 @@ public class Post implements Serializable {
         this.username = username;
         this.postTitle = postTitle;
         this.message = message;
+
         this.timestamp = timestamp;
+        this.dateString = simple.format(timestamp);
+
         this.lastModifiedTimestamp = lastModifiedTimestamp;
+        this.dateModified = simple.format(lastModifiedTimestamp);
+
+
         this.containsAttachment = false;
+
+
     }
 
     public Post(int postID, int userID, String username, String postTitle, String message, long timestamp, long lastModifiedTimestamp) {
         this(userID, username, postTitle, message, timestamp, lastModifiedTimestamp);
         this.postID = postID;
+    }
+
+    public String getDateString() {
+        return dateString;
+    }
+
+    public String getDateModified() {
+        return dateModified;
     }
 
     public void setAttachmentFromBinary(InputStream stream) {
@@ -55,16 +75,8 @@ public class Post implements Serializable {
 
     public void setLastModifiedTimestamp(long lastModifiedTimestamp) {
         this.lastModifiedTimestamp = lastModifiedTimestamp;
-    }
+        this.dateModified = simple.format(lastModifiedTimestamp);
 
-    public void  searchHashtag(Post post) {
-        String holder = post.getMessage();
-        int holderID = post.getPostID();
-        Pattern regex = Pattern.compile("#(\\w+)");
-        Matcher match = regex.matcher(holder);
-        while (match.find()) {
-            Hashtag hash1 = new Hashtag(match.group(1),holderID);
-        }
     }
 
     public String getAttachment() {
@@ -115,6 +127,7 @@ public class Post implements Serializable {
 
     public void setTimestamp(long timestamp) {
         this.timestamp = timestamp;
+        this.dateString = simple.format(timestamp);
     }
 
     public void setPostID(int postID) { this.postID = postID; }
