@@ -12,7 +12,7 @@ public class PostDao implements Dao<Post> {
         Connection conn = null;
         PreparedStatement preparedStmt = null;
         ResultSet rs = null;
-        String query = "INSERT INTO posts (userID, username, postTitle, message, timestamp, lastModifiedTimestamp) VALUES (?,?,?,?,?,?)";
+        String query = "INSERT INTO posts (userID, username, postTitle, message, timestamp, dateString, lastModifiedTimestamp) VALUES (?,?,?,?,?,?,?)";
 
         try {
             conn = DBConnector.getConnection();
@@ -23,7 +23,8 @@ public class PostDao implements Dao<Post> {
             preparedStmt.setString(3, post.getPostTitle());
             preparedStmt.setString(4, post.getMessage());
             preparedStmt.setLong(5, post.getTimestamp());
-            preparedStmt.setLong(6, post.getTimestamp());
+            preparedStmt.setString(6, post.getDateString());
+            preparedStmt.setLong(7, post.getTimestamp());
             preparedStmt.executeUpdate();
 
             rs = preparedStmt.getGeneratedKeys();
@@ -132,52 +133,53 @@ public class PostDao implements Dao<Post> {
         return posts;
     }
 
-    public List<Post> searchHashTag(String hash) {
-        List<Post> hashes = new ArrayList<>();
+
+    public List<Integer> searchDate(String date) {
+        List<Integer> dates = new ArrayList<>();
         Connection conn = null;
         PreparedStatement preparedStmt = null;
         ResultSet rs = null;
-        String query = "SELECT * FROM posts INNER JOIN hashtag ON posts.id=hashtag.id WHERE hashtag.hashtag=hash";
+        String query = "SELECT * FROM posts WHERE posts.dateString=?";
 
         try {
             conn = DBConnector.getConnection();
             preparedStmt = conn.prepareStatement(query);
-
+            preparedStmt.setString(1, date);
             rs = preparedStmt.executeQuery();
-
             while(rs.next()) {
-                hashes.add(this.constructPost(rs));
+                dates.add(rs.getInt("postID"));
             }
+
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         } finally {
             DBConnector.releaseConnection(conn, preparedStmt, rs);
         }
-        return hashes;
+        return dates;
     }
 
-    public List<Post> searchTime(Date time) {
-        List<Post> hashes = new ArrayList<>();
+    public List<Integer> searchUser(String user) {
+        List<Integer> userposts = new ArrayList<>();
         Connection conn = null;
         PreparedStatement preparedStmt = null;
         ResultSet rs = null;
-        String query = "SELECT * FROM posts WHERE posts.timestamp=time";
+        String query = "SELECT * FROM posts WHERE posts.user=?";
 
         try {
             conn = DBConnector.getConnection();
             preparedStmt = conn.prepareStatement(query);
-
+            preparedStmt.setString(1, user);
             rs = preparedStmt.executeQuery();
-
             while(rs.next()) {
-                hashes.add(this.constructPost(rs));
+                userposts.add(rs.getInt("postID"));
             }
+
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         } finally {
             DBConnector.releaseConnection(conn, preparedStmt, rs);
         }
-        return hashes;
+        return userposts;
     }
 
 

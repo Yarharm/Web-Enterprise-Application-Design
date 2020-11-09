@@ -66,19 +66,17 @@ public class MessageBoardManager {
         long currentTime = System.currentTimeMillis();
 
         Post post = new Post(userID, username, title, message, currentTime, currentTime);
-        searchHashtag(post);
+        searchHashtag(post, post.getPostID());
         this.postDao.save(post);
         searchHashtag(post, post.getPostID());
         return post;
     }
     public void searchHashtag(Post post, int postID) {
         String holder = post.getMessage();
-        int holderID = postID;
-        System.out.println(holderID);
         Pattern regex = Pattern.compile("#(\\w+)");
         Matcher match = regex.matcher(holder);
         while (match.find()) {
-            Hashtag hash1 = new Hashtag(match.group(1),holderID);
+            Hashtag hash1 = new Hashtag(match.group(1),postID);
             System.out.print(hash1);
             hashtagDao.save(hash1);
         }
@@ -96,8 +94,17 @@ public class MessageBoardManager {
         return posts;
     }
 
-    public List<Post> getAllHashPosts(String hashtag) {
-        List<Post> posts = this.postDao.searchHashTag(hashtag);
+    public List<Integer> getAllHashPosts(String hashtag) {
+        List<Integer> posts = this.hashtagDao.searchHashTag(hashtag);
+        return posts;
+    }
+
+    public List<Integer> getAllDatePosts(String sdate) {
+        List<Integer> posts = this.postDao.searchDate(sdate);
+        return posts;
+    }
+    public List<Integer> getAllUserPosts(String user) {
+        List<Integer> posts = this.postDao.searchUser(user);
         return posts;
     }
 
