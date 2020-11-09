@@ -34,9 +34,17 @@
             <li class="nav-item active">
                 <a class="nav-link" href="createPost.jsp">Create Post<span class="sr-only">(current)</span></a>
             </li>
-            <form class="form-inline my-2 my-lg-0" method="get" action="servlet.PaginationServlet">
-                <button class="btn btn-sm btn-outline-primary" type="Submit">View Recent</button>
-            </form>
+            <li>
+                <form class="form-inline my-2 my-lg-0" method="get" action="servlet.PaginationServlet">
+                    <button class="btn btn-sm btn-outline-primary" type="Submit">View Recent</button>
+                </form>
+            </li>
+            <li>
+                <a href="modifyAccount.jsp"><button class="btn btn-sm btn-outline-primary">Modify Account</button></a>
+            </li>
+            <li>
+                <a href="changePassword.jsp"><button class="btn btn-sm btn-outline-primary">Change Password</button></a>
+            </li>
         </ul>
         <form class="form-inline my-2 my-lg-0" method="post" action="servlet.SignoutServlet">
             <button class="btn btn-outline-success my-2 my-sm-0" type="Submit">Sign out</button>

@@ -12,7 +12,7 @@ import static helpers.Constants.ROOT_PAGE;
 
 @WebFilter(filterName = "AuthFilter")
 public class AuthFilter implements Filter {
-    private final static List<String> CAN_REACH_ROUTES_WITHOUT_AUTH = Arrays.asList("login.jsp", "index.jsp", "LoginServlet");
+    private final static List<String> CAN_REACH_ROUTES_WITHOUT_AUTH = Arrays.asList("login.jsp", "index.jsp", "LoginServlet", "register.jsp");
     private final static String ROOT_URI = "/MessageBoardSystem_war/";
     public void destroy() {
     }
