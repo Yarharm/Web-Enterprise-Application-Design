@@ -2,12 +2,15 @@ package dao;
 
 import database.DBConnector;
 import models.Hashtag;
+import models.Post;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class HashtagDao implements Dao<Hashtag> {
 
-    public void save(Hashtag hashtag){
+    public void save(Hashtag hashtag) {
         Connection conn = null;
         PreparedStatement preparedStmt = null;
         ResultSet rs = null;
@@ -15,10 +18,12 @@ public class HashtagDao implements Dao<Hashtag> {
 
         try {
             conn = DBConnector.getConnection();
-            preparedStmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+            preparedStmt = conn.prepareStatement(query);
 
             preparedStmt.setString(1, hashtag.getHashtag());
+            System.out.println(hashtag.getHashtag());
             preparedStmt.setInt(2, hashtag.getpostID());
+            System.out.println(hashtag.getpostID());
             preparedStmt.executeUpdate();
 
         } catch (SQLException throwables) {
@@ -43,4 +48,7 @@ public class HashtagDao implements Dao<Hashtag> {
         String hashtag = rs.getString("hashtag");
         return new Hashtag(hashtag, postID);
     }
+
+
+
 }

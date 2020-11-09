@@ -31,8 +31,8 @@ public class Hashtag implements Serializable {
 
     @Override
     public String toString() {
-        return "Hashtag{" +
-                "postID=" + hashtag +
+        return "{Hashtag=" +getHashtag()+
+                " , postID=" + getpostID() +
                 '}';
     }
 
