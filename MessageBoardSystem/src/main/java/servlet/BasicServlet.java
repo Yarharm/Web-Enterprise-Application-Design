@@ -27,11 +27,12 @@ public class BasicServlet extends HttpServlet {
         String title = request.getParameter("title");
         Part attachmentPart = request.getPart("attachment");
         int userID = (int) request.getSession().getAttribute("userID");
+        String username = (String) request.getSession().getAttribute("username");
 
         if(message != null && title != null && !message.isEmpty() && !title.isEmpty()) {
             String escapedTitle = StringEscapeUtils.escapeXml(title);
             String escapedMessage = StringEscapeUtils.escapeXml(message);
-            Post post = boardManager.postMessage(userID, escapedTitle, escapedMessage);
+            Post post = boardManager.postMessage(userID, username, escapedTitle, escapedMessage);
 
             if(attachmentPart.getSize() > 0) {
                 this.boardManager.saveAttachment(post, attachmentPart.getSubmittedFileName(), attachmentPart.getSize(),

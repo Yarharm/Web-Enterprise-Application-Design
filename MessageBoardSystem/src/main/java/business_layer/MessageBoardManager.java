@@ -56,10 +56,10 @@ public class MessageBoardManager {
         return this.postDao.delete(postID);
     }
 
-    public Post postMessage(int userID, String title, String message) {
+    public Post postMessage(int userID, String username, String title, String message) {
         long currentTime = System.currentTimeMillis();
 
-        Post post = new Post(userID, title, message, currentTime, currentTime);
+        Post post = new Post(userID, username, title, message, currentTime, currentTime);
         this.postDao.save(post);
         return post;
     }

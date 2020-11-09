@@ -6,6 +6,7 @@
 CREATE TABLE `posts` (
  `postID` int(11) NOT NULL AUTO_INCREMENT,
  `userID` int(11) NOT NULL,
+ `username` varchar(96) NOT NULL,
  `postTitle` varchar(96) NOT NULL,
  `timestamp` bigint(30) NOT NULL,
  `lastModifiedTimestamp` bigint(30) NOT NULL,
