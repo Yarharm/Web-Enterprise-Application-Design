@@ -12,7 +12,7 @@ public class PostDao implements Dao<Post> {
         Connection conn = null;
         PreparedStatement preparedStmt = null;
         ResultSet rs = null;
-        String query = "INSERT INTO posts (userID, username, postTitle, message, timestamp, dateString, lastModifiedTimestamp) VALUES (?,?,?,?,?,?,?)";
+        String query = "INSERT INTO posts (userID, username, postTitle,message, timestamp, dateString, lastModifiedTimestamp) VALUES (?,?,?,?,?,?,?)";
 
         try {
             conn = DBConnector.getConnection();
