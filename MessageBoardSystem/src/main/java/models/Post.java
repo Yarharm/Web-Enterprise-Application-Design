@@ -7,6 +7,7 @@ import java.io.Serializable;
 
 public class Post implements Serializable {
     private int userID;
+    private String username;
     private int postID;
     private String postTitle;
     private String message;
@@ -16,8 +17,9 @@ public class Post implements Serializable {
     private boolean containsAttachment;
 
     public Post() {}
-    public Post(int userID, String postTitle, String message, long timestamp, long lastModifiedTimestamp) {
+    public Post(int userID, String username, String postTitle, String message, long timestamp, long lastModifiedTimestamp) {
         this.userID = userID;
+        this.username = username;
         this.postTitle = postTitle;
         this.message = message;
         this.timestamp = timestamp;
@@ -25,8 +27,8 @@ public class Post implements Serializable {
         this.containsAttachment = false;
     }
 
-    public Post(int postID, int userID, String postTitle, String message, long timestamp, long lastModifiedTimestamp) {
-        this(userID, postTitle, message, timestamp, lastModifiedTimestamp);
+    public Post(int postID, int userID, String username, String postTitle, String message, long timestamp, long lastModifiedTimestamp) {
+        this(userID, username, postTitle, message, timestamp, lastModifiedTimestamp);
         this.postID = postID;
     }
 
@@ -35,6 +37,14 @@ public class Post implements Serializable {
             this.containsAttachment = true;
             this.attachment = Utils.inputStreamToImage(stream);
         }
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public long getLastModifiedTimestamp() {

@@ -12,17 +12,18 @@ public class PostDao implements Dao<Post> {
         Connection conn = null;
         PreparedStatement preparedStmt = null;
         ResultSet rs = null;
-        String query = "INSERT INTO posts (userID, postTitle, message, timestamp, lastModifiedTimestamp) VALUES (?,?,?,?,?)";
+        String query = "INSERT INTO posts (userID, username, postTitle, message, timestamp, lastModifiedTimestamp) VALUES (?,?,?,?,?,?)";
 
         try {
             conn = DBConnector.getConnection();
             preparedStmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 
             preparedStmt.setInt(1, post.getUserID());
-            preparedStmt.setString(2, post.getPostTitle());
-            preparedStmt.setString(3, post.getMessage());
-            preparedStmt.setLong(4, post.getTimestamp());
+            preparedStmt.setString(2, post.getUsername());
+            preparedStmt.setString(3, post.getPostTitle());
+            preparedStmt.setString(4, post.getMessage());
             preparedStmt.setLong(5, post.getTimestamp());
+            preparedStmt.setLong(6, post.getTimestamp());
             preparedStmt.executeUpdate();
 
             rs = preparedStmt.getGeneratedKeys();
@@ -178,10 +179,11 @@ public class PostDao implements Dao<Post> {
     private Post constructPost(ResultSet rs) throws SQLException {
         int postID = rs.getInt("postID");
         int userID = rs.getInt("userID");
+        String username = rs.getString("username");
         String postTitle = rs.getString("postTitle");
         String message = rs.getString("message");
         long timestamp = rs.getLong("timestamp");
         long lastModifiedTimestamp = rs.getLong("lastModifiedTimestamp");
-        return new Post(postID, userID, postTitle, message, timestamp, lastModifiedTimestamp);
+        return new Post(postID, userID, username, postTitle, message, timestamp, lastModifiedTimestamp);
     }
 }
