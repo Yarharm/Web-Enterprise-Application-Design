@@ -108,10 +108,6 @@ public class MessageBoardManager {
         return posts;
     }
 
-//    public List<Post> getAllTimePosts(Date time) {
-//        List<Post> posts = this.postDao.getAllTimePosts(time);
-//        return posts;
-//    }
 
     public List<Post> getMostRecentPosts() {
         int postCount = ConfigDriver.getPaginationSize();

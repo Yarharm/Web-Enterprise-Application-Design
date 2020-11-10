@@ -139,7 +139,7 @@ public class PostDao implements Dao<Post> {
         Connection conn = null;
         PreparedStatement preparedStmt = null;
         ResultSet rs = null;
-        String query = "SELECT * FROM posts WHERE posts.dateString=?";
+        String query = "SELECT * FROM posts WHERE dateString=?";
 
         try {
             conn = DBConnector.getConnection();
@@ -163,7 +163,7 @@ public class PostDao implements Dao<Post> {
         Connection conn = null;
         PreparedStatement preparedStmt = null;
         ResultSet rs = null;
-        String query = "SELECT * FROM posts WHERE posts.username=?";
+        String query = "SELECT * FROM posts WHERE username=?";
 
         try {
             conn = DBConnector.getConnection();

@@ -29,18 +29,23 @@ public class SearchServlet extends HttpServlet {
             String date = request.getParameter("startTime");
             String author = request.getParameter("author");
             Set<Integer> set = new HashSet<>();
+
             try {
                 if (!hashtag.isEmpty()) {
-
-                    set.addAll(boardManager.getAllHashPosts(hashtag));
-
+                    String[] hashholder=hashtag.split("-");
+                    for(int i =0; i<hashholder.length; i++) {
+                        set.addAll(boardManager.getAllHashPosts(hashholder[i]));
+                    }
 
                 }
                 if (!date.isEmpty()) {
-                    set.addAll(boardManager.getAllDatePosts(date));
+                        set.addAll(boardManager.getAllHashPosts(date));
+
+
                 }
                 if (!author.isEmpty()) {
-                    set.addAll(boardManager.getAllUserPosts(author));
+
+                        set.addAll(boardManager.getAllHashPosts(author));
                 }
 
                 if (!date.isEmpty() && !hashtag.isEmpty() && !author.isEmpty()) {
