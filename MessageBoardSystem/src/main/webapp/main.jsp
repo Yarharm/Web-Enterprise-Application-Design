@@ -46,7 +46,7 @@
                 <a href="changePassword.jsp"><button class="btn btn-sm btn-outline-primary">Change Password</button></a>
             </li>
         </ul>
-        <form class="form-inline my-2 my-lg-0" method="get" action=servlet.SearchServlet"">
+        <form class="form-inline my-2 my-lg-0" method="get" action="servlet.SearchServlet">
             <input type="text" id="hash" name="hash" placeholder="Enter Hash tag">
 
             <input type="date" id="startTime" name="startTime" step="1">

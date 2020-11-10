@@ -38,7 +38,7 @@ public class HashtagDao implements Dao<Hashtag> {
         Connection conn = null;
         PreparedStatement preparedStmt = null;
         ResultSet rs = null;
-        String query = "SELECT * FROM hashtag WHERE hashtag.hastag=?";
+        String query = "SELECT * FROM hashtag WHERE hashtag=?";
 
         try {
             conn = DBConnector.getConnection();
