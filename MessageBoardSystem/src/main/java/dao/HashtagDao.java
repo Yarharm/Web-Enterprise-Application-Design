@@ -23,9 +23,7 @@ public class HashtagDao implements Dao<Hashtag> {
             preparedStmt = conn.prepareStatement(query);
 
             preparedStmt.setString(1, hashtag.getHashtag());
-            System.out.println(hashtag.getHashtag());
             preparedStmt.setInt(2, hashtag.getpostID());
-            System.out.println(hashtag.getpostID());
             preparedStmt.executeUpdate();
 
         } catch (SQLException throwables) {

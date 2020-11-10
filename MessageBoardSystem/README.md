@@ -11,7 +11,6 @@ CREATE TABLE `posts` (
                          `timestamp` bigint(30) NOT NULL,
                          `dateString` varchar(100) NOT NULL,
                          `lastModifiedTimestamp` bigint(30) NOT NULL,
-                         `lastString` varchar(100) NOT NULL,
                         `message` varchar(1024) NOT NULL,
  PRIMARY KEY (`postID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4
