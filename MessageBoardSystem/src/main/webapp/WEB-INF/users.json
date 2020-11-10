@@ -1,0 +1,6 @@
+[
+  {"userID":1,"username":"Bob","email":"testemail","password":"$s0$41010$mIYQ8jmiyU5BstiQTsm83g\u003d\u003d$fcd0fYCJDXYvyXdSzC8eZ+kQEYfujZdCoC47rP2Cfzs\u003d"},
+  {"userID":2,"username":"Max","email":"max@gmail.com","password":"$s0$41010$5Qp+xmp7HA3RaroGxf+iRQ\u003d\u003d$ISozgujnuAU/dsWSeGT6LK0hwrLYSA4Zl1KhhhYEcBI\u003d"},
+  {"userID":3,"username":"Sara","email":"sara@yahoo.com","password":"$s0$41010$RO4df9jZ486LWJH+2ZPAEQ\u003d\u003d$bJooftgH7zHjAmE/30677UpbJlvW7nH540bm9IiWXvE\u003d"},
+  {"userID":4,"username":"Maya","email":"maya@someEmail.com","password":"$s0$41010$PYRZe/wVzO9qCDqPF80vMA\u003d\u003d$6CJ3I775HohcJm2GCyG8A7/9DGEfJuhtisQ0HBuWYsA\u003d"}
+]

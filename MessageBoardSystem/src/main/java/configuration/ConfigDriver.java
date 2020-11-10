@@ -6,13 +6,9 @@ import java.lang.reflect.Type;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
-
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import helpers.Utils;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
 public final class ConfigDriver {
     private final static String CONFIG_NAME = "config.json";
@@ -46,7 +42,7 @@ public final class ConfigDriver {
     private static Map<String, String> getConfig() {
         Map<String, String> configMap = new HashMap<>();
         try {
-            String configPath = buildConfigPath();
+            String configPath = Utils.buildTargetFilePath(CONFIG_NAME);
             JsonReader jsonConfigFile = new JsonReader(new FileReader(configPath));
             Type type = new TypeToken<Map<String, String>>(){}.getType();
             configMap = gson.fromJson(jsonConfigFile, type);
@@ -55,17 +51,5 @@ public final class ConfigDriver {
             System.exit(1);
         }
         return configMap;
-    }
-
-    private static String buildConfigPath() throws IOException {
-        Path rootPath = Paths.get(System.getProperty("user.dir")).toAbsolutePath().normalize();
-        if(rootPath.toString().contains("tomcat")) {
-            rootPath = rootPath.getParent();
-        }
-        Optional<Path> hit = Files.walk(rootPath)
-                .filter(file -> file.getFileName().toString().equals(CONFIG_NAME))
-                .findAny();
-
-        return hit.get().toString();
     }
 }
