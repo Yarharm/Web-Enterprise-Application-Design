@@ -26,11 +26,6 @@ attachment longblob NOT NULL,
 PRIMARY KEY(postID));
 ```
 
-- Add `Users` table to store the file with user information:
-```
-create table Users (UserFile BLOB);
-```
-
 ## Installation
 1. Add __config.json__ file to the root of __WEB-INF__ folder and include the following (MySQL sample):
     - "JDBC_DRIVER":"com.mysql.cj.jdbc.Driver",
@@ -39,4 +34,4 @@ create table Users (UserFile BLOB);
     - "DB_USER":"your_username",
     - "DB_PASSWORD":"your_password",
     - "PAGINATION_SIZE":"10"
-2. Run `PreloadUsers` driver to add default users to the DB.
+2. __users.json__ file should be available in __WEB-INF__ folder. If it does not exist then please run `PreloadUsers` script to generate a file and place it in the root of the __WEB-INF__ folder.
