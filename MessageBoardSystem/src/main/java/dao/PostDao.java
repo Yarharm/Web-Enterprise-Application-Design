@@ -120,7 +120,9 @@ public class PostDao implements Dao<Post> {
             rs = preparedStmt.executeQuery();
 
             while(rs.next()) {
-                posts.add(this.constructPost(rs));
+                if (this.constructPost(rs)!=null) {
+                    posts.add(this.constructPost(rs));
+                }
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -146,7 +148,9 @@ public class PostDao implements Dao<Post> {
             rs = preparedStmt.executeQuery();
 
             while(rs.next()) {
-                paginatedPosts.add(this.constructPost(rs));
+                if (this.constructPost(rs)!=null) {
+                    paginatedPosts.add(this.constructPost(rs));
+                }
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -184,6 +188,10 @@ public class PostDao implements Dao<Post> {
         String message = rs.getString("message");
         long timestamp = rs.getLong("timestamp");
         long lastModifiedTimestamp = rs.getLong("lastModifiedTimestamp");
-        return new Post(postID, userID, username, postTitle, message, timestamp, lastModifiedTimestamp);
+        if (postTitle == null || message == null || postTitle.equals("") || message.equals("")){
+            return null;
+        } else {
+            return new Post(postID, userID, username, postTitle, message, timestamp, lastModifiedTimestamp);
+        }
     }
 }
