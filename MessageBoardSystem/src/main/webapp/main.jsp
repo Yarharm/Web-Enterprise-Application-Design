@@ -58,9 +58,6 @@
         <div style="margin-top: 60px; margin-left:40%">
             <c:forEach items="${messageBoard.values()}" var="post">
                 <div class="card" style="width: 25rem;" >
-                    <c:if test = "${post.containsAttachment}">
-                        <img src="data:image/jpg;base64,${post.attachment}" class="card-img-top" alt="No attachment">
-                    </c:if>
                     <div class="card-body">
                         <div class="row">
                             <div class="column" style="float:left; width:50%;">
@@ -69,6 +66,9 @@
                                     <h6 class="card-subtitle mb-2 text-muted">Updated</h6>
                                 </c:if>
                                 <p class="card-text">${post.message}</p>
+                                <c:if test = "${post.containsAttachment}">
+                                    <p class="card-text"><small class="text-muted">${post.attachment}</small></p>
+                                </c:if>
                                 <c:if test = "${userID eq post.userID}">
                                     <form method="post" action="servlet.PostDeleteServlet">
                                         <input type="hidden" name="postID" value=${post.postID}>
