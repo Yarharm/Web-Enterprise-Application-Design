@@ -46,7 +46,6 @@ public class MessageBoardManager {
         this.attachImageToPost(post);
     }
 
-
     public void updateModificationTime(int postID, long modificationTimestamp) {
         this.postDao.updateModificationTime(postID, modificationTimestamp);
     }
@@ -82,7 +81,6 @@ public class MessageBoardManager {
         paginatedPosts.forEach(this::attachImageToPost);
         return paginatedPosts;
     }
-    
 
     public Post updatePost(Post post){
         this.postDao.update(post);
