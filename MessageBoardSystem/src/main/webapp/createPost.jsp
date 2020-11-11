@@ -13,29 +13,37 @@
 </head>
 <body>
 
-<form method="post" action="servlet.BasicServlet" enctype="multipart/form-data">
-    <div class="form-group row">
-        <label for="title" class="col-sm-2 col-form-label">Title</label>
-        <div class="col-sm-10">
-            <input name="title" type="text" class="form-control" id="title" placeholder="Title" required>
+
+
+<div class="container">
+    <h3 style="padding: 8px">Create a post</h3>
+    <form method="post" action="servlet.BasicServlet" enctype="multipart/form-data">
+        <div class="form-group row">
+            <label for="title" class="col-sm-2 col-form-label">Title</label>
+            <div class="col-sm-10">
+                <input name="title" type="text" class="form-control" id="title" placeholder="Title" required>
+            </div>
         </div>
-    </div>
-    <div class="form-group row">
-        <label for="message" class="col-sm-2 col-form-label">Message</label>
-        <div class="col-sm-10">
-            <textarea name="message" class="form-control" id="message" rows="3" placeholder="Message" required></textarea>
+        <div class="form-group row">
+            <label for="message" class="col-sm-2 col-form-label">Message</label>
+            <div class="col-sm-10">
+                <textarea name="message" class="form-control" id="message" rows="3" placeholder="Message" required></textarea>
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        <label for="inputAttachment" class="col-sm-2 col-form-label">Attachment</label>
-        <input name="attachment" type="file" class="form-control-file" id="inputAttachment">
-    </div>
-    <div class="form-group row">
-        <div class="col-sm-10">
-            <button type="submit" class="btn btn-primary">Create</button>
+        <div class="form-group row">
+            <div class="col-auto mr-auto">
+                <label for="inputAttachment">Attachment</label>
+            </div>
+            <div class="col">
+                <input name="attachment" type="file" class="form-control-file" id="inputAttachment">
+            </div>
+            <div class="col-auto">
+                <button type="submit" class="btn btn-primary">Create</button>
+            </div>
         </div>
-    </div>
-</form>
+    </form>
+</div>
+
 
 
 <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->

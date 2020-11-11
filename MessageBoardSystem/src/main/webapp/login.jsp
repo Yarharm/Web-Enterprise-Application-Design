@@ -37,12 +37,17 @@
                             <label for="password" class="text-info">Password:</label><br>
                             <input type="text" name="password" id="password" class="form-control">
                         </div>
-                        <div class="form-group">
-                            <input type="submit" name="submit" class="btn btn-info btn-md" value="submit">
+                        <div class="form-row">
+                            <div class="col">
+                                <input type="submit" name="submit" class="btn btn-info btn-md" value="Login">
+                            </div>
+                            <div class="col">
+                                <a href="register.jsp" class="text-info" style="float:right;"><button type="button" class="btn btn-dark btn-md">Register</button></a>
+                            </div>
                         </div>
                     </form>
                     <div id="register-link" class="text-left">
-                        <a href="register.jsp" class="text-info"><button class="btn btn-info btn-md">Register</button></a>
+
                     </div>
                 </div>
             </div>
