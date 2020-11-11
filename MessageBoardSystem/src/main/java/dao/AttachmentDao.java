@@ -11,7 +11,7 @@ public class AttachmentDao implements Dao<Attachment> {
         Connection conn = null;
         PreparedStatement preparedStmt = null;
         ResultSet rs = null;
-        String query = "SELECT * FROM Attachments WHERE postID = ?";
+        String query = "SELECT * FROM attachment WHERE postID = ?";
 
         try {
             conn = DBConnector.getConnection();
@@ -44,7 +44,7 @@ public class AttachmentDao implements Dao<Attachment> {
     public void save(Attachment attachment) {
         Connection conn = null;
         PreparedStatement preparedStmt = null;
-        String query = "INSERT INTO Attachments (postID, fileName, fileSize, mediaType, attachment) VALUES (?,?,?,?,?)";
+        String query = "INSERT INTO attachment (postID, fileName, fileSize, mediaType, attachment) VALUES (?,?,?,?,?)";
 
         try {
             conn = DBConnector.getConnection();
@@ -68,7 +68,7 @@ public class AttachmentDao implements Dao<Attachment> {
     public void update(Attachment attachment) {
         Connection conn = null;
         PreparedStatement preparedStmt = null;
-        String query = "UPDATE Attachments SET fileName=?,fileSize=?,mediaType=?,attachment=? WHERE postID=?";
+        String query = "UPDATE attachment SET fileName=?,fileSize=?,mediaType=?,attachment=? WHERE postID=?";
 
         try {
             conn = DBConnector.getConnection();
@@ -92,7 +92,7 @@ public class AttachmentDao implements Dao<Attachment> {
     public boolean delete(int postID) {
         Connection conn = null;
         PreparedStatement preparedStmt = null;
-        String query = "DELETE FROM Attachments WHERE postID=?";
+        String query = "DELETE FROM attachment WHERE postID=?";
         boolean deleteStatus = false;
 
         try {

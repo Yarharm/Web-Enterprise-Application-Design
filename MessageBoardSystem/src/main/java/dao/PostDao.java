@@ -12,7 +12,7 @@ public class PostDao implements Dao<Post> {
         Connection conn = null;
         PreparedStatement preparedStmt = null;
         ResultSet rs = null;
-        String query = "INSERT INTO posts (userID, username, postTitle,message, timestamp, dateString, lastModifiedTimestamp) VALUES (?,?,?,?,?,?,?)";
+        String query = "INSERT INTO post (userID, username, postTitle, message, timestamp, dateString, lastModifiedTimestamp) VALUES (?,?,?,?,?,?,?)";
 
         try {
             conn = DBConnector.getConnection();
@@ -41,7 +41,7 @@ public class PostDao implements Dao<Post> {
     public void update(Post post) {
         Connection conn = null;
         PreparedStatement preparedStmt = null;
-        String query = "UPDATE posts SET postTitle=?, message=? WHERE postID=?";
+        String query = "UPDATE post SET postTitle=?, message=? WHERE postID=?";
 
         try {
             conn = DBConnector.getConnection();
@@ -62,7 +62,7 @@ public class PostDao implements Dao<Post> {
         Connection conn = null;
         PreparedStatement preparedStmt = null;
         ResultSet rs = null;
-        String query = "SELECT * FROM posts WHERE postID=?";
+        String query = "SELECT * FROM post WHERE postID=?";
         Post post = null;
 
         try {
@@ -88,7 +88,7 @@ public class PostDao implements Dao<Post> {
     public boolean delete(int postID) {
         Connection conn = null;
         PreparedStatement preparedStmt = null;
-        String query = "DELETE FROM posts WHERE postID=?";
+        String query = "DELETE FROM post WHERE postID=?";
         boolean deleteStatus = false;
 
         try{
@@ -112,7 +112,7 @@ public class PostDao implements Dao<Post> {
         Connection conn = null;
         PreparedStatement preparedStmt = null;
         ResultSet rs = null;
-        String query = "SELECT * FROM posts";
+        String query = "SELECT * FROM post";
 
         try {
             conn = DBConnector.getConnection();
@@ -139,7 +139,7 @@ public class PostDao implements Dao<Post> {
         Connection conn = null;
         PreparedStatement preparedStmt = null;
         ResultSet rs = null;
-        String query = "SELECT * FROM posts WHERE dateString=?";
+        String query = "SELECT * FROM post WHERE dateString=?";
 
         try {
             conn = DBConnector.getConnection();
@@ -163,7 +163,7 @@ public class PostDao implements Dao<Post> {
         Connection conn = null;
         PreparedStatement preparedStmt = null;
         ResultSet rs = null;
-        String query = "SELECT * FROM posts WHERE username=?";
+        String query = "SELECT * FROM post WHERE username=?";
 
         try {
             conn = DBConnector.getConnection();
@@ -187,7 +187,7 @@ public class PostDao implements Dao<Post> {
         Connection conn = null;
         PreparedStatement preparedStmt = null;
         ResultSet rs = null;
-        String query = "SELECT * FROM posts ORDER BY timestamp DESC LIMIT ?";
+        String query = "SELECT * FROM post ORDER BY timestamp DESC LIMIT ?";
 
         try {
             conn = DBConnector.getConnection();
@@ -213,7 +213,7 @@ public class PostDao implements Dao<Post> {
     public void updateModificationTime(int postID, long modificationTimestamp) {
         Connection conn = null;
         PreparedStatement preparedStmt = null;
-        String query = "UPDATE posts SET lastModifiedTimestamp=? WHERE postID=?";
+        String query = "UPDATE post SET lastModifiedTimestamp=? WHERE postID=?";
 
         try {
             conn = DBConnector.getConnection();
