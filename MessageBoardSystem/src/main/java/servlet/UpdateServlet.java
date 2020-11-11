@@ -43,9 +43,14 @@ public class UpdateServlet extends HttpServlet {
             String escapedMessage = StringEscapeUtils.escapeXml(message);
             post.setPostTitle(escapedTitle);
             post.setMessage(escapedMessage);
-            if(attachmentPart != null && attachmentPart.getSize() > 0) {
-                messageBoardManager.updateAttachment(post, attachmentPart.getSubmittedFileName(), attachmentPart.getSize(),
-                        attachmentPart.getContentType(), attachmentPart.getInputStream());
+            if(attachmentPart.getSize() > 0) {
+                if(post.isContainsAttachment()) {
+                    messageBoardManager.updateAttachment(post, attachmentPart.getSubmittedFileName(), attachmentPart.getSize(),
+                            attachmentPart.getContentType(), attachmentPart.getInputStream());
+                } else {
+                    messageBoardManager.saveAttachment(post, attachmentPart.getSubmittedFileName(), attachmentPart.getSize(),
+                            attachmentPart.getContentType(), attachmentPart.getInputStream());
+                }
             }
 
             Post updatedPost = messageBoardManager.updatePost(post);
