@@ -3,7 +3,7 @@
 ## Database
 - Use the following query to create the posts table.
 ```
-CREATE TABLE `posts` (
+CREATE TABLE `post` (
  `postID` int(11) NOT NULL AUTO_INCREMENT,
  `userID` int(11) NOT NULL,
  `username` varchar(96) NOT NULL,
@@ -18,13 +18,14 @@ CREATE TABLE `posts` (
 
 - Add `AttachmentInfo` table to store information about attachments
 ```
-CREATE TABLE Attachments (
+CREATE TABLE attachment (
 postID int NOT NULL,
 fileName varchar(255) NOT NULL,
 fileSize bigint(30) NOT NULL,
 mediaType varchar(255) NOT NULL,
 attachment longblob NOT NULL,
-PRIMARY KEY(postID));
+PRIMARY KEY(postID),
+FOREIGN KEY(postID) REFERENCES post(postID) ON DELETE CASCADE);
 ```
 
 - Add `hastag` table to store information about hashtag
@@ -33,7 +34,7 @@ CREATE TABLE hashtag (
 hashtag varchar(255) NOT NULL,
 postID int NOT NULL,
 PRIMARY KEY(hashtag,postID),
-FOREIGN KEY(postID) REFERENCES posts(postID) ON DELETE CASCADE);
+FOREIGN KEY(postID) REFERENCES post(postID) ON DELETE CASCADE);
 ```
 
 ## Installation

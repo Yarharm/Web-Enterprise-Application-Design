@@ -57,7 +57,6 @@ public class MessageBoardManager {
     }
 
     public boolean deletePost(int postID) {
-        this.attachmentDao.delete(postID);
         return this.postDao.delete(postID);
     }
 
