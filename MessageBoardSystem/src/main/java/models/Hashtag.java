@@ -28,12 +28,10 @@ public class Hashtag implements Serializable {
         this.postID = postID;
     }
 
-
     @Override
     public String toString() {
         return "{Hashtag=" +getHashtag()+
                 " , postID=" + getpostID() +
                 '}';
     }
-
 }

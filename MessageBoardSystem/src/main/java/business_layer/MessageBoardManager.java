@@ -52,7 +52,6 @@ public class MessageBoardManager {
         this.attachImageToPost(post);
     }
 
-
     public void updateModificationTime(int postID, long modificationTimestamp) {
         this.postDao.updateModificationTime(postID, modificationTimestamp);
     }
@@ -68,17 +67,18 @@ public class MessageBoardManager {
         Post post = new Post(userID, username, title, message, currentTime, currentTime);
         searchHashtag(post, post.getPostID());
         this.postDao.save(post);
-        searchHashtag(post, post.getPostID());
+        this.searchHashtag(post, post.getPostID());
         return post;
     }
+
     public void searchHashtag(Post post, int postID) {
+        this.hashtagDao.delete(postID);
         String holder = post.getMessage();
         Pattern regex = Pattern.compile("#(\\w+)");
         Matcher match = regex.matcher(holder);
         while (match.find()) {
-            Hashtag hash1 = new Hashtag(match.group(1),postID);
-            System.out.print(hash1);
-            hashtagDao.save(hash1);
+            Hashtag hash1 = new Hashtag("#" + match.group(1), postID);
+            this.hashtagDao.save(hash1);
         }
     }
 
@@ -95,19 +95,16 @@ public class MessageBoardManager {
     }
 
     public List<Integer> getAllHashPosts(String hashtag) {
-        List<Integer> posts = this.hashtagDao.searchHashTag(hashtag);
-        return posts;
+        return this.hashtagDao.searchHashTag(hashtag);
     }
 
-    public List<Integer> getAllDatePosts(String sdate) {
-        List<Integer> posts = this.postDao.searchDate(sdate);
-        return posts;
+    public List<Integer> getAllDatePosts(String date) {
+        return this.postDao.searchDate(date);
     }
+
     public List<Integer> getAllUserPosts(String user) {
-        List<Integer> posts = this.postDao.searchUser(user);
-        return posts;
+        return this.postDao.searchUser(user);
     }
-
 
     public List<Post> getMostRecentPosts() {
         int postCount = ConfigDriver.getPaginationSize();
@@ -115,10 +112,10 @@ public class MessageBoardManager {
         paginatedPosts.forEach(this::attachImageToPost);
         return paginatedPosts;
     }
-    
 
     public Post updatePost(Post post){
         this.postDao.update(post);
+        this.searchHashtag(post, post.getPostID());
         this.updateModificationTime(post.getPostID(), System.currentTimeMillis());
         return this.getPost(post.getPostID());
     }

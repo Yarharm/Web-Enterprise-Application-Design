@@ -135,7 +135,7 @@ public class PostDao implements Dao<Post> {
 
 
     public List<Integer> searchDate(String date) {
-        List<Integer> dates = new ArrayList<>();
+        List<Integer> datePosts = new ArrayList<>();
         Connection conn = null;
         PreparedStatement preparedStmt = null;
         ResultSet rs = null;
@@ -146,20 +146,20 @@ public class PostDao implements Dao<Post> {
             preparedStmt = conn.prepareStatement(query);
             preparedStmt.setString(1, date);
             rs = preparedStmt.executeQuery();
-            while(rs.next()) {
-                dates.add(rs.getInt("postID"));
-            }
 
+            while(rs.next()) {
+                datePosts.add(rs.getInt("postID"));
+            }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         } finally {
             DBConnector.releaseConnection(conn, preparedStmt, rs);
         }
-        return dates;
+        return datePosts;
     }
 
     public List<Integer> searchUser(String user) {
-        List<Integer> userposts = new ArrayList<>();
+        List<Integer> userPosts = new ArrayList<>();
         Connection conn = null;
         PreparedStatement preparedStmt = null;
         ResultSet rs = null;
@@ -170,20 +170,17 @@ public class PostDao implements Dao<Post> {
             preparedStmt = conn.prepareStatement(query);
             preparedStmt.setString(1, user);
             rs = preparedStmt.executeQuery();
-            while(rs.next()) {
-                userposts.add(rs.getInt("postID"));
-            }
 
+            while(rs.next()) {
+                userPosts.add(rs.getInt("postID"));
+            }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         } finally {
             DBConnector.releaseConnection(conn, preparedStmt, rs);
         }
-        return userposts;
+        return userPosts;
     }
-
-
-
 
     public List<Post> getPaginatedPosts(int postCount) {
         List<Post> paginatedPosts = new ArrayList<>();
