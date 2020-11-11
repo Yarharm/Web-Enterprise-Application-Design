@@ -18,7 +18,7 @@ public class Post implements Serializable {
     private String attachment;
     private boolean containsAttachment;
     private String dateString;
-    private DateFormat simple = new SimpleDateFormat("yyyy-MM-dd");
+    private final DateFormat simple = new SimpleDateFormat("yyyy-MM-dd");
 
 
     public Post() {}
@@ -27,16 +27,10 @@ public class Post implements Serializable {
         this.username = username;
         this.postTitle = postTitle;
         this.message = message;
-
         this.timestamp = timestamp;
         this.dateString = simple.format(timestamp);
-
         this.lastModifiedTimestamp = lastModifiedTimestamp;
-
-
         this.containsAttachment = false;
-
-
     }
 
     public Post(int postID, int userID, String username, String postTitle, String message, long timestamp, long lastModifiedTimestamp) {
@@ -44,15 +38,15 @@ public class Post implements Serializable {
         this.postID = postID;
     }
 
-    public String getDateString() {
-        return dateString;
-    }
-
     public void setAttachmentFromBinary(InputStream stream) {
         if(stream != null) {
             this.containsAttachment = true;
             this.attachment = Utils.inputStreamToImage(stream);
         }
+    }
+
+    public String getDateString() {
+        return dateString;
     }
 
     public String getUsername() {
@@ -69,7 +63,6 @@ public class Post implements Serializable {
 
     public void setLastModifiedTimestamp(long lastModifiedTimestamp) {
         this.lastModifiedTimestamp = lastModifiedTimestamp;
-
     }
 
     public String getAttachment() {

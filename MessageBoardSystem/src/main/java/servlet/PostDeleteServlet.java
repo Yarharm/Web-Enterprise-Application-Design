@@ -15,7 +15,6 @@ import java.util.List;
 import static helpers.Constants.DISPLAY_WARNING_POPUP;
 import static helpers.Constants.ROOT_PAGE;
 
-
 @WebServlet(name = "PostDeleteServlet")
 public class PostDeleteServlet extends HttpServlet {
     MessageBoardManager boardManager = new MessageBoardManager();

@@ -15,7 +15,6 @@ public class HashtagDao implements Dao<Hashtag> {
     public void save(Hashtag hashtag) {
         Connection conn = null;
         PreparedStatement preparedStmt = null;
-        ResultSet rs = null;
         String query = "INSERT INTO hashtag (hashtag, postID) VALUES (?,?)";
 
         try {
@@ -24,12 +23,12 @@ public class HashtagDao implements Dao<Hashtag> {
 
             preparedStmt.setString(1, hashtag.getHashtag());
             preparedStmt.setInt(2, hashtag.getpostID());
-            preparedStmt.executeUpdate();
 
+            preparedStmt.executeUpdate();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         } finally {
-            DBConnector.releaseConnection(conn, preparedStmt, rs);
+            DBConnector.releaseConnection(conn, preparedStmt);
         }
     }
 
@@ -45,10 +44,10 @@ public class HashtagDao implements Dao<Hashtag> {
             preparedStmt = conn.prepareStatement(query);
             preparedStmt.setString(1, hash);
             rs = preparedStmt.executeQuery();
+
             while(rs.next()) {
                 hashes.add(rs.getInt("postID"));
             }
-
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         } finally {
@@ -63,16 +62,22 @@ public class HashtagDao implements Dao<Hashtag> {
     }
 
     @Override
-    public boolean delete(int id) {
-        return false;
+    public boolean delete(int postID) {
+        Connection conn = null;
+        PreparedStatement preparedStmt = null;
+        String query = "DELETE FROM hashtag WHERE postID=?";
+
+        try {
+            conn = DBConnector.getConnection();
+            preparedStmt = conn.prepareStatement(query);
+
+            preparedStmt.setInt(1, postID);
+            preparedStmt.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally {
+            DBConnector.releaseConnection(conn, preparedStmt);
+        }
+        return true;
     }
-
-    private Hashtag constructHashtag(ResultSet rs) throws SQLException {
-        int postID = rs.getInt("postID");
-        String hashtag = rs.getString("hashtag");
-        return new Hashtag(hashtag, postID);
-    }
-
-
-
 }

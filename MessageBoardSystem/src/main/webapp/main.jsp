@@ -47,26 +47,17 @@
             </li>
         </ul>
         <form class="form-inline my-2 my-lg-0" method="get" action="servlet.SearchServlet">
-            <input type="text" id="hash" name="hash" placeholder="Enter Hash tag">
-
+            <input type="text" id="hash" name="hash" placeholder="Enter Hashtags over -">
             <input type="date" id="startTime" name="startTime" step="1">
-            <input type="text" id="author" name="author" placeholder="Enter Poster Name">
-
-
+            <input type="text" id="author" name="author" placeholder="Enter Author">
             <button type="submit">Search</button>
         </form>
-
 
         <form class="form-inline my-2 my-lg-0" method="post" action="servlet.SignoutServlet">
             <button class="btn btn-outline-success my-2 my-sm-0" type="Submit">Sign out</button>
         </form>
-
     </div>
 </nav>
-
-
-
-
 
 <c:choose>
     <c:when test="${not empty messageBoard}">

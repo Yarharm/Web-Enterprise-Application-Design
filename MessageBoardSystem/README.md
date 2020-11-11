@@ -4,14 +4,14 @@
 - Use the following query to create the posts table.
 ```
 CREATE TABLE `posts` (
-                         `postID` int(11) NOT NULL AUTO_INCREMENT,
-                         `userID` int(11) NOT NULL,
-                         `username` varchar(96) NOT NULL,
-                         `postTitle` varchar(96) NOT NULL,
-                         `timestamp` bigint(30) NOT NULL,
-                         `dateString` varchar(100) NOT NULL,
-                         `lastModifiedTimestamp` bigint(30) NOT NULL,
-                        `message` varchar(1024) NOT NULL,
+ `postID` int(11) NOT NULL AUTO_INCREMENT,
+ `userID` int(11) NOT NULL,
+ `username` varchar(96) NOT NULL,
+ `postTitle` varchar(96) NOT NULL,
+ `timestamp` bigint(30) NOT NULL,
+ `dateString` varchar(100) NOT NULL,
+ `lastModifiedTimestamp` bigint(30) NOT NULL,
+ `message` varchar(1024) NOT NULL,
  PRIMARY KEY (`postID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4
 ```
@@ -32,6 +32,7 @@ PRIMARY KEY(postID));
 CREATE TABLE hashtag (
 hashtag varchar(255) NOT NULL,
 postID int NOT NULL,
+PRIMARY KEY(hashtag,postID),
 FOREIGN KEY(postID) REFERENCES posts(postID) ON DELETE CASCADE);
 ```
 

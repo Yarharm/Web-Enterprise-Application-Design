@@ -11,63 +11,49 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
-import static helpers.Constants.*;
+import static helpers.Constants.DISPLAY_WARNING_POPUP;
+import static helpers.Constants.ROOT_PAGE;
 
 @WebServlet(name = "SearchServlet")
 @MultipartConfig
 public class SearchServlet extends HttpServlet {
     MessageBoardManager boardManager = new MessageBoardManager();
 
-
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String redirectPage = ROOT_PAGE;
-        String postIDParam = request.getParameter("postID");
-            String hashtag = request.getParameter("hash");
-            String date = request.getParameter("startTime");
-            String author = request.getParameter("author");
-            Set<Integer> set = new HashSet<>();
+        String hashtag = request.getParameter("hash");
+        String date = request.getParameter("startTime");
+        String author = request.getParameter("author");
+        List<Post> filteredPosts = boardManager.getAllPosts();
 
-            try {
-                if (!hashtag.isEmpty()) {
-                    String[] hashholder = hashtag.split("-");
-                    for (int i = 0; i < hashholder.length; i++) {
-                        set.addAll(boardManager.getAllHashPosts(hashholder[i]));
-                    }
-
-
+        try {
+            if (!hashtag.isEmpty()) {
+                String[] hashholder = hashtag.split("-");
+                Set<Integer> set = new HashSet<>();
+                for (int i = 0; i < hashholder.length; i++) {
+                    set.addAll(boardManager.getAllHashPosts(hashholder[i]));
                 }
-                if (!date.isEmpty()) {
-                        set.addAll(boardManager.getAllDatePosts(date));
+                filteredPosts = filteredPosts.stream().filter(post -> set.contains(post.getPostID())).collect(Collectors.toList());
+            }
+            if (!date.isEmpty()) {
+                Set<Integer> set = new HashSet<>(boardManager.getAllDatePosts(date));
+                filteredPosts = filteredPosts.stream().filter(post -> set.contains(post.getPostID())).collect(Collectors.toList());
+            }
+            if (!author.isEmpty()) {
+                Set<Integer> set = new HashSet<>(boardManager.getAllUserPosts(author));
+                filteredPosts = filteredPosts.stream().filter(post -> set.contains(post.getPostID())).collect(Collectors.toList());
 
-
-                }
-                if (!author.isEmpty()) {
-
-                        set.addAll(boardManager.getAllUserPosts(author));
-                        System.out.println(set.toString());
-                }
-                List<Post> postList = new ArrayList<Post>();
-
-                for (Integer postID : set) {
-                    Post postHolder = boardManager.getPost(postID);
-
-                    if(postHolder != null){
-                        postList.add(postHolder);
-                    }
-
-                }
-                FrontendBoardManager.refreshMessageBoard(request, postList);
-
-            } catch (Exception e) {
-                request.getSession().setAttribute(DISPLAY_WARNING_POPUP, e.getMessage());
-            } finally {
-                response.sendRedirect(redirectPage);
             }
 
+            FrontendBoardManager.refreshMessageBoard(request, filteredPosts);
+        } catch (Exception e) {
+            request.getSession().setAttribute(DISPLAY_WARNING_POPUP, e.getMessage());
+        } finally {
+            response.sendRedirect(ROOT_PAGE);
+        }
     }
 }
