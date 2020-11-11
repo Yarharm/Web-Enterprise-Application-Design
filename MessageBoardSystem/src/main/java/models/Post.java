@@ -38,10 +38,10 @@ public class Post implements Serializable {
         this.postID = postID;
     }
 
-    public void setAttachmentFromBinary(InputStream stream) {
-        if(stream != null) {
+    public void setAttachmentFromObj(Attachment attachmentObj) {
+        if(attachmentObj != null) {
             this.containsAttachment = true;
-            this.attachment = Utils.inputStreamToImage(stream);
+            this.attachment = attachmentObj.getFileName();
         }
     }
 

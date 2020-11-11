@@ -43,13 +43,13 @@ public class MessageBoardManager {
     public void updateAttachment(Post post, String fileName, long fileSize, String mediaType, InputStream attachmentBinary) {
         Attachment attachment = new Attachment(post.getPostID(), fileName, fileSize, mediaType, attachmentBinary);
         this.attachmentDao.update(attachment);
-        this.attachImageToPost(post);
+        this.attachFileToPost(post);
     }
 
     public void saveAttachment(Post post, String fileName, long fileSize, String mediaType, InputStream attachmentBinary) {
         Attachment attachment = new Attachment(post.getPostID(), fileName, fileSize, mediaType, attachmentBinary);
         this.attachmentDao.save(attachment);
-        this.attachImageToPost(post);
+        this.attachFileToPost(post);
     }
 
     public void updateModificationTime(int postID, long modificationTimestamp) {
@@ -84,13 +84,13 @@ public class MessageBoardManager {
 
     public Post getPost(int postID) {
         Post post = this.postDao.get(postID);
-        this.attachImageToPost(post);
+        this.attachFileToPost(post);
         return post;
     }
 
     public List<Post> getAllPosts() {
         List<Post> posts = this.postDao.getAll();
-        posts.forEach(this::attachImageToPost);
+        posts.forEach(this::attachFileToPost);
         return posts;
     }
 
@@ -109,7 +109,7 @@ public class MessageBoardManager {
     public List<Post> getMostRecentPosts() {
         int postCount = ConfigDriver.getPaginationSize();
         List<Post> paginatedPosts = this.postDao.getPaginatedPosts(postCount);
-        paginatedPosts.forEach(this::attachImageToPost);
+        paginatedPosts.forEach(this::attachFileToPost);
         return paginatedPosts;
     }
 
@@ -130,9 +130,9 @@ public class MessageBoardManager {
         return post != null && userID == post.getUserID();
     }
 
-    private void attachImageToPost(Post post) {
+    private void attachFileToPost(Post post) {
         if(post != null) {
-            post.setAttachmentFromBinary(this.attachmentDao.getAttachmentBinary(post.getPostID()));
+            post.setAttachmentFromObj(this.attachmentDao.get(post.getPostID()));
         }
     }
 }
