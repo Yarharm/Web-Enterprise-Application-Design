@@ -17,3 +17,12 @@
     cursor: pointer;
     transition: 0.3s;
 }
+
+.nav-item-active {
+    margin:2px;
+}
+
+.search-bar-item {
+    margin:2px;
+    height:40px;
+}

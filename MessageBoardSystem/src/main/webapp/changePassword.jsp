@@ -38,13 +38,15 @@
                             <label for="newPassword" class="text-info">Enter your new password:</label><br>
                             <input type="text" name="newPassword" id="newPassword" class="form-control">
                         </div>
-                        <div class="form-group">
-                            <input type="submit" name="submit" class="btn btn-info btn-md" value="submit" onclick="alert('this function has not yet been implemented')">
+                        <div class="form-row">
+                            <div class="col">
+                                <input type="submit" name="submit" class="btn btn-info btn-md" value="Confirm" onclick="alert('this function has not yet been implemented')">
+                            </div>
+                            <div class="col">
+                                <a href="main.jsp" class="text-info"><button style="float: right;" type="button" class="btn btn-danger btn-md">Cancel</button></a>
+                            </div>
                         </div>
                     </form>
-                    <div id="register-link" class="text-left">
-                        <a href="main.jsp" class="text-info"><button class="btn btn-info btn-md">Cancel</button></a>
-                    </div>
                 </div>
             </div>
         </div>
