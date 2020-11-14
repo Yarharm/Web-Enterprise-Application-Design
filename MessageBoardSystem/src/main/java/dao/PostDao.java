@@ -134,7 +134,7 @@ public class PostDao implements Dao<Post> {
     }
 
 
-    public List<Integer> searchDate(String date) {
+    public List<Integer> searchIDByDate(String date) {
         List<Integer> datePosts = new ArrayList<>();
         Connection conn = null;
         PreparedStatement preparedStmt = null;
@@ -158,7 +158,7 @@ public class PostDao implements Dao<Post> {
         return datePosts;
     }
 
-    public List<Integer> searchUser(String user) {
+    public List<Integer> searchIDByUser(String user) {
         List<Integer> userPosts = new ArrayList<>();
         Connection conn = null;
         PreparedStatement preparedStmt = null;
