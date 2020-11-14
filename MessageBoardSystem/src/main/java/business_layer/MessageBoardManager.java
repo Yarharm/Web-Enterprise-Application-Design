@@ -64,8 +64,8 @@ public class MessageBoardManager {
         long currentTime = System.currentTimeMillis();
 
         Post post = new Post(userID, username, title, message, currentTime, currentTime);
-        searchHashtag(post, post.getPostID());
         this.postDao.save(post);
+        searchHashtag(post, post.getPostID());
         this.searchHashtag(post, post.getPostID());
         return post;
     }
@@ -98,11 +98,11 @@ public class MessageBoardManager {
     }
 
     public List<Integer> getAllDatePosts(String date) {
-        return this.postDao.searchDate(date);
+        return this.postDao.searchIDByDate(date);
     }
 
     public List<Integer> getAllUserPosts(String user) {
-        return this.postDao.searchUser(user);
+        return this.postDao.searchIDByUser(user);
     }
 
     public List<Post> getMostRecentPosts() {

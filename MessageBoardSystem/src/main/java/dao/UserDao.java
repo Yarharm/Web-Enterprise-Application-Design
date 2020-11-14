@@ -26,13 +26,13 @@ public class UserDao implements Dao<User> {
     public boolean delete(int id) {return false;}
 
     public User get(String email, String password) {
-        return this.getUsers().stream()
+        return this.getAll().stream()
                 .filter(user -> user.userExists(email, password))
                 .findAny()
                 .orElse(null);
     }
 
-    public List<User> getUsers() {
+    public List<User> getAll() {
         List<User> users = new ArrayList<>();
         try {
             String userFilePath = Utils.buildTargetFilePath(USER_FILE_NAME);
