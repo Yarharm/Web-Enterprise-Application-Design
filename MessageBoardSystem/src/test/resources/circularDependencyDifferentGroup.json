@@ -1,0 +1,30 @@
+{
+  "users": [
+    {"userID":1,"username":"Bob"},
+    {"userID":2,"username":"Max"}
+  ],
+  "groups": [
+    {
+      "name": "admins",
+      "parent": null
+    },
+    {
+      "name": "concordia",
+      "parent": "encs"
+    },
+    {
+      "name": "encs",
+      "parent": "concordia"
+    }
+  ],
+  "memberships": [
+    {
+      "username": "Bob",
+      "userGroups": ["admins", "concordia"]
+    },
+    {
+      "username": "Max",
+      "userGroups": ["encs", "concordia"]
+    }
+  ]
+}
