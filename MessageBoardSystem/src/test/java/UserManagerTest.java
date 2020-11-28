@@ -3,6 +3,7 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import static org.junit.Assert.assertTrue;
@@ -42,18 +43,19 @@ public class UserManagerTest {
     @Test
     public void testSuccessfulUserBob() {
         Set<String> col1 = userManager.loadGroupMembership(SUCCESSFUL_USER_DATA,USER_NAME_BOB);
-        Set<String>col2 = null;
+        Set<String>col2 = new HashSet<String>();
         col2.add("admins");
         col2.add("concordia");
         col2.add("encs");
         col2.add("comp");
         col2.add("soen");
+        System.out.print(col1);
         assertTrue(CollectionUtils.isEqualCollection(col2, col1));
     }
     @Test
     public void testSuccessfulUserMax() {
         Set<String> col1 = userManager.loadGroupMembership(SUCCESSFUL_USER_DATA,USER_NAME_MAX);
-        Set<String>col2 = null;
+        Set<String>col2 = new HashSet<String>();
         col2.add("encs");
         col2.add("comp");
         col2.add("soen");
@@ -62,7 +64,7 @@ public class UserManagerTest {
     @Test
     public void testSuccessfulUserSara() {
         Set<String> col1 = userManager.loadGroupMembership(SUCCESSFUL_USER_DATA,USER_NAME_SARA);
-        Set<String>col2 = null;
+        Set<String>col2 = new HashSet<String>();
         col2.add("soen");
         assertTrue(CollectionUtils.isEqualCollection(col2, col1));
     }

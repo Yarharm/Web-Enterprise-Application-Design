@@ -6,11 +6,11 @@
   "groups": [
     {
       "name": "admins",
-      "parent": null
+      "parent": ""
     },
     {
       "name": "concordia",
-      "parent": null
+      "parent": ""
     },
     {
       "name": "encs",
