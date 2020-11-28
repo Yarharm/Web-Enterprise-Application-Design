@@ -10,6 +10,7 @@ import models.Post;
 import models.User;
 import java.io.InputStream;
 import java.util.List;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -120,6 +121,10 @@ public class MessageBoardManager {
 
     public User loginUser(String email, String password) {
         return this.userManager.getUser(email, password);
+    }
+
+    public Set<String> getUserMemberships(String username) throws Exception {
+        return this.userManager.loadGroupMembership(username);
     }
 
     public boolean isPostOwner(int userID, int postID) {

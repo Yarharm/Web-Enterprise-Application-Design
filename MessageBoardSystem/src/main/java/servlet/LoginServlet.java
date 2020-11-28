@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.Set;
 
 import static helpers.Constants.*;
 
@@ -39,8 +40,11 @@ public class LoginServlet extends HttpServlet {
                 throw new Exception("Login failed! Invalid credentials");
             }
 
+            Set<String> authUserMemberships = boardManager.getUserMemberships(authUser.getUsername());
+
             session.setAttribute("userID", authUser.getUserID());
             session.setAttribute("username", authUser.getUsername());
+            session.setAttribute("groupMembership", authUserMemberships);
         } catch (Exception e) {
             request.getSession().setAttribute(DISPLAY_WARNING_POPUP, e.getMessage());
         } finally {

@@ -9,10 +9,6 @@
       "parent": ""
     },
     {
-      "name": "encs",
-      "parent": "concordia"
-    },
-    {
       "name": "comp",
       "parent": "encs"
     },

@@ -6,6 +6,7 @@ import models.User;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class UserManager {
     private final static String USER_FILE_NAME = "users.json";
@@ -13,22 +14,53 @@ public class UserManager {
     private final List<User> users;
     private final Map<String, List<String>> groups;
     private final Map<String, List<String>> memberships;
+    private final Set<String> groupNames;
     private boolean finishedLoadingData;
 
     public UserManager() {
         users = new ArrayList<>();
         groups = new HashMap<>();
         memberships = new HashMap<>();
+        groupNames = new HashSet<>(Collections.singletonList(""));
         finishedLoadingData = false;
     }
 
-    public Set<String> loadGroupMembership(String username) {
+    public Set<String> loadGroupMembership(String username) throws Exception {
         return this.loadGroupMembership(username, USER_FILE_NAME);
     }
-    
-    public Set<String> loadGroupMembership(String username, String userConfig) {
+
+    public Set<String> loadGroupMembership(String username, String userConfig) throws Exception {
         fetchUserInformation(userConfig);
-        return null;
+        if(!users.stream().map(User::getUsername).collect(Collectors.toList()).containsAll(memberships.keySet())) {
+            throw new Exception("Group membership with undefined user");
+        }
+        if(!groupNames.equals(groups.keySet())) {
+            throw new Exception("Group membership with non-existing parent");
+        }
+        if(!memberships.containsKey(username)) {
+            throw new Exception("Missing " + username + " membership information");
+        }
+        if(!groups.keySet().containsAll(memberships.get(username))) {
+            throw new Exception("Membership information contains undefined group");
+        }
+
+        Set<String> currentUserMemberships = new HashSet<>();
+        for(String membershipGroup : memberships.get(username)) {
+            collectChildGroups(membershipGroup, currentUserMemberships, new HashSet<>());
+        }
+        return currentUserMemberships;
+    }
+
+    private void collectChildGroups(String currentGroup, Set<String> children, Set<String> visitedGroups) throws Exception {
+        if(visitedGroups.contains(currentGroup)) {
+            throw new Exception("Detected circular dependency");
+        }
+        visitedGroups.add(currentGroup);
+        children.add(currentGroup);
+        for(String childGroup : groups.get(currentGroup)) {
+            collectChildGroups(childGroup, children, visitedGroups);
+        }
+        visitedGroups.remove(currentGroup);
     }
 
     public User getUser(String email, String password) {
@@ -45,6 +77,7 @@ public class UserManager {
                 loadUserFile(userConfig);
                 finishedLoadingData = true;
             } catch (Exception e) {
+                e.printStackTrace();
                 System.err.println("Could not allocate user file");
                 System.exit(1);
             }
@@ -121,6 +154,7 @@ public class UserManager {
             groups.computeIfAbsent(parent, k -> new ArrayList<>());
             groups.computeIfAbsent(name, k -> new ArrayList<>());
             groups.get(parent).add(name);
+            groupNames.add(name);
         }
         reader.endArray();
     }
