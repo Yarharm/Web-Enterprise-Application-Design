@@ -1,0 +1,33 @@
+{
+  "users": [
+    {"userID":1,"username":"","email":"testemail","password":"$s0$41010$mIYQ8jmiyU5BstiQTsm83g\u003d\u003d$fcd0fYCJDXYvyXdSzC8eZ+kQEYfujZdCoC47rP2Cfzs\u003d"}
+  ],
+  "groups": [
+    {
+      "name": "admins",
+      "parent": null
+    },
+    {
+      "name": "concordia",
+      "parent": null
+    },
+    {
+      "name": "encs",
+      "parent": "concordia"
+    },
+    {
+      "name": "comp",
+      "parent": "encs"
+    },
+    {
+      "name": "soen",
+      "parent": "encs"
+    }
+  ],
+  "memberships": [
+    {
+      "username": "Bob",
+      "userGroups": ["admins", "concordia"]
+    }
+  ]
+}

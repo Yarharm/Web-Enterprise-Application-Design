@@ -1,7 +1,11 @@
 import business_layer.UserManager;
 import org.apache.commons.collections4.CollectionUtils;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
+
+import java.util.Set;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -15,8 +19,12 @@ public class UserManagerTest {
     private static final String USER_NAME_BOB = "Bob";
     private static final String USER_NAME_MAX = "Max";
     private static final String USER_NAME_SARA = "Sara";
+    private static final String UNDEFINED_USER_GROUP_DATA = "undefinedUserData.json";
 
     UserManager userManager = null;
+
+    @Rule
+    public ExpectedException expectedException = ExpectedException.none();
 
     @Before
     public void before() {
@@ -66,5 +74,10 @@ public class UserManagerTest {
         Set<String>col2 = new HashSet<>();
         col2.add("soen");
         assertTrue(CollectionUtils.isEqualCollection(col2, col1));
+    }
+
+    @Test(expected = Exception.class)
+    public void undefinedUser(){
+        userManager.loadGroupMembership(UNDEFINED_USER_GROUP_DATA);
     }
 }
