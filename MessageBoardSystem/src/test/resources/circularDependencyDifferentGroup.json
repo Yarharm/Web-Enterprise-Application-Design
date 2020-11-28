@@ -6,7 +6,7 @@
   "groups": [
     {
       "name": "admins",
-      "parent": null
+      "parent": ""
     },
     {
       "name": "concordia",

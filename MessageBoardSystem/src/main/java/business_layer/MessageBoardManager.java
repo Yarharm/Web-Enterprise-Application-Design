@@ -4,25 +4,23 @@ import configuration.ConfigDriver;
 import dao.AttachmentDao;
 import dao.HashtagDao;
 import dao.PostDao;
-import dao.UserDao;
 import models.Attachment;
 import models.Hashtag;
 import models.Post;
 import models.User;
-
 import java.io.InputStream;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class MessageBoardManager {
-    private final UserDao userDao;
+    private final UserManager userManager;
     private final PostDao postDao;
     private final AttachmentDao attachmentDao;
     private final HashtagDao hashtagDao;
 
     public MessageBoardManager() {
-        this.userDao = new UserDao();
+        this.userManager = new UserManager();
         this.postDao = new PostDao();
         this.attachmentDao = new AttachmentDao();
         this.hashtagDao = new HashtagDao();
@@ -121,7 +119,7 @@ public class MessageBoardManager {
 
 
     public User loginUser(String email, String password) {
-        return this.userDao.get(email, password);
+        return this.userManager.getUser(email, password);
     }
 
     public boolean isPostOwner(int userID, int postID) {
