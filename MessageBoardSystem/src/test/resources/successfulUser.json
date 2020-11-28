@@ -33,6 +33,10 @@
     {
       "username": "Max",
       "userGroups": ["encs"]
+    },
+    {
+      "username": "Sara",
+      "userGroups": ["soen"]
     }
   ]
 }
