@@ -25,7 +25,7 @@ public class UserManager {
     public Set<String> loadGroupMembership(String username) {
         return this.loadGroupMembership(username, USER_FILE_NAME);
     }
-
+    
     public Set<String> loadGroupMembership(String username, String userConfig) {
         fetchUserInformation(userConfig);
         return null;
