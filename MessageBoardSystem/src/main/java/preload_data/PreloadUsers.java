@@ -2,7 +2,6 @@ package preload_data;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import dao.UserDao;
 import models.User;
 
 import java.io.FileWriter;

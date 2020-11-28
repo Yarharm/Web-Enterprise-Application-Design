@@ -15,7 +15,7 @@ public class User implements Serializable {
         this.userID = userID;
         this.username = username;
         this.email = email;
-        this.password = this.hashPassword(password);
+        this.password = password;
     }
 
     public boolean userExists(String email, String password) {
@@ -26,9 +26,7 @@ public class User implements Serializable {
         return this.email.equals(email);
     }
 
-    private boolean validPassword(String password) {
-        return SCryptUtil.check(password, this.password);
-    }
+    private boolean validPassword(String password) { return SCryptUtil.check(password, this.password); }
 
     private String hashPassword(String password) {
         return SCryptUtil.scrypt(password, 16, 16, 16);
