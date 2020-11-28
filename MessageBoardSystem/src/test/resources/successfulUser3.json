@@ -1,0 +1,43 @@
+{
+  "users": [
+    {"userID":1,"username":"Bob"},
+    {"userID":2,"username":"Max"},
+    {"userID":2,"username":"Sara"}
+  ],
+  "groups": [
+    {
+      "name": "admins",
+      "parent": null
+    },
+    {
+      "name": "concordia",
+      "parent": null
+    },
+    {
+      "name": "encs",
+      "parent": "concordia"
+    },
+    {
+      "name": "comp",
+      "parent": "encs"
+    },
+    {
+      "name": "soen",
+      "parent": "encs"
+    }
+  ],
+  "memberships": [
+    {
+      "username": "Bob",
+      "userGroups": ["admins"]
+    },
+    {
+      "username": "Max",
+      "userGroups": ["comp"]
+    },
+    {
+      "username": "Sara",
+      "userGroups": ["soen"]
+    }
+  ]
+}
