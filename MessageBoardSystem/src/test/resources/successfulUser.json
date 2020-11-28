@@ -1,7 +1,8 @@
 {
   "users": [
     {"userID":1,"username":"Bob"},
-    {"userID":2,"username":"Max"}
+    {"userID":2,"username":"Max"},
+    {"userID":3,"username":"Sara"}
   ],
   "groups": [
     {

@@ -1,9 +1,7 @@
 import business_layer.UserManager;
 import org.apache.commons.collections4.CollectionUtils;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import java.util.Set;
 import java.util.HashSet;
 
@@ -27,22 +25,32 @@ public class UserManagerTest {
     }
 
     @Test(expected = Exception.class)
-    public void testCircularDependencyDifferentGroup() {
+    public void testCircularDependencyDifferentGroup() throws Exception {
         userManager.loadGroupMembership(USER_NAME_BOB, CIRCULAR_DEPENDENCY_DIFFERENT_GROUP_TEST_DATA);
     }
 
     @Test(expected = Exception.class)
-    public void testCircularDependencySameGroup() {
+    public void testCircularDependencySameGroup() throws Exception {
         userManager.loadGroupMembership(USER_NAME_MAX, CIRCULAR_DEPENDENCY_SAME_GROUP_DATA);
     }
 
     @Test(expected = Exception.class)
-    public void testMissingParentGroup() {
+    public void testMissingParentGroup() throws Exception {
         userManager.loadGroupMembership(USER_NAME_BOB, MISSING_PARENT_GROUP_DATA);
     }
 
+    @Test(expected = Exception.class)
+    public void testUndefinedUser() throws Exception {
+        userManager.loadGroupMembership(USER_NAME_BOB, UNDEFINED_USER_DATA);
+    }
+
+    @Test(expected = Exception.class)
+    public void testUndefinedGroup() throws Exception {
+        userManager.loadGroupMembership(USER_NAME_BOB, UNDEFINED_GROUP_DATA);
+    }
+
     @Test
-    public void testSuccessfulUserBob() {
+    public void testSuccessfulUserBob() throws Exception {
         Set<String> col1 = userManager.loadGroupMembership(USER_NAME_BOB, SUCCESSFUL_USER_DATA);
         Set<String>col2 = new HashSet<>();
         col2.add("admins");
@@ -54,7 +62,7 @@ public class UserManagerTest {
     }
 
     @Test
-    public void testSuccessfulUserMax() {
+    public void testSuccessfulUserMax() throws Exception {
         Set<String> col1 = userManager.loadGroupMembership(USER_NAME_MAX, SUCCESSFUL_USER_DATA);
         Set<String>col2 = new HashSet<>();
         col2.add("encs");
@@ -64,20 +72,10 @@ public class UserManagerTest {
     }
 
     @Test
-    public void testSuccessfulUserSara() {
+    public void testSuccessfulUserSara() throws Exception {
         Set<String> col1 = userManager.loadGroupMembership(USER_NAME_SARA, SUCCESSFUL_USER_DATA);
         Set<String>col2 = new HashSet<>();
         col2.add("soen");
         assertTrue(CollectionUtils.isEqualCollection(col2, col1));
-    }
-
-    @Test(expected = Exception.class)
-    public void testUndefinedUser(){
-        userManager.loadGroupMembership(USER_NAME_BOB, UNDEFINED_USER_DATA);
-    }
-
-    @Test(expected = Exception.class)
-    public void testUndefinedGroup(){
-        userManager.loadGroupMembership(USER_NAME_BOB, UNDEFINED_GROUP_DATA);
     }
 }
