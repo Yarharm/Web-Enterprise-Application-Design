@@ -4,11 +4,8 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-
 import java.util.Set;
-
 import java.util.HashSet;
-import java.util.Set;
 
 import static org.junit.Assert.assertTrue;
 public class UserManagerTest {
@@ -23,6 +20,9 @@ public class UserManagerTest {
     private final static String UNDEFINED_GROUP_DATA = "undefinedGroupData.json";
 
     UserManager userManager = null;
+
+    @Rule
+    public ExpectedException expectedException = ExpectedException.none();
 
     @Before
     public void before() {
