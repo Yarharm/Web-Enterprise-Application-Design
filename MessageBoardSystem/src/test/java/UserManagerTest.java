@@ -21,9 +21,6 @@ public class UserManagerTest {
 
     UserManager userManager = null;
 
-    @Rule
-    public ExpectedException expectedException = ExpectedException.none();
-
     @Before
     public void before() {
         userManager = new UserManager();
