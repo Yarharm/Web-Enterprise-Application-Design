@@ -15,11 +15,12 @@ public class Post implements Serializable {
     private String attachment;
     private boolean containsAttachment;
     private String dateString;
+    private String postGroup;
     private final DateFormat simple = new SimpleDateFormat("yyyy-MM-dd");
 
 
     public Post() {}
-    public Post(int userID, String username, String postTitle, String message, long timestamp, long lastModifiedTimestamp) {
+    public Post(int userID, String username, String postTitle, String message, long timestamp, long lastModifiedTimestamp, String postGroup) {
         this.userID = userID;
         this.username = username;
         this.postTitle = postTitle;
@@ -28,10 +29,11 @@ public class Post implements Serializable {
         this.dateString = simple.format(timestamp);
         this.lastModifiedTimestamp = lastModifiedTimestamp;
         this.containsAttachment = false;
+        this.postGroup = postGroup;
     }
 
-    public Post(int postID, int userID, String username, String postTitle, String message, long timestamp, long lastModifiedTimestamp) {
-        this(userID, username, postTitle, message, timestamp, lastModifiedTimestamp);
+    public Post(int postID, int userID, String username, String postTitle, String message, long timestamp, long lastModifiedTimestamp, String postGroup) {
+        this(userID, username, postTitle, message, timestamp, lastModifiedTimestamp, postGroup);
         this.postID = postID;
     }
 
@@ -40,6 +42,14 @@ public class Post implements Serializable {
             this.containsAttachment = true;
             this.attachment = attachmentObj.getFileName();
         }
+    }
+
+    public String getPostGroup() {
+        return postGroup;
+    }
+
+    public void setPostGroup(String postGroup) {
+        this.postGroup = postGroup;
     }
 
     public String getDateString() {

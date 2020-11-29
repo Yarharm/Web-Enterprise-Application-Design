@@ -12,7 +12,7 @@ public class PostDao implements Dao<Post> {
         Connection conn = null;
         PreparedStatement preparedStmt = null;
         ResultSet rs = null;
-        String query = "INSERT INTO post (userID, username, postTitle, message, timestamp, dateString, lastModifiedTimestamp) VALUES (?,?,?,?,?,?,?)";
+        String query = "INSERT INTO post (userID, username, postTitle, message, timestamp, dateString, lastModifiedTimestamp, postGroup) VALUES (?,?,?,?,?,?,?,?)";
 
         try {
             conn = DBConnector.getConnection();
@@ -25,6 +25,7 @@ public class PostDao implements Dao<Post> {
             preparedStmt.setLong(5, post.getTimestamp());
             preparedStmt.setString(6, post.getDateString());
             preparedStmt.setLong(7, post.getTimestamp());
+            preparedStmt.setString(8, post.getPostGroup());
             preparedStmt.executeUpdate();
 
             rs = preparedStmt.getGeneratedKeys();
@@ -238,10 +239,11 @@ public class PostDao implements Dao<Post> {
         String message = rs.getString("message");
         long timestamp = rs.getLong("timestamp");
         long lastModifiedTimestamp = rs.getLong("lastModifiedTimestamp");
+        String postGroup = rs.getString("postGroup");
         if (postTitle == null || message == null || postTitle.equals("") || message.equals("")){
             return null;
         } else {
-            return new Post(postID, userID, username, postTitle, message, timestamp, lastModifiedTimestamp);
+            return new Post(postID, userID, username, postTitle, message, timestamp, lastModifiedTimestamp, postGroup);
         }
     }
 }

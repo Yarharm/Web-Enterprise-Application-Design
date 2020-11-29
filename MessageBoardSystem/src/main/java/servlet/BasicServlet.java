@@ -25,6 +25,7 @@ public class BasicServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String message = request.getParameter("message");
         String title = request.getParameter("title");
+        String postGroup = request.getParameter("postGroup");
         Part attachmentPart = request.getPart("attachment");
         int userID = (int) request.getSession().getAttribute("userID");
         String username = (String) request.getSession().getAttribute("username");
@@ -32,7 +33,7 @@ public class BasicServlet extends HttpServlet {
         if(message != null && title != null && !message.isEmpty() && !title.isEmpty()) {
             String escapedTitle = StringEscapeUtils.escapeXml(title);
             String escapedMessage = StringEscapeUtils.escapeXml(message);
-            Post post = boardManager.postMessage(userID, username, escapedTitle, escapedMessage);
+            Post post = boardManager.postMessage(userID, username, escapedTitle, escapedMessage, postGroup);
 
             if(attachmentPart.getSize() > 0) {
                 this.boardManager.saveAttachment(post, attachmentPart.getSubmittedFileName(), attachmentPart.getSize(),
