@@ -59,13 +59,12 @@ public class MessageBoardManager {
         return this.postDao.delete(postID);
     }
 
-    public Post postMessage(int userID, String username, String title, String message) {
+    public Post postMessage(int userID, String username, String title, String message, String postGroup) {
         long currentTime = System.currentTimeMillis();
 
-        Post post = new Post(userID, username, title, message, currentTime, currentTime);
+        Post post = new Post(userID, username, title, message, currentTime, currentTime, postGroup);
         this.postDao.save(post);
         searchHashtag(post, post.getPostID());
-        this.searchHashtag(post, post.getPostID());
         return post;
     }
 
