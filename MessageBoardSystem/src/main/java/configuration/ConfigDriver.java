@@ -40,6 +40,8 @@ public final class ConfigDriver {
         return getConfig().get(ConfigModel.DB_PASSWORD);
     }
 
+    public static String getUserManagerClassName() { return getConfig().get(ConfigModel.USER_MANAGER_CLASS_NAME); }
+
     private static Map<String, String> getConfig() {
         Map<String, String> configMap = new HashMap<>();
         try {
