@@ -44,7 +44,7 @@ public class LoginServlet extends HttpServlet {
 
             session.setAttribute("userID", authUser.getUserID());
             session.setAttribute("username", authUser.getUsername());
-            session.setAttribute("groupMembership", authUserMemberships);
+            session.setAttribute(GROUP_MEMBERSHIP_SESSION_ATTRIBUTE, authUserMemberships);
         } catch (Exception e) {
             request.getSession().setAttribute(DISPLAY_WARNING_POPUP, e.getMessage());
         } finally {
