@@ -24,9 +24,6 @@ public class UserManagerTest {
 
     UserManager userManager = null;
 
-    @Rule
-    public ExpectedException expectedException = ExpectedException.none();
-
     @Before
     public void before() {
         userManager = new UserManager();
@@ -78,12 +75,12 @@ public class UserManagerTest {
     }
 
     @Test(expected = Exception.class)
-    public void undefinedUser(){
+    public void testUndefinedUser(){
         userManager.loadGroupMembership(UNDEFINED_USER_DATA);
     }
 
     @Test(expected = Exception.class)
-    public void undefinedGroup(){
+    public void testUndefinedGroup(){
         userManager.loadGroupMembership(UNDEFINED_GROUP_DATA);
     }
 }
