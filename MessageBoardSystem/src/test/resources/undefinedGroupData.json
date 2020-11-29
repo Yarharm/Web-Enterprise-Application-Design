@@ -1,14 +1,11 @@
 {
   "users": [
+    {"userID":1,"username":"Bob"},
     {"userID":2,"username":"Max"}
   ],
   "groups": [
     {
       "name": "admins",
-      "parent": ""
-    },
-    {
-      "name": "concordia",
       "parent": ""
     },
     {
