@@ -76,11 +76,11 @@ public class UserManagerTest {
 
     @Test(expected = Exception.class)
     public void testUndefinedUser(){
-        userManager.loadGroupMembership(UNDEFINED_USER_DATA);
+        userManager.loadGroupMembership(USER_NAME_BOB, UNDEFINED_USER_DATA);
     }
 
     @Test(expected = Exception.class)
     public void testUndefinedGroup(){
-        userManager.loadGroupMembership(UNDEFINED_GROUP_DATA);
+        userManager.loadGroupMembership(USER_NAME_BOB, UNDEFINED_GROUP_DATA);
     }
 }
