@@ -1,6 +1,6 @@
-package business_layer;
+package separated_management;
+import business_layer.IUserManager;
 import com.google.gson.stream.JsonReader;
-import helpers.Utils;
 import models.User;
 
 import java.io.FileReader;
@@ -8,29 +8,23 @@ import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class UserManager {
-    private final static String USER_FILE_NAME = "users.json";
+public class UserManager implements IUserManager {
     private final static String USER_GROUP_ADMIN = "admins";
     private final List<User> users;
     private final Map<String, List<String>> groups;
     private final Map<String, List<String>> memberships;
     private final Set<String> groupNames;
-    private boolean finishedLoadingData;
 
-    public UserManager() {
+    public UserManager(String userFilePath) {
         users = new ArrayList<>();
         groups = new HashMap<>();
         memberships = new HashMap<>();
         groupNames = new HashSet<>(Collections.singletonList(""));
-        finishedLoadingData = false;
+        loadUserFile(userFilePath);
     }
 
+    @Override
     public Set<String> loadGroupMembership(String username) throws Exception {
-        return this.loadGroupMembership(username, USER_FILE_NAME);
-    }
-
-    public Set<String> loadGroupMembership(String username, String userConfig) throws Exception {
-        fetchUserInformation(userConfig);
         if(!users.stream().map(User::getUsername).collect(Collectors.toList()).containsAll(memberships.keySet())) {
             throw new Exception("Group membership with undefined user");
         }
@@ -51,6 +45,14 @@ public class UserManager {
         return currentUserMemberships;
     }
 
+    @Override
+    public User getUser(String email, String password) {
+        return getUsers().stream()
+                .filter(user -> user.userExists(email, password))
+                .findAny()
+                .orElse(null);
+    }
+
     private void collectChildGroups(String currentGroup, Set<String> children, Set<String> visitedGroups) throws Exception {
         if(visitedGroups.contains(currentGroup)) {
             throw new Exception("Detected circular dependency");
@@ -63,31 +65,8 @@ public class UserManager {
         visitedGroups.remove(currentGroup);
     }
 
-    public User getUser(String email, String password) {
-        fetchUserInformation(USER_FILE_NAME);
-        return getUsers().stream()
-                .filter(user -> user.userExists(email, password))
-                .findAny()
-                .orElse(null);
-    }
-
-    private void fetchUserInformation(String userConfig) {
-        if(!finishedLoadingData) {
-            try {
-                loadUserFile(userConfig);
-                finishedLoadingData = true;
-            } catch (Exception e) {
-                e.printStackTrace();
-                System.err.println("Could not allocate user file");
-                System.exit(1);
-            }
-        }
-    }
-
-    private void loadUserFile(String userConfig) throws IOException {
-        String configPath = Utils.buildTargetFilePath(userConfig);
-
-        try (JsonReader reader = new JsonReader(new FileReader(configPath))) {
+    private void loadUserFile(String userFilePath) {
+        try (JsonReader reader = new JsonReader(new FileReader(userFilePath))) {
             reader.beginObject();
             while (reader.hasNext()) {
                 String name = reader.nextName();
@@ -106,6 +85,10 @@ public class UserManager {
                 }
             }
             reader.endObject();
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.err.println("Invalid user file format");
+            System.exit(1);
         }
     }
 

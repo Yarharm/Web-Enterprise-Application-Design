@@ -15,13 +15,14 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class MessageBoardManager {
-    private final UserManager userManager;
+    private final static String USER_FILE_NAME = "users.json";
+    private final IUserManager userManager;
     private final PostDao postDao;
     private final AttachmentDao attachmentDao;
     private final HashtagDao hashtagDao;
 
     public MessageBoardManager() {
-        this.userManager = new UserManager();
+        this.userManager = UserManagerFactory.getInstance().createUserManager(USER_FILE_NAME);
         this.postDao = new PostDao();
         this.attachmentDao = new AttachmentDao();
         this.hashtagDao = new HashtagDao();
