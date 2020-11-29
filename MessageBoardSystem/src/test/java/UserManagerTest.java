@@ -19,7 +19,8 @@ public class UserManagerTest {
     private static final String USER_NAME_BOB = "Bob";
     private static final String USER_NAME_MAX = "Max";
     private static final String USER_NAME_SARA = "Sara";
-    private static final String UNDEFINED_USER_GROUP_DATA = "undefinedUserData.json";
+    private static final String UNDEFINED_USER_DATA = "undefinedUserData.json";
+    private final static String UNDEFINED_GROUP_DATA = "undefinedGroupData.json";
 
     UserManager userManager = null;
 
@@ -78,6 +79,11 @@ public class UserManagerTest {
 
     @Test(expected = Exception.class)
     public void undefinedUser(){
-        userManager.loadGroupMembership(UNDEFINED_USER_GROUP_DATA);
+        userManager.loadGroupMembership(UNDEFINED_USER_DATA);
+    }
+
+    @Test(expected = Exception.class)
+    public void undefinedGroup(){
+        userManager.loadGroupMembership(UNDEFINED_GROUP_DATA);
     }
 }
