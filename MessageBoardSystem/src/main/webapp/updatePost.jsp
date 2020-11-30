@@ -36,6 +36,12 @@
             <div class="col">
                 <input name="attachment" type="file" class="form-control-file" id="inputAttachment">
             </div>
+            <select class="custom-select w-25" name="postGroup">
+                <option selected>public</option>
+                <c:forEach items="${groupMembership}" var="group">
+                    <option value="${group}">${group}</option>
+                </c:forEach>
+            </select>
             <div class="col-auto">
                 <button type="submit" class="btn btn-primary">Update</button>
             </div>

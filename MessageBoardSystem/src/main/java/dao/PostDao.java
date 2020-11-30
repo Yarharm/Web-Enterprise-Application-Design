@@ -42,7 +42,7 @@ public class PostDao implements Dao<Post> {
     public void update(Post post) {
         Connection conn = null;
         PreparedStatement preparedStmt = null;
-        String query = "UPDATE post SET postTitle=?, message=? WHERE postID=?";
+        String query = "UPDATE post SET postTitle=?, message=?, postGroup=?  WHERE postID=?";
 
         try {
             conn = DBConnector.getConnection();
@@ -50,7 +50,8 @@ public class PostDao implements Dao<Post> {
 
             preparedStmt.setString(1, post.getPostTitle());
             preparedStmt.setString(2, post.getMessage());
-            preparedStmt.setInt(3, post.getPostID());
+            preparedStmt.setString(3, post.getPostGroup());
+            preparedStmt.setInt(4, post.getPostID());
             preparedStmt.executeUpdate();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
