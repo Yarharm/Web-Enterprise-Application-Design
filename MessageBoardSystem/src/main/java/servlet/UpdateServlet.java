@@ -25,6 +25,7 @@ public class UpdateServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String title = request.getParameter("title");
         String message = request.getParameter("message");
+        String postGroup = request.getParameter("postGroup");
         Part attachmentPart = request.getPart("attachment");
         Object postAttribute = request.getSession().getAttribute("referredPost");
 
@@ -43,6 +44,7 @@ public class UpdateServlet extends HttpServlet {
             String escapedMessage = StringEscapeUtils.escapeXml(message);
             post.setPostTitle(escapedTitle);
             post.setMessage(escapedMessage);
+            post.setPostGroup(postGroup);
             if(attachmentPart.getSize() > 0) {
                 if(post.isContainsAttachment()) {
                     messageBoardManager.updateAttachment(post, attachmentPart.getSubmittedFileName(), attachmentPart.getSize(),
