@@ -23,6 +23,14 @@ public class Post implements Serializable {
 
 
     public Post() {}
+
+    public Post(Post post) {
+        this(post.getPostID(), post.getUserID(), post.getUsername(), post.getPostTitle(), post.getMessage(), post.getTimestamp(), post.getLastModifiedTimestamp(), post.getPostGroup());
+        this.containsAttachment = post.isContainsAttachment();
+        this.attachment = post.getAttachment();
+        this.dateString = post.getDateString();
+    }
+
     public Post(int userID, String username, String postTitle, String message, long timestamp, long lastModifiedTimestamp, String postGroup) {
         this.userID = userID;
         this.username = username;
