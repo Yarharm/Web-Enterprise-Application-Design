@@ -1,6 +1,7 @@
 package helpers;
 
 import models.Post;
+import models.PostWithAttachment;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -9,7 +10,8 @@ import java.io.StringWriter;
 
 public class XMLSerializer {
     public static String serialize(Post post) throws JAXBException {
-        JAXBContext jc = JAXBContext.newInstance(Post.class);
+        Class<? extends Post> serialClass = post.isContainsAttachment() ? PostWithAttachment.class : Post.class;
+        JAXBContext jc = JAXBContext.newInstance(serialClass);
         StringWriter sw = new StringWriter();
         Marshaller m = jc.createMarshaller();
         m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);

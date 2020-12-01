@@ -88,6 +88,12 @@
                         <div class="card-footer text-muted">
                             <div class="row">
                                 <div class="col-auto" style="padding:2px">
+                                    <form method="get" action="servlet.TransformServlet">
+                                        <input type="hidden" name="postID" value=${post.postID}>
+                                        <button type="submit" class="btn btn-primary">View as XML</button>
+                                    </form>
+                                </div>
+                                <div class="col-auto" style="padding:2px">
                                     <c:if test = "${userID eq post.userID}">
                                         <form class="form-inline my-2 my-lg-0" action="servlet.UpdateServlet" method="get">
                                             <input type="hidden" name="postID" value=${post.postID}>
