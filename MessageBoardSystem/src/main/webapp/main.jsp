@@ -70,7 +70,7 @@
             <jsp:useBean id="messageBoard" type="java.util.concurrent.ConcurrentSkipListMap<java.lang.Long, models.Post>" scope="session"/>
             <div style="margin-top: 40px;" >
                 <c:forEach items="${messageBoard.values()}" var="post">
-                    <div class="card mx-auto" style="width: 30rem; margin-bottom: 10px; padding: 4px" >
+                    <div class="card mx-auto" style="width: 40rem; margin-bottom: 10px; padding: 4px" >
                         <div class="card-body">
                             <div class="row">
                                 <div class="column" style="float:left; width:50%;">
@@ -91,6 +91,12 @@
                                     <form method="get" action="servlet.TransformServlet">
                                         <input type="hidden" name="postID" value=${post.postID}>
                                         <button type="submit" class="btn btn-primary">View as XML</button>
+                                    </form>
+                                </div>
+                                <div class="col-auto" style="padding:2px">
+                                    <form method="post" action="servlet.DownloadServlet">
+                                        <input type="hidden" name="postID" value=${post.postID}>
+                                        <button type="submit" class="btn btn-primary">Download as XML</button>
                                     </form>
                                 </div>
                                 <div class="col-auto" style="padding:2px">
