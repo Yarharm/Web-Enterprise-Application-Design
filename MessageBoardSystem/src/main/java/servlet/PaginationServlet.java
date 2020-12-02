@@ -22,8 +22,9 @@ public class PaginationServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Post> recentPosts = this.boardManager.getMostRecentPosts();
+        List<Post> recentPosts = this.boardManager.getAllPosts();
         FrontendBoardManager.refreshMessageBoard(request, recentPosts);
+        FrontendBoardManager.paginateMessageBoard(request);
         response.sendRedirect(ROOT_PAGE);
     }
 }
