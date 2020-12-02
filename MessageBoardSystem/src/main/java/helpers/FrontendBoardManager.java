@@ -1,8 +1,10 @@
 package helpers;
 
+import configuration.ConfigDriver;
 import models.Post;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
@@ -25,6 +27,20 @@ public class FrontendBoardManager {
                 messageBoard.put(post.getTimestamp(), post);
             }
         });
+    }
+
+    public static void paginateMessageBoard(HttpServletRequest request) {
+        ConcurrentSkipListMap<Long, Post> messageBoard = fetchMessageBoard(request);
+        int postCount = ConfigDriver.getPaginationSize();
+        List<Post> paginatedPosts = new ArrayList<>();
+        while(postCount > 0 && !messageBoard.isEmpty()) {
+            paginatedPosts.add(messageBoard.pollFirstEntry().getValue());
+            postCount--;
+        }
+        messageBoard.clear();
+        for(Post post : paginatedPosts) {
+            messageBoard.put(post.getTimestamp(), post);
+        }
     }
 
     public static void updatePost(HttpServletRequest request, Post post) {
