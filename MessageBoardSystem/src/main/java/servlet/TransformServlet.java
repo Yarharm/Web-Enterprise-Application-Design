@@ -37,7 +37,7 @@ public class TransformServlet extends HttpServlet {
                 post = new PostWithAttachment(post, attachment);
             }
             request.getSession().setAttribute("xmlpost", XMLSerializer.serialize(post));
-            String xsl = xsl = getServletConfig().getServletContext().getRealPath("WEB-INF/post.xsl");
+            String xsl = getServletConfig().getServletContext().getRealPath("WEB-INF/post.xsl");
             request.getSession().setAttribute("xslt", new String(Files.readAllBytes(Paths.get(xsl))));
             getServletContext().getRequestDispatcher("/transformPost.jsp").forward(request, response);
         }  catch (Exception e) {
