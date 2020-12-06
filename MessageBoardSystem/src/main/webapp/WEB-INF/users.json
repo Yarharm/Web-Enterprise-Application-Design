@@ -38,7 +38,7 @@
     },
     {
       "username": "Sara",
-      "userGroups": ["soen"]
+      "userGroups": ["soen", "admins"]
     }
   ]
 }

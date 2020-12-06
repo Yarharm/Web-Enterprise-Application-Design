@@ -108,13 +108,26 @@
                                     </c:if>
                                 </div>
                                 <div class="col-auto mr-auto" style="padding:2px">
+                                    <c:forEach items="${groupMembership}" var="group">
+                                        <c:if test = "${group eq 'admins' && userID ne post.userID}">
+                                            <form method="post" action="servlet.PostDeleteServlet">
+                                                <input type="hidden" name="postID" value=${post.postID}>
+                                                <button type="submit" class="btn btn-danger">Admin Delete</button>
+                                            </form>
+                                        </c:if>
+                                    </c:forEach>
                                     <c:if test = "${userID eq post.userID}">
                                         <form method="post" action="servlet.PostDeleteServlet">
                                             <input type="hidden" name="postID" value=${post.postID}>
                                             <button type="submit" class="btn btn-danger">Delete</button>
                                         </form>
                                     </c:if>
+
+
                                 </div>
+
+
+
                                 <div class="col-auto">
                                     <c:if test = "${post.containsAttachment}">
                                         <div class="dropdown">
