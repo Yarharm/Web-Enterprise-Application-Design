@@ -11,9 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
+import java.util.Set;
 
-import static helpers.Constants.DISPLAY_WARNING_POPUP;
-import static helpers.Constants.ROOT_PAGE;
+import static helpers.Constants.*;
 
 @WebServlet(name = "PostDeleteServlet")
 public class PostDeleteServlet extends HttpServlet {
@@ -28,7 +28,8 @@ public class PostDeleteServlet extends HttpServlet {
 
             int postID = Integer.parseInt(postIDParam);
             int userID = (int) request.getSession().getAttribute("userID");
-            if(!boardManager.isPostOwner(userID, postID) && request.isUserInRole("admins")) {
+            Set<String> groupMemberships = (Set<String>) request.getSession().getAttribute(GROUP_MEMBERSHIP_SESSION_ATTRIBUTE);
+            if(!boardManager.isPostOwner(userID, postID) && !groupMemberships.contains("admins")) {
                 throw new Exception("Post delete failed! Permission denied");
             }
 
