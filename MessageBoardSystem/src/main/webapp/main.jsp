@@ -100,7 +100,7 @@
                                     </form>
                                 </div>
                                 <div class="col-auto" style="padding:2px">
-                                    <c:if test = "${userID eq post.userID}">
+                                    <c:if test = "${userID eq post.userID || groupMembership.contains('admins')}">
                                         <form class="form-inline my-2 my-lg-0" action="servlet.UpdateServlet" method="get">
                                             <input type="hidden" name="postID" value=${post.postID}>
                                             <button class="btn btn-primary my-2 my-sm-0" type="Submit">Edit</button>
@@ -108,15 +108,7 @@
                                     </c:if>
                                 </div>
                                 <div class="col-auto mr-auto" style="padding:2px">
-                                    <c:forEach items="${groupMembership}" var="group">
-                                        <c:if test = "${group eq 'admins' && userID ne post.userID}">
-                                            <form method="post" action="servlet.PostDeleteServlet">
-                                                <input type="hidden" name="postID" value=${post.postID}>
-                                                <button type="submit" class="btn btn-danger">Admin Delete</button>
-                                            </form>
-                                        </c:if>
-                                    </c:forEach>
-                                    <c:if test = "${userID eq post.userID}">
+                                    <c:if test = "${userID eq post.userID || groupMembership.contains('admins')}">
                                         <form method="post" action="servlet.PostDeleteServlet">
                                             <input type="hidden" name="postID" value=${post.postID}>
                                             <button type="submit" class="btn btn-danger">Delete</button>
