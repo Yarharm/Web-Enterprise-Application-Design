@@ -28,7 +28,7 @@ public class PostDeleteServlet extends HttpServlet {
 
             int postID = Integer.parseInt(postIDParam);
             int userID = (int) request.getSession().getAttribute("userID");
-            if(!boardManager.isPostOwner(userID, postID)) {
+            if(!boardManager.isPostOwner(userID, postID) && request.isUserInRole("admins")) {
                 throw new Exception("Post delete failed! Permission denied");
             }
 

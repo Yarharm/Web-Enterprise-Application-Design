@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import static helpers.Constants.*;
 
@@ -36,7 +35,7 @@ public class UpdateServlet extends HttpServlet {
             
             int userID = (int) request.getSession().getAttribute("userID");
             Post post = (Post) postAttribute;
-            if(!messageBoardManager.isPostOwner(userID, post.getPostID())) {
+            if(!messageBoardManager.isPostOwner(userID, post.getPostID()) && request.isUserInRole("admins")) {
                 throw new Exception("Edit failed! Permission denied");
             }
 
@@ -79,7 +78,7 @@ public class UpdateServlet extends HttpServlet {
 
             int postID = Integer.parseInt(postIDParam);
             int userID = (int) request.getSession().getAttribute("userID");
-            if(!messageBoardManager.isPostOwner(userID, postID)) {
+            if(!messageBoardManager.isPostOwner(userID, postID) && request.isUserInRole("admins")) {
                 throw new Exception("Edit failed! Permission denied");
             }
 
